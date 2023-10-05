@@ -179,7 +179,7 @@ body {
   width: calc(100% - 32px);
   padding: 8px 16px;
   cursor: pointer;
-  transition: background-color 0.2s linear;
+transition: background-color 0.2s linear;
 }
 
 .book-btn:hover {
@@ -340,4 +340,63 @@ body {
   flex: 1;
   text-indent: 16px;
   border-radius: 10px;
+}
+
+.search-result {
+  margin-top: 20px;
+  font-size: 18px;
+}
+
+.search-club {
+  margin-top: 20px;
+  padding: 0 20px;
+  display: flex;
+  column-gap: 20px;
+  height: 80px;
+  background-color: var(--color-secondary-text);
+  border-radius: 10px;
+  align-items: center;
+}
+
+.search-club__img {
+  width: 60px;
+  height: 60px;
+object-fit: cover;
+  object-position: center;
+  border-radius: 50%;
+}
+
+.search-club__info {
+  flex: 1;
+}
+
+.search-clun__name {
+  font-size: 18px;
+}
+
+.search-club__name:hover {
+  text-decoration: underline;
+  color: var(--color-primary-btn);
+}
+
+.search-club__location {
+  font-size: 14px;
+  margin-top: 10px;
+}
+
+.search-club__book-btn {
+  font-size: 20px;
+  font-weight: bold;
+  border-radius: 5px;
+  color: var(--color-secondary-text);
+  background-color: var(--color-star);
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: background-color 0.2s linear;
+  border: none;
+  outline: none;
+}
+
+.search-club__book-btn:hover {
+  background-color: #0d99ff;
 }

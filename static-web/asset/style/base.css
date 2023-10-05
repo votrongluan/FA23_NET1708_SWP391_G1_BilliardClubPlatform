@@ -27,7 +27,7 @@ body {
 }
 
 .header {
-  background-color: var(--color-secondary-text);
+  background-color: var(--color-primary-background);
 }
 
 .container {
@@ -43,6 +43,7 @@ body {
   justify-content: flex-end;
   align-items: center;
   column-gap: 20px;
+  background-color: var(--color-secondary-text);
 }
 
 .nav-list__item {
@@ -69,7 +70,9 @@ body {
 }
 
 .banner {
+  background-color: var(--color-primary-background);
   width: 100%;
+  height: auto;
 }
 
 .main {
@@ -300,4 +303,41 @@ body {
   outline: none;
   z-index: 3;
   background-color: var(--color-secondary-text);
+}
+
+.main__heading {
+  font-size: 32px;
+  font-weight: 500;
+  text-align: center;
+}
+
+.search {
+  margin-top: 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  column-gap: 20px;
+}
+
+.search__location {
+  height: 50px;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  text-align: center;
+  min-width: 120px;
+  font-weight: 500;
+  padding: 8px;
+  font-size: 18px;
+}
+
+.search__input {
+  height: 50px;
+  background-color: var(--color-secondary-text);
+  border: none;
+  outline: none;
+  font-size: 18px;
+  flex: 1;
+  text-indent: 16px;
+  border-radius: 10px;
 }

@@ -181,6 +181,73 @@
             </button>
           </ul>
         </section>
+        <section class="clubs">
+          <h2 class="clubs-heading">Các club gần khu vực của bạn</h2>
+          <ul class="club-list">
+            <li class="club">
+              <img
+                class="club__img"
+                src="https://plus.unsplash.com/premium_photo-1667117794314-a7646911fc49?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8YmlsbGlhcmRzfGVufDB8MXwwfHx8MA%3D%3D&auto=format&fit=crop&w=700&q=60"
+                alt=""
+              />
+              <p class="club__name"><a href="">Cowboy quận Thủ Đức</a></p>
+              <p class="club__location">
+                Số 1, Đường số 2, Phường 8, Quận 8, Thành phố Hồ Chí Minh
+              </p>
+              <button class="book-btn">Book lịch ngay</button>
+              <span class="club__star"
+                ><i class="fa-solid fa-star"></i> 5.0</span
+              >
+            </li>
+            <li class="club">
+              <img
+                class="club__img"
+                src="https://images.unsplash.com/photo-1624827637654-84cd4877717e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8YmlsbGlhcmRzfGVufDB8MXwwfHx8MA%3D%3D&auto=format&fit=crop&w=700&q=60"
+                alt=""
+              />
+              <p class="club__name"><a href="">Cowboy quận Thủ Đức</a></p>
+              <p class="club__location">
+                Số 1, Đường số 2, Phường 8, Quận 8, Thành phố Hồ Chí Minh
+              </p>
+              <button class="book-btn">Book lịch ngay</button>
+              <span class="club__star"
+                ><i class="fa-solid fa-star"></i> 5.0</span
+              >
+            </li>
+            <li class="club">
+              <img
+                class="club__img"
+                src="https://images.unsplash.com/photo-1575553939931-8bce5759eaf1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8YmlsbGlhcmRzfGVufDB8MXwwfHx8MA%3D%3D&auto=format&fit=crop&w=700&q=60"
+                alt=""
+              />
+              <p class="club__name"><a href="">Cowboy quận Thủ Đức</a></p>
+              <p class="club__location">
+                Số 1, Đường số 2, Phường 8, Quận 8, Thành phố Hồ Chí Minh
+              </p>
+              <button class="book-btn">Book lịch ngay</button>
+              <span class="club__star"
+                ><i class="fa-solid fa-star"></i> 5.0</span
+              >
+            </li>
+            <li class="club">
+              <img
+                class="club__img"
+                src="https://images.unsplash.com/photo-1605317068450-d6878f5c8dbb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8YmlsbGlhcmRzfGVufDB8MXwwfHx8MA%3D%3D&auto=format&fit=crop&w=700&q=60"
+                alt=""
+              />
+              <p class="club__name"><a href="">Cowboy quận Thủ Đức</a></p>
+              <p class="club__location">
+                Số 1, Đường số 2, Phường 8, Quận 8, Thành phố Hồ Chí Minh
+              </p>
+              <button class="book-btn">Book lịch ngay</button>
+              <span class="club__star"
+                ><i class="fa-solid fa-star"></i> 5.0</span
+              >
+            </li>
+          </ul>
+          <p class="nearby-location">Hồ Chí Minh</p>
+          <button class="show-all-btn">Xem tất cả >></button>
+        </section>
       </div>
     </main>
     <footer class="footer">
@@ -192,35 +259,39 @@
       <p>Copyright 2023 Billiards, Inc. All Rights Reserved</p>
     </footer>
     <div class="modal">
-      <form action="post" class="login-form">
-        <h2 class="login-form__heading">Đăng nhập</h2>
-        <div class="login-form__inputs">
-          <label for="username" class="login-form__label">Tài khoản</label>
+      <form class="login-form" method="post">
+        <h2 class="form__heading">Đăng nhập</h2>
+        <div class="form__inputs">
+          <label for="username" class="form__label">Tài khoản</label>
           <input
             type="text"
             name="username"
             id="username"
-            class="login-form__input"
+            class="form__input"
             placeholder="Nhập tài khoản"
           />
-          <label for="username" class="login-form__label">Mật khẩu</label>
+          <label for="username" class="form__label">Mật khẩu</label>
           <input
             type="password"
             name="password"
             id="password"
-            class="login-form__input"
+            class="form__input"
             placeholder="Nhập mật khẩu"
           />
-          <button type="submit" class="login-form__btn">Đăng nhập</button>
+          <button type="submit" class="form__btn">Đăng nhập</button>
         </div>
-        <a href="">Quên mật khẩu</a>
-        <a href="">Tạo tài khoản</a>
+        <div class="form__action">
+          <a href="">Quên mật khẩu</a>
+          <a href="">Tạo tài khoản</a>
+        </div>
+        <button class="form__close">
+          <i class="fa-solid fa-square-xmark"></i>
+        </button>
       </form>
     </div>
     <script>
-      // Get all move-left-btn
+      // Get all move-left-btn and move-right-btn
       const moveLeftBtns = document.querySelectorAll(".move-left-btn");
-      // Get all move-right-btn
       const moveRightBtns = document.querySelectorAll(".move-right-btn");
 
       moveLeftBtns.forEach((moveLeftBtn) => {
@@ -245,6 +316,71 @@
           clubList.removeChild(lastElement);
           clubList.insertBefore(lastElement, clubList.firstElementChild);
         });
+      });
+
+      // Get the modal and login button and close
+      const modal = document.querySelector(".modal");
+      const loginBtn = document.querySelector(".login-btn");
+      const closeBtn = document.querySelector(".form__close");
+
+      // When the user clicks on the button, open the modal
+      loginBtn.onclick = function () {
+        modal.style.display = "block";
+      };
+
+      // When the user clicks on <span> (x), close the modal
+      closeBtn.onclick = function () {
+        modal.style.display = "none";
+      };
+
+      // When the user clicks anywhere outside of the modal, close it
+      window.onclick = function (event) {
+        if (event.target == modal) {
+          modal.style.display = "none";
+        }
+      };
+
+      // Get user location
+      function getUserLocation() {
+        if ("geolocation" in navigator) {
+          navigator.geolocation.getCurrentPosition(function (position) {
+            const latitude = position.coords.latitude;
+            const longitude = position.coords.longitude;
+
+            // Use a reverse geocoding service to get location information
+            const reverseGeocodingUrl = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}&zoom=18&addressdetails=1`;
+
+            fetch(reverseGeocodingUrl)
+              .then((response) => response.json())
+              .then((data) => {
+                if (data && data.address && data.address.city_district) {
+                  const province = data.address.city_district;
+                  const nearbyLocation =
+                    document.querySelector(".nearby-location");
+                  nearbyLocation.textContent = province;
+                } else {
+                  return null;
+                }
+              })
+              .catch((error) => {
+                return null;
+              });
+          });
+        } else {
+          return null;
+        }
+      }
+
+      getUserLocation();
+
+      const loginForm = document.querySelector(".login-form");
+      loginForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const username = loginForm.username.value;
+        const password = loginForm.password.value;
+        if (username === "admin" && password === "admin") {
+          window.location.href = "admin.html";
+        }
       });
     </script>
   </body>

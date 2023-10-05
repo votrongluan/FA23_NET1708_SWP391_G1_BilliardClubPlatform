@@ -26,9 +26,7 @@ body {
   color: var(--color-primary-text);
 }
 
-.header {
-  background-color: var(--color-primary-background);
-}
+
 
 .container {
   max-width: 1200px;

@@ -26,10 +26,6 @@ body {
   color: var(--color-primary-text);
 }
 
-.header {
-  background-color: var(--color-primary-background);
-}
-
 .container {
   max-width: 1200px;
   margin: 0 auto;
@@ -179,7 +175,7 @@ body {
   width: calc(100% - 32px);
   padding: 8px 16px;
   cursor: pointer;
-transition: background-color 0.2s linear;
+  transition: background-color 0.2s linear;
 }
 
 .book-btn:hover {
@@ -361,7 +357,7 @@ transition: background-color 0.2s linear;
 .search-club__img {
   width: 60px;
   height: 60px;
-object-fit: cover;
+  object-fit: cover;
   object-position: center;
   border-radius: 50%;
 }

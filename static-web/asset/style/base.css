@@ -31,6 +31,16 @@ body {
   margin: 0 auto;
 }
 
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: var(--color-secondary-text);
+  z-index: 3;
+  padding: 0 40px;
+}
+
 .nav-list {
   height: 70px;
   list-style-type: none;
@@ -69,6 +79,7 @@ body {
   background-color: var(--color-primary-background);
   width: 100%;
   height: auto;
+  margin-top: 70px;
 }
 
 .main {
@@ -301,6 +312,8 @@ body {
   background-color: var(--color-secondary-text);
 }
 
+/* Search CSS */
+
 .main__heading {
   font-size: 32px;
   font-weight: 500;
@@ -315,16 +328,17 @@ body {
   column-gap: 20px;
 }
 
-.search__location {
+.options {
   height: 50px;
   border-radius: 10px;
   border: none;
   outline: none;
-  text-align: center;
   min-width: 120px;
   font-weight: 500;
   padding: 8px;
+  padding-right: 16px;
   font-size: 18px;
+  text-indent: 5px;
 }
 
 .search__input {
@@ -395,4 +409,24 @@ body {
 
 .search-club__book-btn:hover {
   background-color: #0d99ff;
+}
+
+.booking-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.booking-form .options {
+  margin-top: 20px;
+}
+
+.booking-form .form__input {
+  margin-top: 20px;
+  background-color: var(--color-secondary-text);
+}
+
+.booking-form .search-club__book-btn {
+  max-width: 90%;
+  width: 250px;
+  align-self: center;
 }

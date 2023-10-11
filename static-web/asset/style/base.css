@@ -26,11 +26,6 @@ body {
   color: var(--color-primary-text);
 }
 
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
 .nav {
   position: fixed;
   top: 0;

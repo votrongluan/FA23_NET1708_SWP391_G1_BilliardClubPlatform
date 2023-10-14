@@ -5,11 +5,13 @@ function Header() {
     return (
         <Container maxW="1200px">
             <Flex as="nav" height="70px" alignItems="center">
-                <Heading as="h1">Billiards</Heading>
+                <NavLink to="/">
+                    <Heading as="h1">Billiards</Heading>
+                </NavLink>
                 <Spacer/>
                 <HStack spacing="20px">
-                    <NavLink>Tìm club</NavLink>
-                    <NavLink>Đặt lịch</NavLink>
+                    <NavLink to="find">Tìm club</NavLink>
+                    <NavLink to="book">Đặt lịch</NavLink>
                     <Button colorScheme="yellow">Đăng nhập</Button>
                 </HStack>
             </Flex>

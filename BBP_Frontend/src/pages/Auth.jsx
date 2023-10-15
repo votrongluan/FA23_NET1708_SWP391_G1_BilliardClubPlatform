@@ -1,7 +1,6 @@
 import {
     Button,
     FormControl,
-    FormErrorMessage,
     FormHelperText,
     FormLabel,
     Input,
@@ -9,18 +8,18 @@ import {
     TabList,
     TabPanel,
     TabPanels,
-    Tabs
+    Tabs,
+    useToast
 } from "@chakra-ui/react";
 import {Form, useLocation, useNavigate} from "react-router-dom";
 import useAuth from "../hooks/useAuth.js";
-import {useState} from "react";
 
 function Auth(props) {
+    const toast = useToast()
     const {setAuth} = useAuth();
-
-    const [errMsg, setErrMsg] = useState('');
     const navigate = useNavigate();
     const location = useLocation();
+
     const from = location.state?.from?.pathname || "/";
 
     const handleLogin = async (e) => {
@@ -45,7 +44,11 @@ function Auth(props) {
             const formData = new FormData(e.target);
             const data = Object.fromEntries(formData.entries());
             if (data.username === 'user' && data.password === 'user') {
-                setAuth({...data, role: 'User'});
+                setAuth({
+                    ...data,
+                    role: 'User',
+                    avatarLink: "https://i.pinimg.com/originals/d8/ed/33/d8ed337d0a83bc67d355d0f1d0d29097.jpg"
+                });
                 navigate(from);
             } else if (data.username === 'admin' && data.password === 'admin') {
                 setAuth({...data, role: 'Admin'});
@@ -54,9 +57,17 @@ function Auth(props) {
                 setAuth({...data, role: 'Staff'});
                 navigate(from);
             } else {
-                setErrMsg("Tài khoản hoặc mật khẩu không đúng");
+                toast({
+                    title: "Đăng nhập thất bại",
+                    description: "Tài khoản hoặc mật khẩu không đúng",
+                    status: "error",
+                    duration: 1500,
+                    isClosable: true,
+                    position: "top-right"
+                });
             }
         } catch (err) {
+            console.log(err);
         }
     }
 
@@ -71,7 +82,6 @@ function Auth(props) {
             <TabPanels py="10px">
                 <TabPanel>
                     <Form onSubmit={handleLogin}>
-                        <FormErrorMessage>{errMsg}</FormErrorMessage>
                         <FormControl isRequired mb="20px">
                             <FormLabel>Tài khoản</FormLabel>
                             <Input type="text" name="username"/>

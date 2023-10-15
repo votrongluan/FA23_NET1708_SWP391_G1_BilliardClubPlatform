@@ -238,5 +238,37 @@
       "avatarLink": "https://example.com/avatar7.jpg",
       "name": "Paul Davis"
     }
+  ],
+  "users": [
+    {
+      "id": 1,
+      "username": "user",
+      "avatarLink": "https://example.com/avatar1.jpg",
+      "email": "user@usr.com",
+      "phone": "0123456789",
+      "role": "User",
+      "lastName": "Doe",
+      "firstName": "John"
+    },
+    {
+      "id": 2,
+      "username": "staff",
+      "avatarLink": "https://example.com/avatar2.jpg",
+      "email": "staff@staff.com",
+      "phone": "9876543210",
+      "role": "Staff",
+      "lastName": "Smith",
+      "firstName": "Jane"
+    },
+    {
+      "id": 3,
+      "username": "admin",
+      "avatarLink": "https://example.com/avatar3.jpg",
+      "email": "admin@admin.com",
+      "phone": "5555555555",
+      "role": "Admin",
+      "lastName": "Johnson",
+      "firstName": "Mike"
+    }
   ]
 }

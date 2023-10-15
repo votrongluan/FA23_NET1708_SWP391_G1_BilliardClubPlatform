@@ -1,7 +1,22 @@
-import {Button, Container, Flex, Heading, HStack, Spacer} from "@chakra-ui/react";
+import {
+    Avatar,
+    Button,
+    Container,
+    Flex,
+    Heading,
+    HStack,
+    Menu,
+    MenuButton,
+    MenuItem,
+    MenuList,
+    Spacer
+} from "@chakra-ui/react";
 import {Link, NavLink} from "react-router-dom";
+import useAuth from "../hooks/useAuth.js";
 
 function Header() {
+    const {auth, setAuth} = useAuth();
+
     return (
         <Container maxW="1200px">
             <Flex as="nav" height="70px" alignItems="center">
@@ -12,7 +27,26 @@ function Header() {
                 <HStack spacing={5} fontSize="20px">
                     <NavLink to="find">Tìm club</NavLink>
                     <NavLink to="book">Đặt lịch</NavLink>
-                    <Link to="auth"><Button fontSize="20px" colorScheme="gray">Đăng nhập</Button></Link>
+                    {auth?.username ? ( // Check if the user is authenticated
+                        <Menu>
+                            <MenuButton as={Button} rightIcon={<Avatar src={auth?.avatarLink} size="sm"/>}>
+                                {auth?.username}
+                            </MenuButton>
+                            <MenuList>
+                                <MenuItem>Tài khoản của tôi</MenuItem>
+                                <MenuItem>Lịch sử đặt bàn</MenuItem>
+                                <MenuItem onClick={() => {
+                                    setAuth(null)
+                                }}>Đăng xuất</MenuItem>
+                            </MenuList>
+                        </Menu>
+                    ) : (
+                        <Link to="auth">
+                            <Button fontSize="20px" colorScheme="gray">
+                                Đăng nhập
+                            </Button>
+                        </Link>
+                    )}
                 </HStack>
             </Flex>
         </Container>

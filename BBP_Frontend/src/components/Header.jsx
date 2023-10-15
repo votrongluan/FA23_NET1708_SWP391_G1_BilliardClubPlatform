@@ -1,5 +1,5 @@
 import {Button, Container, Flex, Heading, HStack, Spacer} from "@chakra-ui/react";
-import {NavLink} from "react-router-dom";
+import {Link, NavLink} from "react-router-dom";
 
 function Header() {
     return (
@@ -12,7 +12,7 @@ function Header() {
                 <HStack spacing={5} fontSize="20px">
                     <NavLink to="find">Tìm club</NavLink>
                     <NavLink to="book">Đặt lịch</NavLink>
-                    <Button fontSize="20px" colorScheme="gray">Đăng nhập</Button>
+                    <Link to="auth"><Button fontSize="20px" colorScheme="gray">Đăng nhập</Button></Link>
                 </HStack>
             </Flex>
         </Container>

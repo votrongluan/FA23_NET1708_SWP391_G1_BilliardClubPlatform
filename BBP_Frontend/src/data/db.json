@@ -11,7 +11,7 @@
       "email": "example@example.com",
       "openTime": 5,
       "closeTime": 23,
-      "rating": 4.5,
+      "rating": 4,
       "numberOfRating": 1,
       "numberOfBooking": 2
     },
@@ -26,7 +26,7 @@
       "email": "example@example.com",
       "openTime": 8,
       "closeTime": 23,
-      "rating": 4.9,
+      "rating": 5,
       "numberOfRating": 3,
       "numberOfBooking": 2
     },
@@ -41,8 +41,8 @@
       "email": "example@example.com",
       "openTime": 5,
       "closeTime": 23,
-      "rating": 4.2,
-      "numberOfRating": 2,
+      "rating": "",
+      "numberOfRating": "",
       "numberOfBooking": 2
     },
     {
@@ -56,8 +56,8 @@
       "email": "example@example.com",
       "openTime": 5,
       "closeTime": 23,
-      "rating": 5.0,
-      "numberOfRating": 2,
+      "rating": 3.0,
+      "numberOfRating": 1,
       "numberOfBooking": 2
     },
     {
@@ -71,7 +71,7 @@
       "email": "example@example.com",
       "openTime": 5,
       "closeTime": 23,
-      "rating": 4.1,
+      "rating": 4.0,
       "numberOfRating": 1,
       "numberOfBooking": 2
     }
@@ -172,6 +172,57 @@
     {
       "id": 24,
       "name": "Huyện Cần Giờ"
+    }
+  ],
+  "reviews": [
+    {
+      "id": 1,
+      "star": 4,
+      "comment": "Great club with friendly staff and a good atmosphere.",
+      "date": "2023-10-15",
+      "clubId": 1
+    },
+    {
+      "id": 2,
+      "star": 5,
+      "comment": "Cowboy quận 2 is fantastic! I had a wonderful time there.",
+      "date": "2023-10-15",
+      "clubId": 2
+    },
+    {
+      "id": 3,
+      "star": 5,
+      "comment": "Cowboy quận 2 is fantastic! I had a wonderful time there.",
+      "date": "2023-10-15",
+      "clubId": 2
+    },
+    {
+      "id": 4,
+      "star": 5,
+      "comment": "Cowboy quận 2 is fantastic! I had a wonderful time there.",
+      "date": "2023-10-15",
+      "clubId": 2
+    },
+    {
+      "id": 5,
+      "star": 4,
+      "comment": "I enjoyed my time at Bid quận 3. Good place to hang out.",
+      "date": "2023-10-15",
+      "clubId": 3
+    },
+    {
+      "id": 6,
+      "star": 3,
+      "comment": "Billiard quận 4 is the best! I love playing billiards there.",
+      "date": "2023-10-15",
+      "clubId": 4
+    },
+    {
+      "id": 7,
+      "star": 4,
+      "comment": "Acc quận 5 is decent, but it could be improved.",
+      "date": "2023-10-15",
+      "clubId": 5
     }
   ]
 }

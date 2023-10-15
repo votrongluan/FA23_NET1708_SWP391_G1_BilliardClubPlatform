@@ -10,11 +10,11 @@ function Home() {
 
     return (
         <>
-            <Heading as="h2" fontSize="24px" mb={5}>Clubs được đánh giá cao nhất</Heading>
+            <Heading as="h2" size="md" mb={5}>Clubs được đánh giá cao nhất</Heading>
             <Clubs clubs={mostRatedClubs}/>
-            <Heading as="h2" fontSize="24px" mb={5} mt={10}>Clubs được đặt nhiều nhất</Heading>
+            <Heading as="h2" size="md" mb={5} mt={10}>Clubs được đặt nhiều nhất</Heading>
             <Clubs clubs={mostBookedClubs}/>
-            <Heading as="h2" fontSize="24px" mb={5} mt={10}>Clubs được review nhiều nhất</Heading>
+            <Heading as="h2" size="md" mb={5} mt={10}>Clubs được review nhiều nhất</Heading>
             <Clubs clubs={mostReviewedClubs}/>
         </>
     );

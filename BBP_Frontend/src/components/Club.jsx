@@ -18,9 +18,14 @@ function Club({club}) {
             <CardBody color="gray.500">
                 <Text color="black" fontSize="20px">{club?.name}</Text>
                 <Text mt={2}>{club?.address}, {district?.name}</Text>
-                <Text mt={4} gap={2} display="flex" alignItems="center" justifyContent="flex-end" color="gray.500">
-                    <StarIcon color="yellow.500"/>{club.rating} ({club.numberOfRating} đánh giá)
-                </Text>
+                {Boolean(club?.numberOfRating) ?
+                    <Text mt={4} gap={2} display="flex" alignItems="center" justifyContent="flex-end" color="gray.500">
+                        <StarIcon color="yellow.500"/>{club.rating} ({club.numberOfRating} đánh giá)
+                    </Text> :
+                    <Text mt={4} gap={2} display="flex" alignItems="center" justifyContent="flex-end" color="gray.500">
+                        <StarIcon color="yellow.500"/>Chưa có đánh giá
+                    </Text>}
+
             </CardBody>
 
             <Divider borderColor="gray.300"/>

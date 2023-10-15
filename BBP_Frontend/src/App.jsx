@@ -13,6 +13,7 @@ import Account, {userLoader} from "./pages/user/Account.jsx";
 import RequireAuth from "./components/RequireAuth.jsx";
 import Unauthorized from "./pages/Unauthorized.jsx";
 import Find from "./pages/user/Find.jsx";
+import Book from "./pages/user/Book.jsx";
 
 function App() {
     const ROLES = {
@@ -24,12 +25,14 @@ function App() {
     const router = createBrowserRouter(
         createRoutesFromElements(
             <Route path="/" element={<RootLayout/>} errorElement={<ElementError/>}>
+                {/* Index page route */}
                 <Route
                     index
                     element={<Home/>}
                     loader={clubsLoader}
                 />
 
+                {/* Clubs, club detail page route */}
                 <Route
                     path="clubs"
                     loader={clubsLoader}
@@ -38,11 +41,21 @@ function App() {
                     <Route path=":id" element={<ClubDetail/>} loader={clubLoader}/>
                 </Route>
 
+                {/* Find club route */}
                 <Route
                     path="find"
                     loader={clubsLoader}
                     element={<Find/>}
                 />
+
+                {/* Booking route */}
+                <Route
+                    path="book"
+                    element={<RequireAuth allowedRoles={"User"}/>}
+                >
+                    <Route index element={<Book/>} loader={clubsLoader}/>
+                    <Route path=":id"/>
+                </Route>
 
                 <Route
                     path="users"

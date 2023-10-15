@@ -4,6 +4,7 @@ import {CalendarIcon, ExternalLinkIcon, StarIcon} from "@chakra-ui/icons";
 import {useLoaderData, useParams} from "react-router-dom";
 import {DistrictContext} from "../../context/DistrictContext.jsx";
 import {baseURL} from "../../api/axios.js";
+import Review from "../../components/Review.jsx";
 
 function ClubDetail() {
     const {id} = useParams();
@@ -31,7 +32,8 @@ function ClubDetail() {
 
     return (
         <>
-            <Grid templateColumns="repeat(6, 1fr)" bg="gray.50" bgColor="white" borderRadius="20px">
+            <Grid templateColumns="repeat(6, 1fr)" bg="gray.50" bgColor="white" borderRadius="4px"
+                  border="1px solid black">
                 <GridItem colSpan={1} Height="300px" p={10}>
                     <Avatar height="200px" width="200px" src={club.avatarLink}/>
                 </GridItem>
@@ -55,19 +57,13 @@ function ClubDetail() {
                     </Stack>
                 </GridItem>
             </Grid>
-            <Stack mt={10}>
-                <Heading as="h3" size="md">Đánh giá của khách hàng</Heading>
+            <Stack mt={10} spacing={5}>
+                <Heading as="h3" size="md">Đánh giá của khách hàng đã trải nghiệm club</Heading>
                 {loading ? (
                     <Spinner size="lg"/>
                 ) : (
                     reviews.map((review) => (
-                        <div key={review.id}>
-                            {/* Display each review */}
-                            {/* You can customize the display of each review here */}
-                            <Text>{`Star Rating: ${review.star}`}</Text>
-                            <Text>{`Comment: ${review.comment}`}</Text>
-                            <Text>{`Date: ${review.date}`}</Text>
-                        </div>
+                        <Review key={review.id} review={review}/>
                     ))
                 )}
             </Stack>

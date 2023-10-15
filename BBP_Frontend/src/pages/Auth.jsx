@@ -10,7 +10,8 @@ import {
     TabPanels,
     Tabs
 } from "@chakra-ui/react";
-import {Form, redirect} from "react-router-dom";
+import {Form, redirect, useLocation, useNavigate} from "react-router-dom";
+import useAuth from "../hooks/useAuth.js";
 
 function Auth(props) {
     return (
@@ -97,10 +98,31 @@ export const authAction = async ({request}) => {
 
     const type = data.get('action');
     if (type === 'login') {
+        const {setAuth} = useAuth();
+
+        const navigate = useNavigate();
+        const location = useLocation();
+
+        const from = location.state?.from?.pathname || "/";
         submission = {
             username: data.get('username'),
             password: data.get('password'),
         }
+
+        // const response = await axios.post(LOGIN_URL,
+        //     JSON.stringify({user, pwd}),
+        //     {
+        //         headers: {'Content-Type': 'application/json'},
+        //         withCredentials: true
+        //     }
+        // );
+        // console.log(JSON.stringify(response?.data));
+        //console.log(JSON.stringify(response));
+        // const accessToken = response?.data?.accessToken;
+        // const roles = response?.data?.roles;
+        setAuth(submission);
+        navigate(from, {replace: true});
+
     } else if (type === 'register') {
         submission = {
             username: data.get('username'),
@@ -114,7 +136,7 @@ export const authAction = async ({request}) => {
             phone: data.get('phone'),
         }
     }
-    
+
     // dothing here
     console.log(submission)
 

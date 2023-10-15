@@ -7,7 +7,8 @@ import ElementError from "./pages/ElementError.jsx";
 import {DistrictProvider} from "./context/DistrictContext.jsx";
 import AllClubs, {clubsLoader} from "./pages/user/AllClubs.jsx";
 import ClubDetail, {clubLoader} from "./pages/user/ClubDetail.jsx";
-import Auth, {authAction} from "./pages/Auth.jsx";
+import Auth from "./pages/Auth.jsx";
+import {AuthProvider} from "./context/AuthProvider.jsx";
 
 function App() {
     const ROLES = {
@@ -33,7 +34,7 @@ function App() {
                     <Route path=":id" element={<ClubDetail/>} loader={clubLoader}/>
                 </Route>
 
-                <Route path="auth" element={<Auth/>} action={authAction}/>
+                <Route path="auth" element={<Auth/>}/>
 
                 <Route path="*" element={<NotFound/>}/>
             </Route>
@@ -41,11 +42,13 @@ function App() {
     )
 
     return (
-        <DistrictProvider>
-            <ChakraProvider>
-                <RouterProvider router={router}/>
-            </ChakraProvider>
-        </DistrictProvider>
+        <AuthProvider>
+            <DistrictProvider>
+                <ChakraProvider>
+                    <RouterProvider router={router}/>
+                </ChakraProvider>
+            </DistrictProvider>
+        </AuthProvider>
     )
 }
 

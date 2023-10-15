@@ -1,6 +1,7 @@
 import {
     Button,
     FormControl,
+    FormErrorMessage,
     FormHelperText,
     FormLabel,
     Input,
@@ -10,10 +11,55 @@ import {
     TabPanels,
     Tabs
 } from "@chakra-ui/react";
-import {Form, redirect, useLocation, useNavigate} from "react-router-dom";
+import {Form, useLocation, useNavigate} from "react-router-dom";
 import useAuth from "../hooks/useAuth.js";
+import {useState} from "react";
 
 function Auth(props) {
+    const {setAuth} = useAuth();
+
+    const [errMsg, setErrMsg] = useState('');
+    const navigate = useNavigate();
+    const location = useLocation();
+    const from = location.state?.from?.pathname || "/";
+
+    const handleLogin = async (e) => {
+        e.preventDefault();
+
+        try {
+            // const response = await axios.post(LOGIN_URL,
+            //     JSON.stringify({user, pwd}),
+            //     {
+            //         headers: {'Content-Type': 'application/json'},
+            //         withCredentials: true
+            //     }
+            // );
+            // console.log(JSON.stringify(response?.data));
+            // //console.log(JSON.stringify(response));
+            // const accessToken = response?.data?.accessToken;
+            // const roles = response?.data?.roles;
+            // setAuth({user, pwd, roles, accessToken});
+            // setUser('');
+            // setPwd('');
+            // get data from form
+            const formData = new FormData(e.target);
+            const data = Object.fromEntries(formData.entries());
+            if (data.username === 'user' && data.password === 'user') {
+                setAuth({...data, role: 'User'});
+                navigate(from);
+            } else if (data.username === 'admin' && data.password === 'admin') {
+                setAuth({...data, role: 'Admin'});
+                navigate(from);
+            } else if (data.username === 'staff' && data.password === 'staff') {
+                setAuth({...data, role: 'Staff'});
+                navigate(from);
+            } else {
+                setErrMsg("Tài khoản hoặc mật khẩu không đúng");
+            }
+        } catch (err) {
+        }
+    }
+
     return (
         <Tabs p="20px" variant="enclosed" colorScheme="purple" minH="70vh">
             <TabList>
@@ -24,8 +70,8 @@ function Auth(props) {
 
             <TabPanels py="10px">
                 <TabPanel>
-                    <Form method="post" action="/auth">
-                        <Input name="action" type="hidden" value="login"></Input>
+                    <Form onSubmit={handleLogin}>
+                        <FormErrorMessage>{errMsg}</FormErrorMessage>
                         <FormControl isRequired mb="20px">
                             <FormLabel>Tài khoản</FormLabel>
                             <Input type="text" name="username"/>
@@ -42,7 +88,6 @@ function Auth(props) {
 
                 <TabPanel>
                     <Form method="post" action="/auth">
-                        <Input name="action" type="hidden" value="register"></Input>
                         <FormControl isRequired mb="20px">
                             <FormLabel>Tài khoản</FormLabel>
                             <Input type="text" name="username"/>
@@ -74,7 +119,6 @@ function Auth(props) {
 
                 <TabPanel>
                     <Form method="post" action="/auth">
-                        <Input name="action" type="hidden" value="forget"></Input>
                         <FormControl isRequired mb="20px">
                             <FormLabel>Số điện thoại</FormLabel>
                             <Input type="tel" name="phone"/>
@@ -91,55 +135,3 @@ function Auth(props) {
 }
 
 export default Auth;
-
-export const authAction = async ({request}) => {
-    const data = await request.formData()
-    let submission;
-
-    const type = data.get('action');
-    if (type === 'login') {
-        const {setAuth} = useAuth();
-
-        const navigate = useNavigate();
-        const location = useLocation();
-
-        const from = location.state?.from?.pathname || "/";
-        submission = {
-            username: data.get('username'),
-            password: data.get('password'),
-        }
-
-        // const response = await axios.post(LOGIN_URL,
-        //     JSON.stringify({user, pwd}),
-        //     {
-        //         headers: {'Content-Type': 'application/json'},
-        //         withCredentials: true
-        //     }
-        // );
-        // console.log(JSON.stringify(response?.data));
-        //console.log(JSON.stringify(response));
-        // const accessToken = response?.data?.accessToken;
-        // const roles = response?.data?.roles;
-        setAuth(submission);
-        navigate(from, {replace: true});
-
-    } else if (type === 'register') {
-        submission = {
-            username: data.get('username'),
-            password: data.get('password'),
-            rePassword: data.get('rePassword'),
-            phone: data.get('phone'),
-            email: data.get('email'),
-        }
-    } else if (type === 'forget') {
-        submission = {
-            phone: data.get('phone'),
-        }
-    }
-
-    // dothing here
-    console.log(submission)
-
-    // redirect the user
-    return redirect('/')
-}

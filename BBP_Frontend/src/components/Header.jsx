@@ -9,10 +9,10 @@ function Header() {
                     <Heading as="h1">Billiards</Heading>
                 </NavLink>
                 <Spacer/>
-                <HStack spacing="20px">
+                <HStack spacing={5} fontSize="20px">
                     <NavLink to="find">Tìm club</NavLink>
                     <NavLink to="book">Đặt lịch</NavLink>
-                    <Button colorScheme="yellow">Đăng nhập</Button>
+                    <Button fontSize="20px" colorScheme="gray">Đăng nhập</Button>
                 </HStack>
             </Flex>
         </Container>

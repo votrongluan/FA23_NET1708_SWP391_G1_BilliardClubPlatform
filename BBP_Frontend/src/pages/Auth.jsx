@@ -56,10 +56,28 @@ function Auth(props) {
                 });
                 navigate(from);
             } else if (data.username === 'admin' && data.password === 'admin') {
-                setAuth({...data, role: 'Admin'});
+                setAuth({
+                    "id": 3,
+                    "username": "admin",
+                    "avatarLink": "https://i.pinimg.com/originals/28/03/f2/2803f2963bdea8302c0d07153b263e2d.jpg",
+                    "email": "admin@admin.com",
+                    "phone": "5555555555",
+                    "role": "Admin",
+                    "lastName": "Johnson",
+                    "firstName": "Mike"
+                });
                 navigate(from);
             } else if (data.username === 'staff' && data.password === 'staff') {
-                setAuth({...data, role: 'Staff'});
+                setAuth({
+                    "id": 2,
+                    "username": "staff",
+                    "avatarLink": "https://i.pinimg.com/1200x/de/0a/97/de0a9757a21cda8550b8c94c1af5e3ff.jpg",
+                    "email": "staff@staff.com",
+                    "phone": "9876543210",
+                    "role": "Staff",
+                    "lastName": "Smith",
+                    "firstName": "Jane"
+                });
                 navigate(from);
             } else {
                 toast({

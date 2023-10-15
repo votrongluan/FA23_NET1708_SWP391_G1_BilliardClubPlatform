@@ -1,9 +1,15 @@
 import {baseURL} from "../../api/axios.js";
 import {Button, FormControl, FormLabel, Input, Tab, TabList, TabPanel, TabPanels, Tabs} from "@chakra-ui/react";
-import {Form, useLoaderData} from "react-router-dom";
+import {Form, Navigate, useLoaderData} from "react-router-dom";
+import useAuth from "../../hooks/useAuth.js";
 
 function Account() {
     const user = useLoaderData();
+    const {auth} = useAuth();
+
+    if (user.id.toString() !== auth.id.toString()) {
+        return <Navigate to="/unauthorized"/>
+    }
     const handleChange = (e) => {
         console.log("Implement later")
     }

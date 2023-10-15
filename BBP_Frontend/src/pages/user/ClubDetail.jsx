@@ -1,7 +1,7 @@
 import {useContext, useEffect, useState} from "react";
-import {Avatar, Button, Grid, GridItem, Heading, HStack, Link, Spacer, Spinner, Stack, Text,} from "@chakra-ui/react";
-import {CalendarIcon, ExternalLinkIcon, StarIcon} from "@chakra-ui/icons";
-import {useLoaderData, useParams} from "react-router-dom";
+import {Avatar, Button, Flex, Grid, GridItem, Heading, HStack, Spacer, Spinner, Stack, Text,} from "@chakra-ui/react";
+import {CalendarIcon, ExternalLinkIcon, StarIcon, TimeIcon} from "@chakra-ui/icons";
+import {Link, useLoaderData, useParams} from "react-router-dom";
 import {DistrictContext} from "../../context/DistrictContext.jsx";
 import {baseURL} from "../../api/axios.js";
 import Review from "../../components/Review.jsx";
@@ -13,6 +13,8 @@ function ClubDetail() {
     const district = districts.find((district) => district.id === club.districtId);
     const [reviews, setReviews] = useState([]);
     const [loading, setLoading] = useState(true);
+
+    const hours = Array.from({length: 12}, (_, i) => 9 + i);
 
     useEffect(() => {
         // Fetch reviews from the API
@@ -53,20 +55,47 @@ function ClubDetail() {
                         <Text>Số điện thoại: {club.phone}</Text>
                         <Text>Fanpage: <Link color="blue.500" href={club.fanpageLink}
                                              isExternal>{club.fanpageLink}<ExternalLinkIcon mx='2px'/></Link></Text>
-                        <Button mt={2} colorScheme="yellow" leftIcon={<CalendarIcon/>}>Đặt bàn</Button>
+                        <Link to={`/book/${club.id}`}><Button width="100%" mt={2} colorScheme="yellow"
+                                                              leftIcon={<CalendarIcon/>}>Đặt
+                            bàn</Button></Link>
                     </Stack>
                 </GridItem>
             </Grid>
-            <Stack mt={10} spacing={5}>
-                <Heading as="h3" size="md">Đánh giá của khách hàng đã trải nghiệm club</Heading>
-                {loading ? (
-                    <Spinner size="lg"/>
-                ) : (
-                    reviews.map((review) => (
-                        <Review key={review.id} review={review}/>
-                    ))
-                )}
-            </Stack>
+            <Grid mt={10} templateColumns="repeat(10, 1fr)" gap={20}>
+                <GridItem colSpan={4}>
+                    <Heading as="h3" size="md">Bảng giá</Heading>
+                    <Grid templateColumns="repeat(2, 1fr)" gap={5} justifyItems="center" margin="0 auto"
+                          maxW="800px"
+                          mt={10}>
+                        {hours.map((hour) => (
+                            <GridItem
+                                size="lg" // You can adjust the size here
+                                color="black"
+                                bgColor="white"
+                                borderWidth="1px"
+                                textAlign="center"
+                                p={5}
+                                borderRadius="4px"
+                            ><Flex justifyContent="center" alignItems="center" gap={1} color="gray.400"><TimeIcon/>
+                                {hour}h: </Flex><Text fontWeight="semibold">Phăng: 29.000 đồng</Text>
+                                <Text fontWeight="semibold">Lỗ: 29.000 đồng</Text>
+                            </GridItem>
+                        ))}
+                    </Grid>
+                </GridItem>
+                <GridItem colSpan={6}>
+                    <Stack spacing={5}>
+                        <Heading as="h3" size="md">Đánh giá của khách hàng đã trải nghiệm club</Heading>
+                        {loading ? (
+                            <Spinner size="lg"/>
+                        ) : (
+                            reviews.map((review) => (
+                                <Review key={review.id} review={review}/>
+                            ))
+                        )}
+                    </Stack>
+                </GridItem>
+            </Grid>
         </>
     );
 }

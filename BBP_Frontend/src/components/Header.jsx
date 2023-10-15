@@ -30,8 +30,10 @@ function Header() {
                 </NavLink>
                 <Spacer/>
                 <HStack spacing={5} fontSize="20px">
-                    <NavLink style={navLinkStyle} to="find">Tìm club</NavLink>
-                    <NavLink style={navLinkStyle} to="book">Đặt lịch</NavLink>
+                    {auth?.role === 'User' || !auth ?
+                        <NavLink style={navLinkStyle} to="find">Tìm club</NavLink> : null}
+                    {auth?.role === 'User' || !auth ?
+                        <NavLink style={navLinkStyle} to="book">Đặt lịch</NavLink> : null}
                     {auth?.username ? ( // Check if the user is authenticated
                         <Menu>
                             <MenuButton as={Button} rightIcon={<Avatar src={auth?.avatarLink} size="sm"/>}>

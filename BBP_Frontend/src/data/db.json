@@ -1,0 +1,177 @@
+{
+  "clubs": [
+    {
+      "id": 1,
+      "name": "Võ Đường",
+      "address": "123 Nguyễn Văn Cừ Phường 1",
+      "districtId": 1,
+      "fanpageLink": "https://www.facebook.com/vo.duong.1232",
+      "avatarLink": "https://plus.unsplash.com/premium_photo-1667117794314-a7646911fc49?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8YmlsbGlhcmRzfGVufDB8MXwwfHx8MA%3D%3D&auto=format&fit=crop&w=700&q=60",
+      "phone": "0123456789",
+      "email": "example@example.com",
+      "openTime": 5,
+      "closeTime": 23,
+      "rating": 4.5,
+      "numberOfRating": 1,
+      "numberOfBooking": 2
+    },
+    {
+      "id": 2,
+      "name": "Cowboy quận 2",
+      "address": "123 Nguyễn Văn Cừ Phường 2",
+      "districtId": 2,
+      "fanpageLink": "https://www.facebook.com/vo.duong.1232",
+      "avatarLink": "https://images.unsplash.com/photo-1624827637654-84cd4877717e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8YmlsbGlhcmRzfGVufDB8MXwwfHx8MA%3D%3D&auto=format&fit=crop&w=700&q=60",
+      "phone": "0123456711",
+      "email": "example@example.com",
+      "openTime": 8,
+      "closeTime": 23,
+      "rating": 4.9,
+      "numberOfRating": 3,
+      "numberOfBooking": 2
+    },
+    {
+      "id": 3,
+      "name": "Bid quận 3",
+      "address": "12344 Nguyễn Văn Cừ Phường 4",
+      "districtId": 3,
+      "fanpageLink": "https://www.facebook.com/vo.duong.1232",
+      "avatarLink": "https://images.unsplash.com/photo-1575553939931-8bce5759eaf1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8YmlsbGlhcmRzfGVufDB8MXwwfHx8MA%3D%3D&auto=format&fit=crop&w=700&q=60",
+      "phone": "0123456789",
+      "email": "example@example.com",
+      "openTime": 5,
+      "closeTime": 23,
+      "rating": 4.2,
+      "numberOfRating": 2,
+      "numberOfBooking": 2
+    },
+    {
+      "id": 4,
+      "name": "Billiard quận 4",
+      "address": "23 Nguyễn Văn Cừ Phường 5",
+      "districtId": 4,
+      "fanpageLink": "https://www.facebook.com/vo.duong.1232",
+      "avatarLink": "https://images.unsplash.com/photo-1605317068450-d6878f5c8dbb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8YmlsbGlhcmRzfGVufDB8MXwwfHx8MA%3D%3D&auto=format&fit=crop&w=700&q=60",
+      "phone": "0123456789",
+      "email": "example@example.com",
+      "openTime": 5,
+      "closeTime": 23,
+      "rating": 5.0,
+      "numberOfRating": 2,
+      "numberOfBooking": 2
+    },
+    {
+      "id": 5,
+      "name": "Acc quận 5",
+      "address": "23 Nguyễn Văn Cừ Phường 6",
+      "districtId": 4,
+      "fanpageLink": "https://www.facebook.com/vo.duong.1232",
+      "avatarLink": "https://images.unsplash.com/photo-1605317068450-d6878f5c8dbb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8YmlsbGlhcmRzfGVufDB8MXwwfHx8MA%3D%3D&auto=format&fit=crop&w=700&q=60",
+      "phone": "0123456789",
+      "email": "example@example.com",
+      "openTime": 5,
+      "closeTime": 23,
+      "rating": 4.1,
+      "numberOfRating": 1,
+      "numberOfBooking": 2
+    }
+  ],
+  "district": [
+    {
+      "id": 1,
+      "name": "Quận 1"
+    },
+    {
+      "id": 2,
+      "name": "Quận 2"
+    },
+    {
+      "id": 3,
+      "name": "Quận 3"
+    },
+    {
+      "id": 4,
+      "name": "Quận 4"
+    },
+    {
+      "id": 5,
+      "name": "Quận 5"
+    },
+    {
+      "id": 6,
+      "name": "Quận 6"
+    },
+    {
+      "id": 7,
+      "name": "Quận 7"
+    },
+    {
+      "id": 8,
+      "name": "Quận 8"
+    },
+    {
+      "id": 9,
+      "name": "Quận 9"
+    },
+    {
+      "id": 10,
+      "name": "Quận 10"
+    },
+    {
+      "id": 11,
+      "name": "Quận 11"
+    },
+    {
+      "id": 12,
+      "name": "Quận 12"
+    },
+    {
+      "id": 13,
+      "name": "Quận Thủ Đức"
+    },
+    {
+      "id": 14,
+      "name": "Quận Gò Vấp"
+    },
+    {
+      "id": 15,
+      "name": "Quận Bình Thạnh"
+    },
+    {
+      "id": 16,
+      "name": "Quận Tân Bình"
+    },
+    {
+      "id": 17,
+      "name": "Quận Tân Phú"
+    },
+    {
+      "id": 18,
+      "name": "Quận Phú Nhuận"
+    },
+    {
+      "id": 19,
+      "name": "Quận Bình Tân"
+    },
+    {
+      "id": 20,
+      "name": "Huyện Củ Chi"
+    },
+    {
+      "id": 21,
+      "name": "Huyện Hóc Môn"
+    },
+    {
+      "id": 22,
+      "name": "Huyện Bình Chánh"
+    },
+    {
+      "id": 23,
+      "name": "Huyện Nhà Bè"
+    },
+    {
+      "id": 24,
+      "name": "Huyện Cần Giờ"
+    }
+  ]
+}

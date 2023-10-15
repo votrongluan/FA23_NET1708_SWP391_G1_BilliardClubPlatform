@@ -15,6 +15,10 @@ import Unauthorized from "./pages/Unauthorized.jsx";
 import Find from "./pages/user/Find.jsx";
 import Book from "./pages/user/Book.jsx";
 import ClubBook from "./pages/user/ClubBook.jsx";
+import OwnClub from "./pages/staff/OwnClub.jsx";
+import ClubTable from "./pages/staff/ClubTable.jsx";
+import ClubSlot from "./pages/staff/ClubSlot.jsx";
+import ClubBooking from "./pages/staff/ClubBooking.jsx";
 import StaffLayout from "./layouts/StaffLayout.jsx";
 
 function App() {
@@ -30,7 +34,12 @@ function App() {
 
                 {/* Staff page route */}
                 <Route path={"staff"} element={<RequireAuth allowedRoles={"Staff"}/>}>
-                    <Route index element={<StaffLayout/>}>
+                    <Route index element={<NotFound/>}/>
+                    <Route path="manage" element={<StaffLayout/>}>
+                        <Route path="club" element={<OwnClub/>}/>
+                        <Route path="table" element={<ClubTable/>}/>
+                        <Route path="slot" element={<ClubSlot/>}/>
+                        <Route path="booking" element={<ClubBooking/>}/>
                     </Route>
                 </Route>
 

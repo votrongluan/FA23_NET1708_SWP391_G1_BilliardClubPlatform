@@ -25,9 +25,12 @@ function Header() {
     return (
         <Container maxW="1200px">
             <Flex as="nav" height="70px" alignItems="center">
-                <NavLink to="/">
+                {auth?.role === 'Staff' ? <NavLink to="/staff/manage">
                     <Heading as="h1">Billiards</Heading>
-                </NavLink>
+                </NavLink> : <NavLink to="/">
+                    <Heading as="h1">Billiards</Heading>
+                </NavLink>}
+                
                 <Spacer/>
                 <HStack spacing={5} fontSize="20px">
                     {auth?.role === 'User' || !auth ?

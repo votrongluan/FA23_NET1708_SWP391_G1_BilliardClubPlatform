@@ -79,7 +79,7 @@ function Auth(props) {
                     "lastName": "Smith",
                     "firstName": "Jane"
                 });
-                navigate('/staff');
+                navigate('/staff/manage');
             } else {
                 toast({
                     title: "Đăng nhập thất bại",

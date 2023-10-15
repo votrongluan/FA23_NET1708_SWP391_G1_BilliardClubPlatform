@@ -1,6 +1,6 @@
 import {Grid, GridItem} from "@chakra-ui/react"
 import {Outlet} from "react-router-dom"
-import Sidebar from "../pages/staff/StaffSideBar.jsx";
+import Sidebar from "../components/StaffSideBar.jsx";
 
 export default function StaffLayout() {
     return (
@@ -8,8 +8,8 @@ export default function StaffLayout() {
             {/* sidebar */}
             <GridItem
                 as="aside"
-                colSpan={{base: 6, lg: 2, xl: 1}}
-                bg="purple.400"
+                colSpan={{base: 6, lg: 1, xl: 1}}
+                bg="white"
                 minHeight={{lg: '100vh'}}
                 p={{base: '20px', lg: '30px'}}
             >
@@ -19,7 +19,7 @@ export default function StaffLayout() {
             {/* main content & navbar */}
             <GridItem
                 as="main"
-                colSpan={{base: 6, lg: 4, xl: 5}}
+                colSpan={{base: 6, lg: 5, xl: 5}}
                 p="40px"
             >
                 <Outlet/>

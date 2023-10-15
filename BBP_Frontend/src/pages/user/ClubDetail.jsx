@@ -1,5 +1,18 @@
 import {useContext, useEffect, useState} from "react";
-import {Avatar, Button, Flex, Grid, GridItem, Heading, HStack, Spacer, Spinner, Stack, Text,} from "@chakra-ui/react";
+import {
+    Avatar,
+    Button,
+    Container,
+    Flex,
+    Grid,
+    GridItem,
+    Heading,
+    HStack,
+    Spacer,
+    Spinner,
+    Stack,
+    Text,
+} from "@chakra-ui/react";
 import {CalendarIcon, ExternalLinkIcon, StarIcon, TimeIcon} from "@chakra-ui/icons";
 import {Link, useLoaderData, useParams} from "react-router-dom";
 import {DistrictContext} from "../../context/DistrictContext.jsx";
@@ -33,7 +46,7 @@ function ClubDetail() {
     }, [club.id]);
 
     return (
-        <>
+        <Container maxW="1200px" as="main" py={10}>
             <Grid templateColumns="repeat(6, 1fr)" bg="gray.50" bgColor="white" borderRadius="4px"
                   border="1px solid black">
                 <GridItem colSpan={1} Height="300px" p={10}>
@@ -96,7 +109,7 @@ function ClubDetail() {
                     </Stack>
                 </GridItem>
             </Grid>
-        </>
+        </Container>
     );
 }
 

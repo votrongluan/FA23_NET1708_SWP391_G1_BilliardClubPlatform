@@ -1,7 +1,7 @@
 import React, {useContext} from 'react';
 import {useLoaderData} from "react-router-dom";
 import {DistrictContext} from "../../context/DistrictContext.jsx";
-import {Box, Heading, HStack, Input, InputGroup, InputLeftElement, Select, Spacer, Text,} from "@chakra-ui/react";
+import {Container, Heading, HStack, Input, InputGroup, InputLeftElement, Select, Spacer, Text,} from "@chakra-ui/react";
 import {SearchIcon} from "@chakra-ui/icons";
 import Clubs from "../../components/Clubs.jsx";
 
@@ -61,7 +61,7 @@ function Find(props) {
     }, [selectedDistrict, sortMethod, sortOrder]);
 
     return (
-        <Box>
+        <Container maxW="1200px" as="main" py={10}>
             <Heading as="h2" size="lg" textAlign="center">Tìm club</Heading>
             <InputGroup my={5}>
                 <InputLeftElement
@@ -117,7 +117,7 @@ function Find(props) {
 
             <Text color="gray.500" mb={5}>Tìm thấy {filteredClubs.length} clubs</Text>
             <Clubs clubs={filteredClubs}/>
-        </Box>
+        </Container>
     );
 }
 

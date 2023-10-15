@@ -3,7 +3,7 @@ import {AtSignIcon, CalendarIcon, EditIcon} from '@chakra-ui/icons'
 import {NavLink} from "react-router-dom"
 
 
-export default function Sidebar() {
+export default function StaffSideBar() {
     return (
         <List color="white" fontSize="1.2em" spacing={4}>
             <ListItem>

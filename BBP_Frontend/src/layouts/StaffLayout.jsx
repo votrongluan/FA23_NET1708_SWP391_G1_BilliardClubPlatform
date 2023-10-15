@@ -2,7 +2,7 @@ import {Grid, GridItem} from "@chakra-ui/react"
 import {Outlet} from "react-router-dom"
 import Sidebar from "../pages/staff/StaffSideBar.jsx";
 
-export default function RootLayout() {
+export default function StaffLayout() {
     return (
         <Grid templateColumns="repeat(6, 1fr)" bg="gray.50">
             {/* sidebar */}

@@ -2,6 +2,7 @@ import {useContext, useState} from 'react';
 import {
     Box,
     Button,
+    Container,
     FormControl,
     FormHelperText,
     FormLabel,
@@ -80,7 +81,7 @@ function ClubBook() {
     };
 
     return (
-        <>
+        <Container maxW="1200px" as="main" py={10}>
             <Heading mb={10} size="lg" textAlign="center">
                 Đặt bàn
             </Heading>
@@ -163,7 +164,7 @@ function ClubBook() {
                     Đặt bàn
                 </Button>
             </form>
-        </>
+        </Container>
     );
 }
 

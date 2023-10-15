@@ -15,6 +15,7 @@ import Unauthorized from "./pages/Unauthorized.jsx";
 import Find from "./pages/user/Find.jsx";
 import Book from "./pages/user/Book.jsx";
 import ClubBook from "./pages/user/ClubBook.jsx";
+import StaffLayout from "./layouts/StaffLayout.jsx";
 
 function App() {
     const ROLES = {
@@ -26,6 +27,13 @@ function App() {
     const router = createBrowserRouter(
         createRoutesFromElements(
             <Route path="/" element={<RootLayout/>} errorElement={<ElementError/>}>
+
+                {/* Staff page route */}
+                <Route path={"staff"} element={<RequireAuth allowedRoles={"Staff"}/>}>
+                    <Route index element={<StaffLayout/>}>
+                    </Route>
+                </Route>
+
                 {/* Index page route */}
                 <Route
                     index

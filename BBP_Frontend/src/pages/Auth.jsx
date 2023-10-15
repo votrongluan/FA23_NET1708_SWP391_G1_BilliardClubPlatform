@@ -1,5 +1,6 @@
 import {
     Button,
+    Container,
     FormControl,
     FormHelperText,
     FormLabel,
@@ -78,7 +79,7 @@ function Auth(props) {
                     "lastName": "Smith",
                     "firstName": "Jane"
                 });
-                navigate(from);
+                navigate('/staff');
             } else {
                 toast({
                     title: "Đăng nhập thất bại",
@@ -95,75 +96,77 @@ function Auth(props) {
     }
 
     return (
-        <Tabs p="20px" variant="enclosed" colorScheme="purple" minH="70vh">
-            <TabList>
-                <Tab fontSize="20px" _selected={{bg: 'gray.100'}}>Đăng nhập</Tab>
-                <Tab fontSize="20px" _selected={{bg: 'gray.100'}}>Tạo tài khoản</Tab>
-                <Tab fontSize="20px" _selected={{bg: 'gray.100'}}>Quên mật khẩu</Tab>
-            </TabList>
+        <Container maxW="1200px" as="main" py={10}>
+            <Tabs p="20px" variant="enclosed" colorScheme="purple" minH="70vh">
+                <TabList>
+                    <Tab fontSize="20px" _selected={{bg: 'gray.100'}}>Đăng nhập</Tab>
+                    <Tab fontSize="20px" _selected={{bg: 'gray.100'}}>Tạo tài khoản</Tab>
+                    <Tab fontSize="20px" _selected={{bg: 'gray.100'}}>Quên mật khẩu</Tab>
+                </TabList>
 
-            <TabPanels py="10px">
-                <TabPanel>
-                    <Form onSubmit={handleLogin}>
-                        <FormControl isRequired mb="20px">
-                            <FormLabel>Tài khoản</FormLabel>
-                            <Input bgColor="white" type="text" name="username"/>
-                        </FormControl>
+                <TabPanels py="10px">
+                    <TabPanel>
+                        <Form onSubmit={handleLogin}>
+                            <FormControl isRequired mb="20px">
+                                <FormLabel>Tài khoản</FormLabel>
+                                <Input bgColor="white" type="text" name="username"/>
+                            </FormControl>
 
-                        <FormControl isRequired mb="20px">
-                            <FormLabel>Mật khẩu</FormLabel>
-                            <Input bgColor="white" type="password" name="password"/>
-                        </FormControl>
+                            <FormControl isRequired mb="20px">
+                                <FormLabel>Mật khẩu</FormLabel>
+                                <Input bgColor="white" type="password" name="password"/>
+                            </FormControl>
 
-                        <Button colorScheme="telegram" width="100%" type="submit">Đăng nhập</Button>
-                    </Form>
-                </TabPanel>
+                            <Button colorScheme="telegram" width="100%" type="submit">Đăng nhập</Button>
+                        </Form>
+                    </TabPanel>
 
-                <TabPanel>
-                    <Form method="post" action="/auth">
-                        <FormControl isRequired mb="20px">
-                            <FormLabel>Tài khoản</FormLabel>
-                            <Input bgColor="white" type="text" name="username"/>
-                        </FormControl>
+                    <TabPanel>
+                        <Form method="post" action="/auth">
+                            <FormControl isRequired mb="20px">
+                                <FormLabel>Tài khoản</FormLabel>
+                                <Input bgColor="white" type="text" name="username"/>
+                            </FormControl>
 
-                        <FormControl isRequired mb="20px">
-                            <FormLabel>Nhập mật khẩu</FormLabel>
-                            <Input bgColor="white" type="password" name="password"/>
-                        </FormControl>
+                            <FormControl isRequired mb="20px">
+                                <FormLabel>Nhập mật khẩu</FormLabel>
+                                <Input bgColor="white" type="password" name="password"/>
+                            </FormControl>
 
-                        <FormControl isRequired mb="20px">
-                            <FormLabel>Nhập lại mật khẩu</FormLabel>
-                            <Input bgColor="white" type="password" name="rePassword"/>
-                        </FormControl>
+                            <FormControl isRequired mb="20px">
+                                <FormLabel>Nhập lại mật khẩu</FormLabel>
+                                <Input bgColor="white" type="password" name="rePassword"/>
+                            </FormControl>
 
-                        <FormControl isRequired mb="20px">
-                            <FormLabel>Nhập số điện thoại</FormLabel>
-                            <Input bgColor="white" type="tel" name="phone"/>
-                        </FormControl>
+                            <FormControl isRequired mb="20px">
+                                <FormLabel>Nhập số điện thoại</FormLabel>
+                                <Input bgColor="white" type="tel" name="phone"/>
+                            </FormControl>
 
-                        <FormControl mb="20px">
-                            <FormLabel>Nhập email</FormLabel>
-                            <Input bgColor="white" type="email" name="email"/>
-                        </FormControl>
+                            <FormControl mb="20px">
+                                <FormLabel>Nhập email</FormLabel>
+                                <Input bgColor="white" type="email" name="email"/>
+                            </FormControl>
 
-                        <Button colorScheme="telegram" width="100%" type="submit">Đăng ký</Button>
-                    </Form>
-                </TabPanel>
+                            <Button colorScheme="telegram" width="100%" type="submit">Đăng ký</Button>
+                        </Form>
+                    </TabPanel>
 
-                <TabPanel>
-                    <Form method="post" action="/auth">
-                        <FormControl isRequired mb="20px">
-                            <FormLabel>Số điện thoại</FormLabel>
-                            <Input bgColor="white" type="tel" name="phone"/>
-                            <FormHelperText>Hệ thống sẽ gửi về tài khoản và mật khẩu mới nếu như số điện thoại đó đã
-                                từng đăng ký vào hệ thống</FormHelperText>
-                        </FormControl>
+                    <TabPanel>
+                        <Form method="post" action="/auth">
+                            <FormControl isRequired mb="20px">
+                                <FormLabel>Số điện thoại</FormLabel>
+                                <Input bgColor="white" type="tel" name="phone"/>
+                                <FormHelperText>Hệ thống sẽ gửi về tài khoản và mật khẩu mới nếu như số điện thoại đó đã
+                                    từng đăng ký vào hệ thống</FormHelperText>
+                            </FormControl>
 
-                        <Button colorScheme="telegram" width="100%" type="submit">Xác nhận</Button>
-                    </Form>
-                </TabPanel>
-            </TabPanels>
-        </Tabs>
+                            <Button colorScheme="telegram" width="100%" type="submit">Xác nhận</Button>
+                        </Form>
+                    </TabPanel>
+                </TabPanels>
+            </Tabs>
+        </Container>
     );
 }
 

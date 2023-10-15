@@ -180,49 +180,63 @@
       "star": 4,
       "comment": "Great club with friendly staff and a good atmosphere.",
       "date": "2023-10-15",
-      "clubId": 1
+      "clubId": 1,
+      "avatarLink": "https://example.com/avatar1.jpg",
+      "name": "John Doe"
     },
     {
       "id": 2,
       "star": 5,
       "comment": "Cowboy quận 2 is fantastic! I had a wonderful time there.",
       "date": "2023-10-15",
-      "clubId": 2
+      "clubId": 2,
+      "avatarLink": "https://example.com/avatar2.jpg",
+      "name": "Jane Smith"
     },
     {
       "id": 3,
       "star": 5,
       "comment": "Cowboy quận 2 is fantastic! I had a wonderful time there.",
       "date": "2023-10-15",
-      "clubId": 2
+      "clubId": 2,
+      "avatarLink": "https://example.com/avatar3.jpg",
+      "name": "Mike Johnson"
     },
     {
       "id": 4,
       "star": 5,
       "comment": "Cowboy quận 2 is fantastic! I had a wonderful time there.",
       "date": "2023-10-15",
-      "clubId": 2
+      "clubId": 2,
+      "avatarLink": "https://example.com/avatar4.jpg",
+      "name": "Sarah Lee"
     },
     {
       "id": 5,
       "star": 4,
       "comment": "I enjoyed my time at Bid quận 3. Good place to hang out.",
       "date": "2023-10-15",
-      "clubId": 3
+      "clubId": 3,
+      "avatarLink": "https://example.com/avatar5.jpg",
+      "name": "David Smith"
     },
     {
       "id": 6,
       "star": 3,
       "comment": "Billiard quận 4 is the best! I love playing billiards there.",
       "date": "2023-10-15",
-      "clubId": 4
+      "clubId": 4,
+      "avatarLink": "https://example.com/avatar6.jpg",
+      "name": "Anna Johnson"
     },
     {
       "id": 7,
       "star": 4,
       "comment": "Acc quận 5 is decent, but it could be improved.",
       "date": "2023-10-15",
-      "clubId": 5
+      "clubId": 5,
+      "avatarLink": "https://example.com/avatar7.jpg",
+      "name": "Paul Davis"
     }
   ]
 }

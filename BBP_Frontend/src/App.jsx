@@ -9,6 +9,9 @@ import AllClubs, {clubsLoader} from "./pages/user/AllClubs.jsx";
 import ClubDetail, {clubLoader} from "./pages/user/ClubDetail.jsx";
 import Auth from "./pages/Auth.jsx";
 import {AuthProvider} from "./context/AuthProvider.jsx";
+import Account, {userLoader} from "./pages/user/Account.jsx";
+import RequireAuth from "./components/RequireAuth.jsx";
+import Unauthorized from "./pages/Unauthorized.jsx";
 
 function App() {
     const ROLES = {
@@ -34,7 +37,16 @@ function App() {
                     <Route path=":id" element={<ClubDetail/>} loader={clubLoader}/>
                 </Route>
 
+                <Route
+                    path="users"
+                    element={<RequireAuth allowedRoles={"User"}/>}
+                >
+                    <Route path=":id" element={<Account/>} loader={userLoader}/>
+                </Route>
+
                 <Route path="auth" element={<Auth/>}/>
+
+                <Route path="unauthorized" element={<Unauthorized/>}/>
 
                 <Route path="*" element={<NotFound/>}/>
             </Route>

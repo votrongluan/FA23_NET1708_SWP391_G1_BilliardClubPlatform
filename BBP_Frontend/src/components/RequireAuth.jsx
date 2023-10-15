@@ -5,9 +5,14 @@ const RequireAuth = ({allowedRoles}) => {
     const {auth} = useAuth();
 
     return (
-        auth?.roles?.find(role => allowedRoles?.includes(role))
+        // auth?.role?.find(role => allowedRoles?.includes(role))
+        //     ? <Outlet/>
+        //     : auth?.user
+        //         ? <Navigate to="/unauthorized" replace/>
+        //         : <Navigate to="/auth" replace/>
+        auth?.role === allowedRoles
             ? <Outlet/>
-            : auth?.user
+            : auth?.username
                 ? <Navigate to="/unauthorized" replace/>
                 : <Navigate to="/auth" replace/>
     );

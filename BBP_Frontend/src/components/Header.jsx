@@ -33,7 +33,7 @@ function Header() {
                                 {auth?.username}
                             </MenuButton>
                             <MenuList>
-                                <MenuItem>Tài khoản của tôi</MenuItem>
+                                <Link to={`/users/${auth?.id}`}><MenuItem>Tài khoản của tôi</MenuItem></Link>
                                 <MenuItem>Lịch sử đặt bàn</MenuItem>
                                 <MenuItem onClick={() => {
                                     setAuth(null)

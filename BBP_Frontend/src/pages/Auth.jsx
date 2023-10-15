@@ -45,9 +45,14 @@ function Auth(props) {
             const data = Object.fromEntries(formData.entries());
             if (data.username === 'user' && data.password === 'user') {
                 setAuth({
-                    ...data,
-                    role: 'User',
-                    avatarLink: "https://i.pinimg.com/originals/d8/ed/33/d8ed337d0a83bc67d355d0f1d0d29097.jpg"
+                    "id": 1,
+                    "username": "user",
+                    "avatarLink": "https://i.pinimg.com/originals/d8/ed/33/d8ed337d0a83bc67d355d0f1d0d29097.jpg",
+                    "email": "user@usr.com",
+                    "phone": "0123456789",
+                    "role": "User",
+                    "lastName": "Doe",
+                    "firstName": "John"
                 });
                 navigate(from);
             } else if (data.username === 'admin' && data.password === 'admin') {

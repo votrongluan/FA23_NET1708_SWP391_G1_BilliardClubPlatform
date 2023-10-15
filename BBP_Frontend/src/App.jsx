@@ -14,6 +14,7 @@ import RequireAuth from "./components/RequireAuth.jsx";
 import Unauthorized from "./pages/Unauthorized.jsx";
 import Find from "./pages/user/Find.jsx";
 import Book from "./pages/user/Book.jsx";
+import ClubBook from "./pages/user/ClubBook.jsx";
 
 function App() {
     const ROLES = {
@@ -53,8 +54,8 @@ function App() {
                     path="book"
                     element={<RequireAuth allowedRoles={"User"}/>}
                 >
-                    <Route index element={<Book/>} loader={clubsLoader}/>
-                    <Route path=":id"/>
+                    <Route index element={<Book/>}/>
+                    <Route path=":id" loader={clubLoader} element={<ClubBook/>}/>
                 </Route>
 
                 <Route

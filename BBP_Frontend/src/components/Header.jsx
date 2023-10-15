@@ -42,7 +42,7 @@ function Header() {
                         </Menu>
                     ) : (
                         <Link to="auth">
-                            <Button fontSize="20px" colorScheme="gray">
+                            <Button fontSize="20px" colorScheme="telegram">
                                 Đăng nhập
                             </Button>
                         </Link>

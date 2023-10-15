@@ -89,15 +89,15 @@ function Auth(props) {
                     <Form onSubmit={handleLogin}>
                         <FormControl isRequired mb="20px">
                             <FormLabel>Tài khoản</FormLabel>
-                            <Input type="text" name="username"/>
+                            <Input bgColor="white" type="text" name="username"/>
                         </FormControl>
 
                         <FormControl isRequired mb="20px">
                             <FormLabel>Mật khẩu</FormLabel>
-                            <Input type="password" name="password"/>
+                            <Input bgColor="white" type="password" name="password"/>
                         </FormControl>
 
-                        <Button width="100%" type="submit">Đăng nhập</Button>
+                        <Button colorScheme="telegram" width="100%" type="submit">Đăng nhập</Button>
                     </Form>
                 </TabPanel>
 
@@ -105,30 +105,30 @@ function Auth(props) {
                     <Form method="post" action="/auth">
                         <FormControl isRequired mb="20px">
                             <FormLabel>Tài khoản</FormLabel>
-                            <Input type="text" name="username"/>
+                            <Input bgColor="white" type="text" name="username"/>
                         </FormControl>
 
                         <FormControl isRequired mb="20px">
                             <FormLabel>Nhập mật khẩu</FormLabel>
-                            <Input type="password" name="password"/>
+                            <Input bgColor="white" type="password" name="password"/>
                         </FormControl>
 
                         <FormControl isRequired mb="20px">
                             <FormLabel>Nhập lại mật khẩu</FormLabel>
-                            <Input type="password" name="rePassword"/>
+                            <Input bgColor="white" type="password" name="rePassword"/>
                         </FormControl>
 
                         <FormControl isRequired mb="20px">
                             <FormLabel>Nhập số điện thoại</FormLabel>
-                            <Input type="tel" name="phone"/>
+                            <Input bgColor="white" type="tel" name="phone"/>
                         </FormControl>
 
                         <FormControl mb="20px">
                             <FormLabel>Nhập email</FormLabel>
-                            <Input type="email" name="email"/>
+                            <Input bgColor="white" type="email" name="email"/>
                         </FormControl>
 
-                        <Button width="100%" type="submit">Đăng ký</Button>
+                        <Button colorScheme="telegram" width="100%" type="submit">Đăng ký</Button>
                     </Form>
                 </TabPanel>
 
@@ -136,12 +136,12 @@ function Auth(props) {
                     <Form method="post" action="/auth">
                         <FormControl isRequired mb="20px">
                             <FormLabel>Số điện thoại</FormLabel>
-                            <Input type="tel" name="phone"/>
+                            <Input bgColor="white" type="tel" name="phone"/>
                             <FormHelperText>Hệ thống sẽ gửi về tài khoản và mật khẩu mới nếu như số điện thoại đó đã
                                 từng đăng ký vào hệ thống</FormHelperText>
                         </FormControl>
 
-                        <Button width="100%" type="submit">Xác nhận</Button>
+                        <Button colorScheme="telegram" width="100%" type="submit">Xác nhận</Button>
                     </Form>
                 </TabPanel>
             </TabPanels>

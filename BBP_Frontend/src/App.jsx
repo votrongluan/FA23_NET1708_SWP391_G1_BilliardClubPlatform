@@ -12,6 +12,7 @@ import {AuthProvider} from "./context/AuthProvider.jsx";
 import Account, {userLoader} from "./pages/user/Account.jsx";
 import RequireAuth from "./components/RequireAuth.jsx";
 import Unauthorized from "./pages/Unauthorized.jsx";
+import Find from "./pages/user/Find.jsx";
 
 function App() {
     const ROLES = {
@@ -36,6 +37,12 @@ function App() {
                     <Route index element={<AllClubs/>}/>
                     <Route path=":id" element={<ClubDetail/>} loader={clubLoader}/>
                 </Route>
+
+                <Route
+                    path="find"
+                    loader={clubsLoader}
+                    element={<Find/>}
+                />
 
                 <Route
                     path="users"

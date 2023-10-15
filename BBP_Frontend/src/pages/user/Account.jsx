@@ -20,30 +20,30 @@ function Account() {
                     <Form onSubmit={handleChange}>
                         <FormControl mb="20px">
                             <FormLabel>Tên</FormLabel>
-                            <Input type="text" name="firstName" value={user.firstName}/>
+                            <Input bgColor="white" type="text" name="firstName" value={user.firstName}/>
                         </FormControl>
 
                         <FormControl mb="20px">
                             <FormLabel>Họ, tên đệm</FormLabel>
-                            <Input type="text" name="lastName" value={user.lastName}/>
+                            <Input bgColor="white" type="text" name="lastName" value={user.lastName}/>
                         </FormControl>
                         {/* Phone */}
                         <FormControl mb="20px">
                             <FormLabel>Số điện thoại</FormLabel>
-                            <Input type="tel" name="phone" value={user.phone}/>
+                            <Input bgColor="white" type="tel" name="phone" value={user.phone}/>
                         </FormControl>
                         {/* Email */}
                         <FormControl mb="20px">
                             <FormLabel>Email</FormLabel>
-                            <Input type="email" name="email" value={user.email}/>
+                            <Input bgColor="white" type="email" name="email" value={user.email}/>
                         </FormControl>
                         {/* Avatar Link */}
                         <FormControl mb="20px">
                             <FormLabel>Ảnh đại diện</FormLabel>
-                            <Input type="text" name="avatarLink" value={user.avatarLink}/>
+                            <Input bgColor="white" type="text" name="avatarLink" value={user.avatarLink}/>
                         </FormControl>
 
-                        <Button width="100%" type="submit">Cập nhật</Button>
+                        <Button width="100%" type="submit" colorScheme="telegram">Cập nhật</Button>
                     </Form>
                 </TabPanel>
 
@@ -51,20 +51,20 @@ function Account() {
                     <Form method="post" action="/auth">
                         <FormControl isRequired mb="20px">
                             <FormLabel>Nhập mật khẩu</FormLabel>
-                            <Input type="password" name="password"/>
+                            <Input bgColor="white" type="password" name="password"/>
                         </FormControl>
 
                         <FormControl isRequired mb="20px">
                             <FormLabel>Nhập mật khẩu mới</FormLabel>
-                            <Input type="password" name="newPassword"/>
+                            <Input bgColor="white" type="password" name="newPassword"/>
                         </FormControl>
 
                         <FormControl isRequired mb="20px">
                             <FormLabel>Nhập lại mật khẩu mới</FormLabel>
-                            <Input type="password" name="reNewPassword"/>
+                            <Input bgColor="white" type="password" name="reNewPassword"/>
                         </FormControl>
 
-                        <Button width="100%" type="submit">Cập nhật</Button>
+                        <Button width="100%" type="submit" colorScheme="telegram">Cập nhật</Button>
                     </Form>
                 </TabPanel>
             </TabPanels>

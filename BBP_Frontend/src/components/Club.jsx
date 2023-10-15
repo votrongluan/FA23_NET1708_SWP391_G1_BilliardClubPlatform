@@ -11,8 +11,8 @@ function Club({club}) {
     return (
         // eslint-disable-next-line react/prop-types
         <Card key={club.id} borderTop="4px" borderColor="blue.500" bg="white">
-            <CardHeader color="gray.700">
-                <Image src={club?.avatarLink} height="250px" width="100%" objectFit="cover"/>
+            <CardHeader pb={0} color="gray.700">
+                <Image src={club?.avatarLink} height="200px" width="100%" objectFit="cover"/>
             </CardHeader>
 
             <CardBody color="gray.500">

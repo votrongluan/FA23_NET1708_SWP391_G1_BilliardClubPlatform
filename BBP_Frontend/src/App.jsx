@@ -9,12 +9,17 @@ import AllClubs, {clubsLoader} from "./pages/user/AllClubs.jsx";
 import ClubDetail, {clubLoader} from "./pages/user/ClubDetail.jsx";
 import Auth from "./pages/Auth.jsx";
 import {AuthProvider} from "./context/AuthProvider.jsx";
-import Account, {userLoader} from "./pages/user/Account.jsx";
+import Account, {userLoader} from "./pages/Account.jsx";
 import RequireAuth from "./components/RequireAuth.jsx";
 import Unauthorized from "./pages/Unauthorized.jsx";
 import Find from "./pages/user/Find.jsx";
 import Book from "./pages/user/Book.jsx";
 import ClubBook from "./pages/user/ClubBook.jsx";
+import OwnClub from "./pages/staff/OwnClub.jsx";
+import ClubTable from "./pages/staff/ClubTable.jsx";
+import ClubSlot, {slotLoader} from "./pages/staff/ClubSlot.jsx";
+import ClubBooking from "./pages/staff/ClubBooking.jsx";
+import StaffLayout from "./layouts/StaffLayout.jsx";
 
 function App() {
     const ROLES = {
@@ -26,6 +31,18 @@ function App() {
     const router = createBrowserRouter(
         createRoutesFromElements(
             <Route path="/" element={<RootLayout/>} errorElement={<ElementError/>}>
+
+                {/* Staff page route */}
+                <Route path={"staff"} element={<RequireAuth allowedRoles={"Staff"}/>}>
+                    <Route index element={<NotFound/>}/>
+                    <Route path="manage" element={<StaffLayout/>}>
+                        <Route path="club/:id" element={<OwnClub/>} loader={clubLoader}/>
+                        <Route path="table/:id" element={<ClubTable/>}/>
+                        <Route path="slot/:id" element={<ClubSlot/>} loader={slotLoader}/>
+                        <Route path="booking/:id" element={<ClubBooking/>}/>
+                    </Route>
+                </Route>
+
                 {/* Index page route */}
                 <Route
                     index
@@ -60,8 +77,8 @@ function App() {
 
                 <Route
                     path="users"
-                    element={<RequireAuth allowedRoles={"User"}/>}
                 >
+                    <Route index element={<NotFound/>}/>
                     <Route path=":id" element={<Account/>} loader={userLoader}/>
                 </Route>
 

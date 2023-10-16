@@ -1,10 +1,24 @@
-import {useContext} from 'react';
-import {Box, Button, FormControl, FormHelperText, FormLabel, Heading, Select,} from "@chakra-ui/react";
+import {useContext, useState} from 'react';
+import {
+    Box,
+    Button,
+    Container,
+    FormControl,
+    FormHelperText,
+    FormLabel,
+    Grid,
+    GridItem,
+    Heading,
+    Select,
+    useToast,
+} from "@chakra-ui/react";
 import {CalendarIcon} from "@chakra-ui/icons";
 import {useLoaderData, useParams} from "react-router-dom";
 import {DistrictContext} from "../../context/DistrictContext.jsx";
 
 function ClubBook() {
+    const toast = useToast();
+
     const today = new Date();
     const tomorrow = new Date(today);
     tomorrow.setDate(today.getDate() + 1);
@@ -22,27 +36,52 @@ function ClubBook() {
     const club = useLoaderData();
     const {districts} = useContext(DistrictContext);
     const district = districts.find((district) => district.id === club.districtId);
-    // const [reviews, setReviews] = useState([]);
-    // const [loading, setLoading] = useState(true);
 
-    // useEffect(() => {
-    //     // Fetch reviews from the API
-    //     fetch(`${baseURL}/reviews`)
-    //         .then((response) => response.json())
-    //         .then((data) => {
-    //             // Filter reviews by clubId
-    //             const clubReviews = data.filter((review) => review.clubId === club.id);
-    //             setReviews(clubReviews);
-    //             setLoading(false);
-    //         })
-    //         .catch((error) => {
-    //             console.error("Error fetching reviews:", error);
-    //             setLoading(false);
-    //         });
-    // }, [club.id]);
+    const hours = Array.from({length: 12}, (_, i) => 9 + i);
+
+    const [selectedHours, setSelectedHours] = useState([]);
+
+    // Function to handle hour selection
+    const handleHourChange = (hour) => {
+        // Check if the hour is already selected
+        if ((selectedHours.includes(hour) && !selectedHours.includes(hour - 1) && !selectedHours.includes(hour + 1)) || (selectedHours.includes(hour) && !selectedHours.includes(hour - 1)) || (selectedHours.includes(hour) && !selectedHours.includes(hour + 1))) {
+            setSelectedHours(selectedHours.filter((h) => h !== hour));
+        } else {
+            // Check if the selected hour maintains continuity
+            if (areHoursContinuous([...selectedHours, hour])) {
+                setSelectedHours([...selectedHours, hour]);
+            } else {
+                // Show an error or alert message here
+                toast({
+                    title: "Lỗi",
+                    description: "Không thể chọn giờ không liên tiếp nhau",
+                    status: "error",
+                    duration: 777,
+                    isClosable: true,
+                    position: "top-right"
+                });
+            }
+        }
+    };
+
+    // Function to check if the selected hours are continuous
+    const areHoursContinuous = (selectedHours) => {
+        if (selectedHours.length === 0) {
+            return true;
+        }
+
+        const sortedHours = [...selectedHours].sort((a, b) => a - b);
+
+        for (let i = 0; i < sortedHours.length - 1; i++) {
+            if (sortedHours[i] + 1 !== sortedHours[i + 1]) {
+                return false;
+            }
+        }
+        return true;
+    };
 
     return (
-        <>
+        <Container maxW="1200px" as="main" py={10}>
             <Heading mb={10} size="lg" textAlign="center">
                 Đặt bàn
             </Heading>
@@ -76,11 +115,56 @@ function ClubBook() {
                     </Select>
                 </FormControl>
 
+                <FormControl isRequired mb="20px">
+                    <FormLabel>4. Chọn giờ</FormLabel>
+                    <FormHelperText mb={5}>Mỗi ô có thời lượng là 1
+                        tiếng, <span style={{fontWeight: 'bold'}}>không thể chọn giờ không liên tiếp nhau</span>
+                    </FormHelperText>
+                    <Grid maxW="800px" templateColumns="repeat(4, 1fr)" gap={5} justifyItems="center" margin="0 auto">
+                        {hours.map((hour) => (
+                            <GridItem key={hour}>
+                                <Button
+                                    size="lg" // You can adjust the size here
+                                    variant={selectedHours.includes(hour) ? "solid" : "outline"}
+                                    onClick={() => handleHourChange(hour)}
+                                    colorScheme="yellow"
+                                    color="black"
+                                    minW="200px"
+                                >
+                                    {hour}h
+                                </Button>
+                            </GridItem>
+                        ))}
+                    </Grid>
+                </FormControl>
+
+                <FormControl isRequired mb="20px">
+                    <FormLabel>5. Chọn bàn trống</FormLabel>
+                    <FormHelperText mb={5}>Nếu không hiện ra bàn trống nào, hãy chọn khung giờ khác bạn
+                        nhé</FormHelperText>
+                    <Grid maxW="800px" templateColumns="repeat(4, 1fr)" gap={5} justifyItems="center" margin="0 auto">
+                        {hours.map((hour) => (
+                            <GridItem key={hour}>
+                                <Button
+                                    size="lg" // You can adjust the size here
+                                    variant={selectedHours.includes(hour) ? "solid" : "outline"}
+                                    onClick={() => handleHourChange(hour)}
+                                    colorScheme="yellow"
+                                    color="black"
+                                    minW="200px"
+                                >
+                                    {hour}h
+                                </Button>
+                            </GridItem>
+                        ))}
+                    </Grid>
+                </FormControl>
+
                 <Button width="100%" mt={2} colorScheme="yellow" leftIcon={<CalendarIcon/>}>
                     Đặt bàn
                 </Button>
             </form>
-        </>
+        </Container>
     );
 }
 

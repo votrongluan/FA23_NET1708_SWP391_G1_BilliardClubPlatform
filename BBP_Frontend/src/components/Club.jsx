@@ -32,7 +32,9 @@ function Club({club}) {
 
             <CardFooter display="flex" alignItems="center" justifyContent="space-between">
                 <Link to={`/clubs/${club.id}`}><Button variant="ghost" leftIcon={<ViewIcon/>}>Chi tiết</Button></Link>
-                <Button colorScheme="yellow" leftIcon={<CalendarIcon/>}>Đặt bàn</Button>
+                <Link to={`/book/${club.id}`}><Button colorScheme="yellow" leftIcon={<CalendarIcon/>}>Đặt
+                    bàn</Button></Link>
+
             </CardFooter>
         </Card>
     );

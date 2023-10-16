@@ -22,7 +22,7 @@ function Account() {
     const {auth} = useAuth();
 
     if (user?.id.toString() !== auth?.id.toString()) {
-        return <Navigate to="/auth"/>
+        return <Navigate to="/unauthorized"/>
     }
     const handleChange = (e) => {
         console.log("Implement later")

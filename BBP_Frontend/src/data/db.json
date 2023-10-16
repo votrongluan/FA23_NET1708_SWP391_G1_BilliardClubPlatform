@@ -258,7 +258,8 @@
       "phone": "9876543210",
       "role": "Staff",
       "lastName": "Smith",
-      "firstName": "Jane"
+      "firstName": "Jane",
+      "clubId": 1
     },
     {
       "id": 3,
@@ -269,6 +270,150 @@
       "role": "Admin",
       "lastName": "Johnson",
       "firstName": "Mike"
+    }
+  ],
+  "tableClubOne": [
+    {
+      "id": 1,
+      "type": 1
+    },
+    {
+      "type": 1,
+      "id": 2
+    },
+    {
+      "time": "10",
+      "type": 1,
+      "tableId": 3
+    }
+  ],
+  "bookingDetailClubOne": [
+    {
+      "time": "9",
+      "type": 1,
+      "tableId": 1
+    },
+    {
+      "time": "9",
+      "type": 1,
+      "tableId": 2
+    },
+    {
+      "time": "10",
+      "type": 1,
+      "tableId": 3
+    }
+  ],
+  "slotClubOne": [
+    {
+      "time": 10,
+      "type": "Phăng",
+      "price": 19000
+    },
+    {
+      "time": 10,
+      "type": "Lỗ",
+      "price": 19000
+    },
+    {
+      "time": 11,
+      "type": "Phăng",
+      "price": 19000
+    },
+    {
+      "time": 11,
+      "type": "Lỗ",
+      "price": 19000
+    },
+    {
+      "time": 12,
+      "type": "Phăng",
+      "price": 19000
+    },
+    {
+      "time": 12,
+      "type": "Lỗ",
+      "price": 19000
+    },
+    {
+      "time": 13,
+      "type": "Phăng",
+      "price": 19000
+    },
+    {
+      "time": 13,
+      "type": "Lỗ",
+      "price": 19000
+    },
+    {
+      "time": 14,
+      "type": "Phăng",
+      "price": 19000
+    },
+    {
+      "time": 14,
+      "type": "Lỗ",
+      "price": 19000
+    },
+    {
+      "time": 15,
+      "type": "Phăng",
+      "price": 19000
+    },
+    {
+      "time": 15,
+      "type": "Lỗ",
+      "price": 19000
+    },
+    {
+      "time": 16,
+      "type": "Phăng",
+      "price": 19000
+    },
+    {
+      "time": 16,
+      "type": "Lỗ",
+      "price": 19000
+    },
+    {
+      "time": 17,
+      "type": "Phăng",
+      "price": 19000
+    },
+    {
+      "time": 17,
+      "type": "Lỗ",
+      "price": 19000
+    },
+    {
+      "time": 18,
+      "type": "Phăng",
+      "price": 19000
+    },
+    {
+      "time": 18,
+      "type": "Lỗ",
+      "price": 19000
+    },
+    {
+      "time": 19,
+      "type": "Phăng",
+      "price": 19000
+    },
+    {
+      "time": 19,
+      "type": "Lỗ",
+      "price": 19000
+    },
+    {
+      "time": 20,
+      "type": "Phăng",
+      "price": 19000
+    },
+    {
+      "time": 20,
+      "type": "Lỗ",
+      "price": 19000
     }
   ]
 }

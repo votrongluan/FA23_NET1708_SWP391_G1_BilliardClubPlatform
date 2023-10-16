@@ -77,7 +77,8 @@ function Auth(props) {
                     "phone": "9876543210",
                     "role": "Staff",
                     "lastName": "Smith",
-                    "firstName": "Jane"
+                    "firstName": "Jane",
+                    "clubId": 1,
                 });
                 navigate('/staff/manage');
             } else {

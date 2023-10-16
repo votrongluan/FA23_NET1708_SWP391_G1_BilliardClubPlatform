@@ -23,7 +23,7 @@ function Find(props) {
     const filterAndSortClubs = () => {
         let filtered = [...clubs];
 
-        if (selectedDistrict) { // Check if a district is selected
+        if (selectedDistrict) {
             filtered = filtered.filter((club) => club.districtId == selectedDistrict);
         }
 

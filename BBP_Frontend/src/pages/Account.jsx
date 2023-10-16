@@ -1,4 +1,4 @@
-import {baseURL} from "../../api/axios.js";
+import {baseURL} from "../api/axios.js";
 import {
     Button,
     Container,
@@ -12,7 +12,7 @@ import {
     Tabs
 } from "@chakra-ui/react";
 import {Form, Navigate, useLoaderData} from "react-router-dom";
-import useAuth from "../../hooks/useAuth.js";
+import useAuth from "../hooks/useAuth.js";
 
 function Account() {
     const user = useLoaderData();
@@ -66,7 +66,7 @@ function Account() {
                     </TabPanel>
 
                     <TabPanel>
-                        <Form method="post" action="/auth">
+                        <Form method="post" action="/src/pages/Auth">
                             <FormControl isRequired mb="20px">
                                 <FormLabel>Nhập mật khẩu</FormLabel>
                                 <Input bgColor="white" type="password" name="password"/>

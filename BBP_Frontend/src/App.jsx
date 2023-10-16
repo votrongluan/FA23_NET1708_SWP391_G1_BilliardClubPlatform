@@ -4,7 +4,7 @@ import {ChakraProvider} from "@chakra-ui/react";
 import Home from "./pages/user/Home.jsx";
 import NotFound from "./pages/NotFound.jsx";
 import ElementError from "./pages/ElementError.jsx";
-import {DistrictProvider} from "./context/DistrictContext.jsx";
+import {GlobalProvider} from "./context/GlobalContext.jsx";
 import AllClubs, {clubsLoader} from "./pages/user/AllClubs.jsx";
 import ClubDetail, {clubLoader} from "./pages/user/ClubDetail.jsx";
 import Auth from "./pages/Auth.jsx";
@@ -93,11 +93,11 @@ function App() {
 
     return (
         <AuthProvider>
-            <DistrictProvider>
+            <GlobalProvider>
                 <ChakraProvider>
                     <RouterProvider router={router}/>
                 </ChakraProvider>
-            </DistrictProvider>
+            </GlobalProvider>
         </AuthProvider>
     )
 }

@@ -8,21 +8,22 @@ import {
     GridItem,
     Heading,
     HStack,
+    Link as ChakraLink,
     Spacer,
     Spinner,
     Stack,
-    Text,
+    Text
 } from "@chakra-ui/react";
 import {CalendarIcon, ExternalLinkIcon, StarIcon, TimeIcon} from "@chakra-ui/icons";
 import {Link, useLoaderData, useParams} from "react-router-dom";
-import {DistrictContext} from "../../context/DistrictContext.jsx";
+import {GlobalContext} from "../../context/GlobalContext.jsx";
 import {baseURL} from "../../api/axios.js";
 import Review from "../../components/Review.jsx";
 
 function ClubDetail() {
     const {id} = useParams();
     const club = useLoaderData();
-    const {districts} = useContext(DistrictContext);
+    const {districts} = useContext(GlobalContext);
     const district = districts.find((district) => district.id === club.districtId);
     const [reviews, setReviews] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -66,8 +67,9 @@ function ClubDetail() {
                         <Text>Giờ hoạt động: {club.openTime}h - {club.closeTime}h</Text>
                         <Text>Email: {club.email}</Text>
                         <Text>Số điện thoại: {club.phone}</Text>
-                        <Text>Fanpage: <Link color="blue.500" href={club.fanpageLink}
-                                             isExternal>{club.fanpageLink}<ExternalLinkIcon mx='2px'/></Link></Text>
+                        <Text>Fanpage: <ChakraLink color="blue.500" href={club.fanpageLink}
+                                                   isExternal>{club.fanpageLink}<ExternalLinkIcon
+                            mx='2px'/></ChakraLink></Text>
                         <Link to={`/book/${club.id}`}><Button width="100%" mt={2} colorScheme="yellow"
                                                               leftIcon={<CalendarIcon/>}>Đặt
                             bàn</Button></Link>
@@ -90,8 +92,10 @@ function ClubDetail() {
                                 p={5}
                                 borderRadius="4px"
                             ><Flex justifyContent="center" alignItems="center" gap={1} color="gray.400"><TimeIcon/>
-                                {hour}h: </Flex><Text fontWeight="semibold">Phăng: 29.000 đồng</Text>
-                                <Text fontWeight="semibold">Lỗ: 29.000 đồng</Text>
+                                {hour}h: </Flex><Text fontWeight="semibold">Phăng: <span
+                                style={{color: '#85bf4b'}}>{(29000).toLocaleString('en-US')} đồng</span></Text>
+                                <Text fontWeight="semibold">Lỗ: <span
+                                    style={{color: '#85bf4b'}}>{(29000).toLocaleString('en-US')} đồng</span></Text>
                             </GridItem>
                         ))}
                     </Grid>

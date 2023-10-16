@@ -1,7 +1,7 @@
 import React, {useContext} from 'react';
 import {Box, Container, Heading} from "@chakra-ui/react";
 import {useLoaderData} from "react-router-dom";
-import {DistrictContext} from "../../context/DistrictContext.jsx";
+import {GlobalContext} from "../../context/GlobalContext.jsx";
 import EditFieldBox from "../../components/EditFieldBox.jsx";
 
 function OwnClub(props) {
@@ -9,7 +9,7 @@ function OwnClub(props) {
         console.log('implement later')
     }
     const club = useLoaderData();
-    const {districts} = useContext(DistrictContext);
+    const {districts} = useContext(GlobalContext);
     const district = districts.find((district) => district.id === club.districtId);
 
     return (
@@ -25,16 +25,16 @@ function OwnClub(props) {
                 <EditFieldBox title="Email" value={club.name} onEditClick={() => {
                     console.log('implement later')
                 }}/>
-                <EditFieldBox title="Tên club" value={club.name} onEditClick={() => {
+                <EditFieldBox title="Số điện thoại" value={club.phone} onEditClick={() => {
                     console.log('implement later')
                 }}/>
-                <EditFieldBox title="Tên club" value={club.name} onEditClick={() => {
+                <EditFieldBox title="Fanpage link" value={club.fanpageLink} onEditClick={() => {
                     console.log('implement later')
                 }}/>
-                <EditFieldBox title="Tên club" value={club.name} onEditClick={() => {
+                <EditFieldBox title="Giờ mở cửa" value={club.openTime} onEditClick={() => {
                     console.log('implement later')
                 }}/>
-                <EditFieldBox title="Tên club" value={club.name} onEditClick={() => {
+                <EditFieldBox title="Giờ đóng cửa" value={club.closeTime} onEditClick={() => {
                     console.log('implement later')
                 }}/>
             </Box>

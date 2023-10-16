@@ -16,6 +16,7 @@ import useAuth from "../hooks/useAuth.js";
 
 function Header() {
     const {auth, setAuth} = useAuth();
+
     const navLinkStyle = ({isActive}) => {
         return {
             textDecoration: isActive ? 'underline' : ''
@@ -30,7 +31,7 @@ function Header() {
                 </NavLink> : <NavLink to="/">
                     <Heading as="h1">Billiards</Heading>
                 </NavLink>}
-                
+
                 <Spacer/>
                 <HStack spacing={5} fontSize="20px">
                     {auth?.role === 'User' || !auth ?

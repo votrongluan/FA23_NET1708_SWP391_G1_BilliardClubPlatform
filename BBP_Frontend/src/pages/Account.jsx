@@ -1,5 +1,6 @@
 import {baseURL} from "../api/axios.js";
 import {
+    Box,
     Button,
     Container,
     FormControl,
@@ -13,13 +14,15 @@ import {
 } from "@chakra-ui/react";
 import {Form, Navigate, useLoaderData} from "react-router-dom";
 import useAuth from "../hooks/useAuth.js";
+import EditFieldBox from "../components/EditFieldBox.jsx";
+import React from "react";
 
 function Account() {
     const user = useLoaderData();
     const {auth} = useAuth();
 
-    if (user.id.toString() !== auth.id.toString()) {
-        return <Navigate to="/unauthorized"/>
+    if (user?.id.toString() !== auth?.id.toString()) {
+        return <Navigate to="/auth"/>
     }
     const handleChange = (e) => {
         console.log("Implement later")
@@ -35,34 +38,29 @@ function Account() {
 
                 <TabPanels py="10px">
                     <TabPanel>
-                        <Form onSubmit={handleChange}>
-                            <FormControl mb="20px">
-                                <FormLabel>Tên</FormLabel>
-                                <Input bgColor="white" type="text" name="firstName" value={user.firstName}/>
-                            </FormControl>
+                        <Box>
+                            <EditFieldBox title="Tên" value={user.firstName} onEditClick={() => {
+                                console.log('implement later')
+                            }}/>
 
-                            <FormControl mb="20px">
-                                <FormLabel>Họ, tên đệm</FormLabel>
-                                <Input bgColor="white" type="text" name="lastName" value={user.lastName}/>
-                            </FormControl>
-                            {/* Phone */}
-                            <FormControl mb="20px">
-                                <FormLabel>Số điện thoại</FormLabel>
-                                <Input bgColor="white" type="tel" name="phone" value={user.phone}/>
-                            </FormControl>
-                            {/* Email */}
-                            <FormControl mb="20px">
-                                <FormLabel>Email</FormLabel>
-                                <Input bgColor="white" type="email" name="email" value={user.email}/>
-                            </FormControl>
-                            {/* Avatar Link */}
-                            <FormControl mb="20px">
-                                <FormLabel>Ảnh đại diện</FormLabel>
-                                <Input bgColor="white" type="text" name="avatarLink" value={user.avatarLink}/>
-                            </FormControl>
+                            <EditFieldBox title="Họ, tên đệm" value={user.lastName} onEditClick={() => {
+                                console.log('implement later')
+                            }}/>
+
+                            <EditFieldBox title="Số điện thoại" value={user.phone} onEditClick={() => {
+                                console.log('implement later')
+                            }}/>
+
+                            <EditFieldBox title="Email" value={user.email} onEditClick={() => {
+                                console.log('implement later')
+                            }}/>
+
+                            <EditFieldBox title="Ảnh đại diện" value={user.avatarLink} onEditClick={() => {
+                                console.log('implement later')
+                            }}/>
 
                             <Button width="100%" type="submit" colorScheme="telegram">Cập nhật</Button>
-                        </Form>
+                        </Box>
                     </TabPanel>
 
                     <TabPanel>

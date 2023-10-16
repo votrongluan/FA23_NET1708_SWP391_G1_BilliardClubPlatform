@@ -1,6 +1,6 @@
 import React, {useContext} from 'react';
 import {useLoaderData} from "react-router-dom";
-import {DistrictContext} from "../../context/DistrictContext.jsx";
+import {GlobalContext} from "../../context/GlobalContext.jsx";
 import {Container, Heading, HStack, Input, InputGroup, InputLeftElement, Select, Spacer, Text,} from "@chakra-ui/react";
 import {SearchIcon} from "@chakra-ui/icons";
 import Clubs from "../../components/Clubs.jsx";
@@ -10,7 +10,7 @@ import unorm from "unorm"; // Import the unorm library
 function Find(props) {
     const clubs = useLoaderData();
     const [search, setSearch] = React.useState("");
-    const {districts} = useContext(DistrictContext);
+    const {districts} = useContext(GlobalContext);
 
     const normalize = (text) => {
         return unorm.nfkd(text).replace(/[\u0300-\u036F]/g, ""); // Normalize and remove diacritics

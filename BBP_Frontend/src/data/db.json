@@ -415,5 +415,15 @@
       "type": "Lỗ",
       "price": 19000
     }
+  ],
+  "tableType": [
+    {
+      "id": 1,
+      "type": "Phăng"
+    },
+    {
+      "id": 2,
+      "type": "Lỗ"
+    }
   ]
 }

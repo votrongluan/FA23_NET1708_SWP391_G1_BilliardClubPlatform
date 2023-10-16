@@ -21,6 +21,10 @@ function Account() {
     const user = useLoaderData();
     const {auth} = useAuth();
 
+    if (!auth) {
+        return <Navigate to="/auth"/>
+    }
+
     if (user?.id.toString() !== auth?.id.toString()) {
         return <Navigate to="/unauthorized"/>
     }

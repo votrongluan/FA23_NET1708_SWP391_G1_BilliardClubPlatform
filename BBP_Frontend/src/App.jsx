@@ -20,18 +20,16 @@ import ClubTable from "./pages/staff/ClubTable.jsx";
 import ClubSlot, {slotLoader} from "./pages/staff/ClubSlot.jsx";
 import ClubBooking from "./pages/staff/ClubBooking.jsx";
 import StaffLayout from "./layouts/StaffLayout.jsx";
+import {useEffect} from "react";
 
 function App() {
-    const ROLES = {
-        'User': 0,
-        'Staff': 1,
-        'Admin': 2
-    }
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
 
     const router = createBrowserRouter(
         createRoutesFromElements(
             <Route path="/" element={<RootLayout/>} errorElement={<ElementError/>}>
-
                 {/* Staff page route */}
                 <Route path={"staff"} element={<RequireAuth allowedRoles={"Staff"}/>}>
                     <Route index element={<NotFound/>}/>

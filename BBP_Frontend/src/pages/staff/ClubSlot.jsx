@@ -15,44 +15,42 @@ function ClubSlot(props) {
                 {value: 'time', label: 'Khung giờ'},
                 {value: 'price', label: 'Giá tiền'},
             ]} DisplayData={
-                function ({filteredData}) {
-                    return (
-                        <TableContainer>
-                            <Table variant='simple'>
-                                <Thead>
-                                    <Tr>
-                                        <Th>Loại bàn</Th>
-                                        <Th>Khung giờ</Th>
-                                        <Th>Giá tiền</Th>
-                                        <Th>Thao tác</Th>
+                ({filteredData}) => (
+                    <TableContainer>
+                        <Table variant='simple'>
+                            <Thead>
+                                <Tr>
+                                    <Th>Loại bàn</Th>
+                                    <Th>Khung giờ</Th>
+                                    <Th>Giá tiền</Th>
+                                    <Th>Thao tác</Th>
+                                </Tr>
+                            </Thead>
+                            <Tbody>
+                                {filteredData.map((slot) => (
+                                    <Tr key={slot.type + slot.time}>
+                                        <Td>{slot.type}</Td>
+                                        <Td>
+                                            <HStack spacing={5}>
+                                                <Text>{slot.time}</Text>
+                                                <Text color="gray.500">(h)</Text>
+                                            </HStack>
+                                        </Td>
+                                        <Td>
+                                            <HStack spacing={5}>
+                                                <Text>{slot.price.toLocaleString('en-US')}</Text>
+                                                <Text color="gray.500">(đồng)</Text>
+                                            </HStack>
+                                        </Td>
+                                        <Td>
+                                            <Button colorScheme="red">Xóa</Button>
+                                        </Td>
                                     </Tr>
-                                </Thead>
-                                <Tbody key={1}>
-                                    {filteredData.map((slot) => (
-                                        <Tr key={slot.id}>
-                                            <Td>{slot.type}</Td>
-                                            <Td>
-                                                <HStack spacing={5}>
-                                                    <Text>{slot.time}</Text>
-                                                    <Text color="gray.500">(h)</Text>
-                                                </HStack>
-                                            </Td>
-                                            <Td>
-                                                <HStack spacing={5}>
-                                                    <Text>{slot.price.toLocaleString('en-US')}</Text>
-                                                    <Text color="gray.500">(đồng)</Text>
-                                                </HStack>
-                                            </Td>
-                                            <Td>
-                                                <Button colorScheme="red">Xóa</Button>
-                                            </Td>
-                                        </Tr>
-                                    ))}
-                                </Tbody>
-                            </Table>
-                        </TableContainer>
-                    )
-                }
+                                ))}
+                            </Tbody>
+                        </Table>
+                    </TableContainer>
+                )
             }/>
         </>
     );

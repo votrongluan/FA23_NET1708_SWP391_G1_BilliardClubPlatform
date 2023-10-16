@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {useLoaderData} from "react-router-dom";
 import {GlobalContext} from "../../context/GlobalContext.jsx";
 import {Container, Heading, HStack, Input, InputGroup, InputLeftElement, Select, Spacer, Text,} from "@chakra-ui/react";
@@ -9,56 +9,62 @@ import unorm from "unorm"; // Import the unorm library
 
 function Find(props) {
     const clubs = useLoaderData();
-    const [search, setSearch] = React.useState("");
+    const [search, setSearch] = useState("");
     const {districts} = useContext(GlobalContext);
 
     const normalize = (text) => {
-        return unorm.nfkd(text).replace(/[\u0300-\u036F]/g, ""); // Normalize and remove diacritics
+        return unorm.nfkd(text).replace(/[\u0300-\u036F]/g, "");
     };
 
-    const [sortMethod, setSortMethod] = React.useState("rating");
-    const [sortOrder, setSortOrder] = React.useState("desc");
-    const [selectedDistrict, setSelectedDistrict] = React.useState(""); // State variable for selected district
+    const [sortMethod, setSortMethod] = useState("rating");
+    const [sortOrder, setSortOrder] = useState("desc");
+    const [selectedDistrict, setSelectedDistrict] = useState("");
+    const [filteredClubs, setFilteredClubs] = useState(clubs);
 
-    const filterAndSortClubs = () => {
-        let filtered = [...clubs];
+    const sortData = (dataNeedSortedByMethod) => {
+        let filtered = [...dataNeedSortedByMethod];
 
         if (selectedDistrict) {
             filtered = filtered.filter((club) => club.districtId == selectedDistrict);
         }
 
         filtered.sort((a, b) => {
-            if (sortOrder === "asc") {
-                return a[sortMethod] - b[sortMethod];
-            } else {
-                return b[sortMethod] - a[sortMethod];
+            if (sortMethod) {
+                const valueA = a[sortMethod].toString();
+                const valueB = b[sortMethod].toString();
+
+                if (sortOrder === "asc") {
+                    return valueA.localeCompare(valueB);
+                } else {
+                    return valueB.localeCompare(valueA);
+                }
             }
         });
 
-        setFilteredClubs(filtered);
+        return filtered;
     };
 
-    // Create a function to filter clubs based on the search query
-    const filterClubs = (query) => {
+    const filtersData = (query) => {
         query = normalize(query.toLowerCase()); // Normalize and convert to lowercase
 
-        return clubs.filter((club) => {
-            const normalizedClubName = normalize(club.name.toLowerCase()); // Normalize and convert club name to lowercase
-            return normalizedClubName.includes(query);
+        return clubs.filter((el) => {
+            return Object.values(el).some((field) => {
+                const normalizedFieldData = normalize(field.toString().toLowerCase());
+                return normalizedFieldData.includes(query);
+            });
         });
     };
-
-    const [filteredClubs, setFilteredClubs] = React.useState(clubs);
 
     const handleSearchChange = (e) => {
         const newSearch = e.target.value;
         setSearch(newSearch);
-        setFilteredClubs(filterClubs(newSearch));
     };
 
-    React.useEffect(() => {
-        filterAndSortClubs();
-    }, [selectedDistrict, sortMethod, sortOrder]);
+    useEffect(() => {
+        const dataAfterFilterBySearch = filtersData(search);
+        const sortedData = sortData(dataAfterFilterBySearch);
+        setFilteredClubs(sortedData)
+    }, [sortMethod, sortOrder, search, selectedDistrict]);
 
     return (
         <Container maxW="1200px" as="main" py={10}>

@@ -7,7 +7,7 @@ export default function RootLayout() {
     return (
         <Box>
             <Header/>
-            <Box bgColor="gray.50">
+            <Box minH="80vh" bgColor="gray.50">
                 <Outlet/>
             </Box>
             <Footer/>

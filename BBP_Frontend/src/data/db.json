@@ -419,11 +419,11 @@
   "tableType": [
     {
       "id": 1,
-      "type": "Phăng"
+      "name": "Phăng"
     },
     {
       "id": 2,
-      "type": "Lỗ"
+      "name": "Lỗ"
     }
   ]
 }

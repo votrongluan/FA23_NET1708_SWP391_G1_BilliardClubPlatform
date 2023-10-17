@@ -26,18 +26,18 @@ function ClubTable(props) {
                         <Table variant='simple'>
                             <Thead>
                                 <Tr>
-                                    <Th textAlign="center">Mã bàn</Th>
-                                    <Th textAlign="center">Loại bàn</Th>
+                                    <Th>Mã bàn</Th>
+                                    <Th>Loại bàn</Th>
                                     <Th textAlign="center">Thao tác</Th>
                                 </Tr>
                             </Thead>
                             <Tbody>
                                 {filteredData.map((table) => (
                                     <Tr key={table.id}>
-                                        <Td textAlign="center">
+                                        <Td>
                                             <Text>{table.id}</Text>
                                         </Td>
-                                        <Td textAlign="center">
+                                        <Td>
                                             <Text>{tableTypeMap[table.tableTypeId]}</Text>
                                         </Td>
                                         <Td textAlign="center">

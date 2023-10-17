@@ -18,6 +18,14 @@ function SearchFilter({data, methods, DisplayData}) {
 
         filtered.sort((a, b) => {
             if (sortMethod) {
+                if (typeof a[sortMethod] === "number") {
+                    if (sortOrder === "asc") {
+                        return a[sortMethod] - b[sortMethod];
+                    } else {
+                        return b[sortMethod] - a[sortMethod];
+                    }
+                }
+                
                 const valueA = a[sortMethod].toString();
                 const valueB = b[sortMethod].toString();
 

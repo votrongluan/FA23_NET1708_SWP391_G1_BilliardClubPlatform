@@ -18,7 +18,7 @@ import ClubBook from "./pages/user/ClubBook.jsx";
 import OwnClub from "./pages/staff/OwnClub.jsx";
 import ClubTable, {tableLoader} from "./pages/staff/ClubTable.jsx";
 import ClubSlot, {slotLoader} from "./pages/staff/ClubSlot.jsx";
-import ClubBooking from "./pages/staff/ClubBooking.jsx";
+import ClubBooking, {clubBookingLoader} from "./pages/staff/ClubBooking.jsx";
 import StaffLayout from "./layouts/StaffLayout.jsx";
 import {useEffect} from "react";
 import BookHistory, {bookingHistoryLoader} from "./pages/user/BookHistory.jsx";
@@ -39,7 +39,7 @@ function App() {
                         <Route path="club/:id" element={<OwnClub/>} loader={clubLoader}/>
                         <Route path="table/:id" element={<ClubTable/>} loader={tableLoader}/>
                         <Route path="slot/:id" element={<ClubSlot/>} loader={slotLoader}/>
-                        <Route path="booking/:id" element={<ClubBooking/>}/>
+                        <Route path="booking/:id" element={<ClubBooking/>} loader={clubBookingLoader}/>
                     </Route>
                 </Route>
 

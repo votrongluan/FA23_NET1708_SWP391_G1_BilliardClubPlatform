@@ -513,5 +513,107 @@
       "id": 6,
       "tableTypeId": 2
     }
+  ],
+  "clubBooking": [
+    {
+      "bookingId": 1,
+      "tableId": 7,
+      "firstSlotId": 1,
+      "lastSlotId": 3,
+      "tableTypeId": 1,
+      "price": 19000,
+      "date": "15/10/2023",
+      "phone": "0123456789"
+    },
+    {
+      "bookingId": 2,
+      "tableId": 8,
+      "firstSlotId": 4,
+      "lastSlotId": 6,
+      "tableTypeId": 2,
+      "price": 25000,
+      "date": "16/10/2023",
+      "phone": "9876543210"
+    },
+    {
+      "bookingId": 3,
+      "tableId": 9,
+      "firstSlotId": 7,
+      "lastSlotId": 9,
+      "tableTypeId": 2,
+      "price": 32000,
+      "date": "17/10/2023",
+      "phone": "5551234567"
+    },
+    {
+      "bookingId": 4,
+      "tableId": 10,
+      "firstSlotId": 10,
+      "lastSlotId": 12,
+      "tableTypeId": 2,
+      "price": 42000,
+      "date": "18/10/2023",
+      "phone": "3339998888"
+    },
+    {
+      "bookingId": 5,
+      "tableId": 1,
+      "firstSlotId": 3,
+      "lastSlotId": 5,
+      "tableTypeId": 1,
+      "price": 55000,
+      "date": "19/10/2023",
+      "phone": "7776665555"
+    },
+    {
+      "bookingId": 6,
+      "tableId": 2,
+      "firstSlotId": 5,
+      "lastSlotId": 6,
+      "tableTypeId": 1,
+      "price": 65000,
+      "date": "20/10/2023",
+      "phone": "1112223333"
+    },
+    {
+      "bookingId": 7,
+      "tableId": 3,
+      "firstSlotId": 7,
+      "lastSlotId": 7,
+      "tableTypeId": 2,
+      "price": 75000,
+      "date": "21/10/2023",
+      "phone": "9990001111"
+    },
+    {
+      "bookingId": 8,
+      "tableId": 4,
+      "firstSlotId": 4,
+      "lastSlotId": 5,
+      "tableTypeId": 1,
+      "price": 85000,
+      "date": "22/10/2023",
+      "phone": "4445556666"
+    },
+    {
+      "bookingId": 9,
+      "tableId": 5,
+      "firstSlotId": 6,
+      "lastSlotId": 7,
+      "tableTypeId": 2,
+      "price": 95000,
+      "date": "23/10/2023",
+      "phone": "1234567890"
+    },
+    {
+      "bookingId": 10,
+      "tableId": 6,
+      "firstSlotId": 6,
+      "lastSlotId": 7,
+      "tableTypeId": 1,
+      "price": 105000,
+      "date": "24/10/2023",
+      "phone": "8887779999"
+    }
   ]
 }

@@ -34,7 +34,7 @@ function Account() {
 
     return (
         <Container maxW="1200px" as="main" py={10}>
-            <Tabs p="20px" variant="enclosed" colorScheme="purple" minH="70vh">
+            <Tabs p="20px" variant="enclosed" colorScheme="purple">
                 <TabList>
                     <Tab fontWeight="500" fontSize="20px" _selected={{bg: 'gray.100'}}>Tài khoản của tôi</Tab>
                     <Tab fontWeight="500" fontSize="20px" _selected={{bg: 'gray.100'}}>Đổi mật khẩu</Tab>

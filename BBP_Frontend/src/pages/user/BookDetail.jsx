@@ -49,7 +49,7 @@ function BookDetail(props) {
                             <Spacer/>
                             <Text fontWeight="semibold">{
                                 bookingDetail.firstSlotId === bookingDetail.lastSlotId ?
-                                    slotMap[bookingDetail.firstSlotId] :
+                                    slotMap[bookingDetail.firstSlotId] + ' - ' + Number(Number(slotMap[book.firstSlotId]) + 1) + ' giờ' :
                                     slotMap[bookingDetail.firstSlotId] + ' - ' + Number(Number(slotMap[bookingDetail.lastSlotId]) + 1) + ' giờ'
                             }</Text>
                         </HStack>

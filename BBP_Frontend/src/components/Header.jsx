@@ -22,6 +22,8 @@ function Header() {
             <Flex as="nav" height="70px" alignItems="center">
                 {auth?.role === 'Staff' ? <NavLink to="/staff/manage">
                     <Heading as="h1">Billiards</Heading>
+                </NavLink> : auth?.role === 'Admin' ? <NavLink to="/admin/manage">
+                    <Heading as="h1">Billiards</Heading>
                 </NavLink> : <NavLink to="/">
                     <Heading as="h1">Billiards</Heading>
                 </NavLink>}
@@ -32,7 +34,7 @@ function Header() {
                         <NavLink to="find">Tìm club</NavLink> : null}
                     {auth?.role === 'User' || !auth ?
                         <NavLink to="book">Đặt lịch</NavLink> : null}
-                    {auth?.username ? ( // Check if the user is authenticated
+                    {auth?.username ? (
                         <Menu>
                             <MenuButton as={Button} rightIcon={<Avatar src={auth?.avatarLink} size="sm"/>}>
                                 {auth?.username}

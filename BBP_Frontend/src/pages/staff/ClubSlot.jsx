@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useRef} from 'react';
 import {useLoaderData} from "react-router-dom";
 import {
     Button,
@@ -44,7 +44,7 @@ function ClubSlot(props) {
 
     // Modal
     const {isOpen, onOpen, onClose} = useDisclosure()
-    const initialRef = React.useRef(null)
+    const initialRef = useRef(null)
 
     return (
         <>

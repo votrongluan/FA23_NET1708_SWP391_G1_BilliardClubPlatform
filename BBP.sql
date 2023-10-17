@@ -1,15 +1,16 @@
+drop database BBP
 Create database BBP
 use BBP
 
 create table Users(
 	UserId varchar(10) not null,
 	Username varchar(20) not null,
-	Password varchar(20) not null,
-	FirstName nvarchar(50) not null,
-	LastName nvarchar(50) not null,
+	Password nvarchar(255) not null,
+	FirstName nvarchar(50),
+	LastName nvarchar(50),
 	Email nvarchar(50),
 	Phone varchar(10),
-	AvartarLink nvarchar(100),
+	AvatarLink nvarchar(100),
 	Role varchar(10)
 )
 alter table Users
@@ -66,7 +67,7 @@ alter table Club
 
 create table Review(
 	ReviewId varchar(10) not null,
-	BookingDetailId varchar(10) not null,
+	BookingId varchar(10) not null,
 	Star int not null,
 	Comment nvarchar(255),
 )
@@ -128,7 +129,7 @@ alter table Slot
 ---ForeignKey
 	--Review FK
 alter table Review
-	add constraint FK_Review_BookingDetailId foreign key (BookingDetailId) references BookingDetail(BookingDetailId)
+	add constraint FK_Review_BookingDetailId foreign key (BookingId) references Booking(BookingId)
 
 
 	--BookingDetail FK

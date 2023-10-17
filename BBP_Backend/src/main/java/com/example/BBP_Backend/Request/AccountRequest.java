@@ -1,4 +1,4 @@
-package com.example.BBP_Backend.Controller;
+package com.example.BBP_Backend.Request;
 
 import com.example.BBP_Backend.Enum.Role;
 import lombok.AllArgsConstructor;

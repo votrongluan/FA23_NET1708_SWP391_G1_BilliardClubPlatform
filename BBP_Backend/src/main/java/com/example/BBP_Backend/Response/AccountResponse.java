@@ -1,5 +1,6 @@
-package com.example.BBP_Backend.Controller;
+package com.example.BBP_Backend.Response;
 
+import com.example.BBP_Backend.Enum.Role;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -13,6 +14,6 @@ import lombok.NoArgsConstructor;
 public class AccountResponse {
     @JsonProperty("access_token")
     private String accessToken;
-    @JsonProperty("refresh_token")
-    private String refreshToken;
+    @JsonProperty("role")
+    private Role role;
 }

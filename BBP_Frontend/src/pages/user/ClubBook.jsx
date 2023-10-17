@@ -97,8 +97,7 @@ function ClubBook() {
 
     const {id} = useParams();
     const club = useLoaderData();
-    const {districts} = useContext(GlobalContext);
-    const district = districts.find((district) => district.id === club.districtId);
+    const {districtMap} = useContext(GlobalContext);
 
     const hours = Array.from({length: 12}, (_, i) => 9 + i);
 
@@ -174,7 +173,7 @@ function ClubBook() {
                     <Box bgColor="white" borderWidth="1px" p={2}>
                         {club.name}
                     </Box>
-                    <FormHelperText>{club?.address}, {district?.name}</FormHelperText>
+                    <FormHelperText>{club?.address}, {districtMap[club.districtId]}</FormHelperText>
                 </FormControl>
 
                 <FormControl isRequired mb="20px">
@@ -266,3 +265,4 @@ function ClubBook() {
 }
 
 export default ClubBook;
+

@@ -1,11 +1,18 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {useLoaderData} from "react-router-dom";
 import {Button, Heading, HStack, Table, TableContainer, Tbody, Td, Text, Th, Thead, Tr} from "@chakra-ui/react";
 import {baseURL} from "../../api/axios.js";
 import SearchFilter from "../../components/SearchFilter.jsx";
+import {GlobalContext} from "../../context/GlobalContext.jsx";
 
 function ClubSlot(props) {
     const slots = useLoaderData();
+    const {slotMap, tableTypeMap} = useContext(GlobalContext);
+
+    slots.forEach((slot) => {
+        slot.type = tableTypeMap[slot.tableTypeId];
+        slot.time = slotMap[slot.slotId];
+    })
 
     return (
         <>
@@ -28,7 +35,7 @@ function ClubSlot(props) {
                             </Thead>
                             <Tbody>
                                 {filteredData.map((slot) => (
-                                    <Tr key={slot.type + slot.time}>
+                                    <Tr key={slot.tableTypeId + '' + slot.slotId}>
                                         <Td>{slot.type}</Td>
                                         <Td>
                                             <HStack spacing={5}>

@@ -10,7 +10,7 @@ import unorm from "unorm"; // Import the unorm library
 function Find(props) {
     const clubs = useLoaderData();
     const [search, setSearch] = useState("");
-    const {districts} = useContext(GlobalContext);
+    const {districtMap} = useContext(GlobalContext);
 
     const normalize = (text) => {
         return unorm.nfkd(text).replace(/[\u0300-\u036F]/g, "");
@@ -91,8 +91,10 @@ function Find(props) {
                     value={selectedDistrict}
                     onChange={(e) => setSelectedDistrict(e.target.value)}
                 >
-                    {districts.map((district) => (
-                        <option key={district.id} value={district.id}>{district.name}</option>
+                    {Object.entries(districtMap).map(([id, name]) => (
+                        <option key={id} value={id}>
+                            {name}
+                        </option>
                     ))}
                 </Select>
                 <Spacer/>

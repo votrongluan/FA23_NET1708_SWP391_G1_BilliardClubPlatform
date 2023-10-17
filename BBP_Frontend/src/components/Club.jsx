@@ -5,8 +5,7 @@ import {useContext} from "react";
 import {Link} from "react-router-dom";
 
 function Club({club}) {
-    const {districts} = useContext(GlobalContext);
-    const district = districts.find((district) => district.id === club.districtId);
+    const {districtMap} = useContext(GlobalContext);
 
     return (
         <Card key={club.id} borderTop="4px" borderColor="blue.500" bg="white">
@@ -16,7 +15,7 @@ function Club({club}) {
 
             <CardBody color="gray.500">
                 <Text color="black" fontSize="20px">{club?.name}</Text>
-                <Text mt={2}>{club?.address}, {district?.name}</Text>
+                <Text mt={2}>{club?.address}, {districtMap[club.districtId]}</Text>
                 {Boolean(club?.numberOfRating) ?
                     <Text mt={4} gap={2} display="flex" alignItems="center" justifyContent="flex-end" color="gray.500">
                         <StarIcon color="yellow.500"/>{club.rating} ({club.numberOfRating} đánh giá)

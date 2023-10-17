@@ -13,7 +13,7 @@ import {
     useToast
 } from "@chakra-ui/react";
 import {Form, useLocation, useNavigate} from "react-router-dom";
-import useAuth from "../hooks/useAuth.js";
+import useAuth from "../../hooks/useAuth.js";
 
 function Auth(props) {
     const toast = useToast()
@@ -100,9 +100,9 @@ function Auth(props) {
         <Container maxW="1200px" as="main" py={10}>
             <Tabs p="20px" variant="enclosed" colorScheme="purple" minH="70vh">
                 <TabList>
-                    <Tab fontSize="20px" _selected={{bg: 'gray.100'}}>Đăng nhập</Tab>
-                    <Tab fontSize="20px" _selected={{bg: 'gray.100'}}>Tạo tài khoản</Tab>
-                    <Tab fontSize="20px" _selected={{bg: 'gray.100'}}>Quên mật khẩu</Tab>
+                    <Tab fontWeight="semibold" fontSize="20px" _selected={{bg: 'gray.100'}}>Đăng nhập</Tab>
+                    <Tab fontWeight="semibold" fontSize="20px" _selected={{bg: 'gray.100'}}>Tạo tài khoản</Tab>
+                    <Tab fontWeight="semibold" fontSize="20px" _selected={{bg: 'gray.100'}}>Quên mật khẩu</Tab>
                 </TabList>
 
                 <TabPanels py="10px">
@@ -123,7 +123,7 @@ function Auth(props) {
                     </TabPanel>
 
                     <TabPanel>
-                        <Form method="post" action="/auth">
+                        <Form method="post" action="/all/Auth">
                             <FormControl isRequired mb="20px">
                                 <FormLabel>Tài khoản</FormLabel>
                                 <Input bgColor="white" type="text" name="username"/>
@@ -154,7 +154,7 @@ function Auth(props) {
                     </TabPanel>
 
                     <TabPanel>
-                        <Form method="post" action="/auth">
+                        <Form method="post" action="/all/Auth">
                             <FormControl isRequired mb="20px">
                                 <FormLabel>Số điện thoại</FormLabel>
                                 <Input bgColor="white" type="tel" name="phone"/>

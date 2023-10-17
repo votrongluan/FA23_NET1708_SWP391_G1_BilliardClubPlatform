@@ -1,4 +1,4 @@
-import {baseURL} from "../api/axios.js";
+import {baseURL} from "../../api/axios.js";
 import {
     Box,
     Button,
@@ -13,8 +13,8 @@ import {
     Tabs
 } from "@chakra-ui/react";
 import {Form, Navigate, useLoaderData} from "react-router-dom";
-import useAuth from "../hooks/useAuth.js";
-import EditFieldBox from "../components/EditFieldBox.jsx";
+import useAuth from "../../hooks/useAuth.js";
+import EditFieldBox from "../../components/EditFieldBox.jsx";
 import React from "react";
 
 function Account() {
@@ -62,13 +62,11 @@ function Account() {
                             <EditFieldBox title="Ảnh đại diện" value={user.avatarLink} onEditClick={() => {
                                 console.log('implement later')
                             }}/>
-
-                            <Button width="100%" type="submit" colorScheme="telegram">Cập nhật</Button>
                         </Box>
                     </TabPanel>
 
                     <TabPanel>
-                        <Form method="post" action="/src/pages/Auth">
+                        <Form method="post" action="/src/pages/all/Auth">
                             <FormControl isRequired mb="20px">
                                 <FormLabel>Nhập mật khẩu</FormLabel>
                                 <Input bgColor="white" type="password" name="password"/>

@@ -272,147 +272,132 @@
       "firstName": "Mike"
     }
   ],
-  "tableClubOne": [
-    {
-      "id": 1,
-      "type": 1
-    },
-    {
-      "type": 1,
-      "id": 2
-    },
-    {
-      "time": "10",
-      "type": 1,
-      "tableId": 3
-    }
-  ],
   "bookingDetailClubOne": [
     {
-      "time": "9",
-      "type": 1,
+      "slotId": 1,
+      "typeId": 1,
       "tableId": 1
     },
     {
-      "time": "9",
-      "type": 1,
+      "slotId": 1,
+      "typeId": 1,
       "tableId": 2
     },
     {
       "time": "10",
-      "type": 1,
+      "typeId": 1,
       "tableId": 3
     }
   ],
   "slotClubOne": [
     {
-      "time": 10,
-      "type": "Phăng",
+      "slotId": 2,
+      "tableTypeId": 1,
       "price": 19000
     },
     {
-      "time": 10,
-      "type": "Lỗ",
+      "slotId": 2,
+      "tableTypeId": 2,
       "price": 19000
     },
     {
-      "time": 11,
-      "type": "Phăng",
+      "slotId": 3,
+      "tableTypeId": 1,
       "price": 19000
     },
     {
-      "time": 11,
-      "type": "Lỗ",
+      "slotId": 3,
+      "tableTypeId": 2,
       "price": 19000
     },
     {
-      "time": 12,
-      "type": "Phăng",
+      "slotId": 4,
+      "tableTypeId": 1,
       "price": 19000
     },
     {
-      "time": 12,
-      "type": "Lỗ",
+      "slotId": 4,
+      "tableTypeId": 2,
       "price": 19000
     },
     {
-      "time": 13,
-      "type": "Phăng",
+      "slotId": 5,
+      "tableTypeId": 1,
       "price": 19000
     },
     {
-      "time": 13,
-      "type": "Lỗ",
+      "slotId": 5,
+      "tableTypeId": 2,
       "price": 19000
     },
     {
-      "time": 14,
-      "type": "Phăng",
+      "slotId": 6,
+      "tableTypeId": 1,
       "price": 19000
     },
     {
-      "time": 14,
-      "type": "Lỗ",
+      "slotId": 6,
+      "tableTypeId": 2,
       "price": 19000
     },
     {
-      "time": 15,
-      "type": "Phăng",
+      "slotId": 7,
+      "tableTypeId": 1,
       "price": 19000
     },
     {
-      "time": 15,
-      "type": "Lỗ",
+      "slotId": 7,
+      "tableTypeId": 2,
       "price": 19000
     },
     {
-      "time": 16,
-      "type": "Phăng",
+      "slotId": 8,
+      "tableTypeId": 1,
       "price": 19000
     },
     {
-      "time": 16,
-      "type": "Lỗ",
+      "slotId": 8,
+      "tableTypeId": 2,
       "price": 19000
     },
     {
-      "time": 17,
-      "type": "Phăng",
+      "slotId": 9,
+      "tableTypeId": 1,
       "price": 19000
     },
     {
-      "time": 17,
-      "type": "Lỗ",
+      "slotId": 9,
+      "tableTypeId": 2,
       "price": 19000
     },
     {
-      "time": 18,
-      "type": "Phăng",
+      "slotId": 10,
+      "tableTypeId": 1,
       "price": 19000
     },
     {
-      "time": 18,
-      "type": "Lỗ",
+      "slotId": 10,
+      "tableTypeId": 2,
       "price": 19000
     },
     {
-      "time": 19,
-      "type": "Phăng",
+      "slotId": 11,
+      "tableTypeId": 1,
       "price": 19000
     },
     {
-      "time": 19,
-      "type": "Lỗ",
+      "slotId": 11,
+      "tableTypeId": 2,
       "price": 19000
     },
     {
-      "time": 20,
-      "type": "Phăng",
+      "slotId": 12,
+      "tableTypeId": 1,
       "price": 19000
     },
     {
-      "time": 20,
-      "type": "Lỗ",
+      "slotId": 12,
+      "tableTypeId": 2,
       "price": 19000
     }
   ],
@@ -424,6 +409,56 @@
     {
       "id": 2,
       "name": "Lỗ"
+    }
+  ],
+  "slot": [
+    {
+      "id": 1,
+      "time": 9
+    },
+    {
+      "id": 2,
+      "time": 10
+    },
+    {
+      "id": 3,
+      "time": 11
+    },
+    {
+      "id": 4,
+      "time": 12
+    },
+    {
+      "id": 5,
+      "time": 13
+    },
+    {
+      "id": 6,
+      "time": 14
+    },
+    {
+      "id": 7,
+      "time": 15
+    },
+    {
+      "id": 8,
+      "time": 16
+    },
+    {
+      "id": 9,
+      "time": 17
+    },
+    {
+      "id": 10,
+      "time": 18
+    },
+    {
+      "id": 11,
+      "time": 19
+    },
+    {
+      "id": 12,
+      "time": 20
     }
   ]
 }

@@ -210,7 +210,7 @@ function ClubBook() {
                             <GridItem key={hour}>
                                 <Button
                                     isDisabled={selectedDate === formatDate(new Date()) && hour < allowedHour}
-                                    size="lg" // You can adjust the size here
+                                    size="lg"
                                     variant={selectedHours.includes(hour) ? "solid" : "outline"}
                                     onClick={() => handleHourChange(hour)}
                                     colorScheme="yellow"

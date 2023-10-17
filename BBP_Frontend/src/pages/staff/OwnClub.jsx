@@ -10,7 +10,7 @@ function OwnClub(props) {
 
     return (
         <Container maxW="1200px" as="main">
-            <Heading mb={5} as="h2" size="md" textAlign="center">Quản lý club</Heading>
+            <Heading mb={5} as="h2" size="lg" textAlign="center">Quản lý club</Heading>
             <Box>
                 <EditFieldBox title="Tên club" value={club.name} onEditClick={() => {
                     console.log('implement later')

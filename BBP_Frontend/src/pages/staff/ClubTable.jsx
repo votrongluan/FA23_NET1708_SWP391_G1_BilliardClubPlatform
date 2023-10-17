@@ -43,7 +43,7 @@ function ClubTable(props) {
 
     return (
         <>
-            <Heading as="h2" size="lg" textAlign="center">Quản lý giờ, giá</Heading>
+            <Heading as="h2" size="lg" textAlign="center">Quản lý bàn</Heading>
             <HStack>
                 <Spacer/>
                 <Button colorScheme="telegram" onClick={onOpen}>Cập nhật</Button>

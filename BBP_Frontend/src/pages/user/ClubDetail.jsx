@@ -83,6 +83,7 @@ function ClubDetail() {
                           mt={10}>
                         {hours.map((hour) => (
                             <GridItem
+                                key={hour}
                                 size="lg" // You can adjust the size here
                                 color="black"
                                 bgColor="white"

@@ -39,7 +39,8 @@ function Header() {
                             </MenuButton>
                             <MenuList>
                                 <Link to={`/users/${auth?.id}`}><MenuItem>Tài khoản của tôi</MenuItem></Link>
-                                <MenuItem>Lịch sử đặt bàn</MenuItem>
+                                <Link to={`/history/${auth?.id}`}><MenuItem>Lịch sử đặt
+                                    bàn</MenuItem></Link>
                                 <MenuItem onClick={() => {
                                     setAuth(null)
                                 }}>Đăng xuất</MenuItem>

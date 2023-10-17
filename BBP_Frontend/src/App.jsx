@@ -21,6 +21,7 @@ import ClubSlot, {slotLoader} from "./pages/staff/ClubSlot.jsx";
 import ClubBooking from "./pages/staff/ClubBooking.jsx";
 import StaffLayout from "./layouts/StaffLayout.jsx";
 import {useEffect} from "react";
+import BookHistory, {bookingHistoryLoader} from "./pages/user/BookHistory.jsx";
 
 function App() {
     useEffect(() => {
@@ -73,6 +74,16 @@ function App() {
                     <Route path=":id" loader={clubLoader} element={<ClubBook/>}/>
                 </Route>
 
+                {/* Booking history route */}
+                <Route
+                    path="history"
+                    element={<RequireAuth allowedRoles={"User"}/>}
+                >
+                    <Route index element={<NotFound/>}/>
+                    <Route path=":id" element={<BookHistory/>} loader={bookingHistoryLoader}/>
+                </Route>
+
+                {/* User information route */}
                 <Route
                     path="users"
                 >
@@ -80,10 +91,13 @@ function App() {
                     <Route path=":id" element={<Account/>} loader={userLoader}/>
                 </Route>
 
+                {/* Auth route */}
                 <Route path="auth" element={<Auth/>}/>
 
+                {/* Unauthorized route */}
                 <Route path="unauthorized" element={<Unauthorized/>}/>
 
+                {/* Not found route */}
                 <Route path="*" element={<NotFound/>}/>
             </Route>
         )

@@ -55,7 +55,7 @@ function Auth(props) {
                     "lastName": "Doe",
                     "firstName": "John"
                 });
-                navigate(from);
+                navigate(-1);
             } else if (data.username === 'admin' && data.password === 'admin') {
                 setAuth({
                     "id": 3,
@@ -67,7 +67,7 @@ function Auth(props) {
                     "lastName": "Johnson",
                     "firstName": "Mike"
                 });
-                navigate(from);
+                navigate('/admin/manage');
             } else if (data.username === 'staff' && data.password === 'staff') {
                 setAuth({
                     "id": 2,

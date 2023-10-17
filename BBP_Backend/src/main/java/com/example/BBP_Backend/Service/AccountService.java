@@ -1,7 +1,7 @@
 package com.example.BBP_Backend.Service;
 
-import com.example.BBP_Backend.Controller.AccountRequest;
-import com.example.BBP_Backend.Controller.AccountResponse;
+import com.example.BBP_Backend.Request.AccountRequest;
+import com.example.BBP_Backend.Response.AccountResponse;
 import com.example.BBP_Backend.Enum.Role;
 import com.example.BBP_Backend.Repository.UserRepository;
 import com.example.BBP_Backend.Model.User;
@@ -31,10 +31,15 @@ public class AccountService {
                 .avatarLink(request.getAvatarLink())
                 .role(Role.CUSTOMER)
                 .build();
-        repository.save(user);
-        var jwtToken = jwtService.generateToken(user);
+        if(repository.findByUsername(user.getUsername()).isEmpty()) {
+            repository.save(user);
+            var jwtToken = jwtService.generateToken(user);
+            return AccountResponse.builder()
+                    .accessToken(jwtToken)
+                    .role(user.getRole())
+                    .build();
+        }
         return AccountResponse.builder()
-                .accessToken(jwtToken)
                 .build();
     }
 
@@ -50,6 +55,7 @@ public class AccountService {
         var jwtToken = jwtService.generateToken(user);
         return AccountResponse.builder()
                 .accessToken(jwtToken)
+                .role(user.getRole())
                 .build();
     }
 

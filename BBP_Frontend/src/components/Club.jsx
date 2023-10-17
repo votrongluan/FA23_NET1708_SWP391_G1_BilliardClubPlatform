@@ -1,11 +1,11 @@
 import {Button, Card, CardBody, CardFooter, CardHeader, Divider, Image, Text} from "@chakra-ui/react";
 import {CalendarIcon, StarIcon, ViewIcon} from "@chakra-ui/icons";
-import {DistrictContext} from "../context/DistrictContext.jsx";
+import {GlobalContext} from "../context/GlobalContext.jsx";
 import {useContext} from "react";
 import {Link} from "react-router-dom";
 
 function Club({club}) {
-    const {districts} = useContext(DistrictContext);
+    const {districts} = useContext(GlobalContext);
     const district = districts.find((district) => district.id === club.districtId);
 
     return (
@@ -32,7 +32,9 @@ function Club({club}) {
 
             <CardFooter display="flex" alignItems="center" justifyContent="space-between">
                 <Link to={`/clubs/${club.id}`}><Button variant="ghost" leftIcon={<ViewIcon/>}>Chi tiết</Button></Link>
-                <Button colorScheme="yellow" leftIcon={<CalendarIcon/>}>Đặt bàn</Button>
+                <Link to={`/book/${club.id}`}><Button colorScheme="yellow" leftIcon={<CalendarIcon/>}>Đặt
+                    bàn</Button></Link>
+
             </CardFooter>
         </Card>
     );

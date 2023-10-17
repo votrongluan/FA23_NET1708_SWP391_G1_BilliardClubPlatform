@@ -253,22 +253,177 @@
     {
       "id": 2,
       "username": "staff",
-      "avatarLink": "https://example.com/avatar2.jpg",
+      "avatarLink": "https://i.pinimg.com/1200x/de/0a/97/de0a9757a21cda8550b8c94c1af5e3ff.jpg",
       "email": "staff@staff.com",
       "phone": "9876543210",
       "role": "Staff",
       "lastName": "Smith",
-      "firstName": "Jane"
+      "firstName": "Jane",
+      "clubId": 1
     },
     {
       "id": 3,
       "username": "admin",
-      "avatarLink": "https://example.com/avatar3.jpg",
+      "avatarLink": "https://i.pinimg.com/originals/28/03/f2/2803f2963bdea8302c0d07153b263e2d.jpg",
       "email": "admin@admin.com",
       "phone": "5555555555",
       "role": "Admin",
       "lastName": "Johnson",
       "firstName": "Mike"
+    }
+  ],
+  "tableClubOne": [
+    {
+      "id": 1,
+      "type": 1
+    },
+    {
+      "type": 1,
+      "id": 2
+    },
+    {
+      "time": "10",
+      "type": 1,
+      "tableId": 3
+    }
+  ],
+  "bookingDetailClubOne": [
+    {
+      "time": "9",
+      "type": 1,
+      "tableId": 1
+    },
+    {
+      "time": "9",
+      "type": 1,
+      "tableId": 2
+    },
+    {
+      "time": "10",
+      "type": 1,
+      "tableId": 3
+    }
+  ],
+  "slotClubOne": [
+    {
+      "time": 10,
+      "type": "Phăng",
+      "price": 19000
+    },
+    {
+      "time": 10,
+      "type": "Lỗ",
+      "price": 19000
+    },
+    {
+      "time": 11,
+      "type": "Phăng",
+      "price": 19000
+    },
+    {
+      "time": 11,
+      "type": "Lỗ",
+      "price": 19000
+    },
+    {
+      "time": 12,
+      "type": "Phăng",
+      "price": 19000
+    },
+    {
+      "time": 12,
+      "type": "Lỗ",
+      "price": 19000
+    },
+    {
+      "time": 13,
+      "type": "Phăng",
+      "price": 19000
+    },
+    {
+      "time": 13,
+      "type": "Lỗ",
+      "price": 19000
+    },
+    {
+      "time": 14,
+      "type": "Phăng",
+      "price": 19000
+    },
+    {
+      "time": 14,
+      "type": "Lỗ",
+      "price": 19000
+    },
+    {
+      "time": 15,
+      "type": "Phăng",
+      "price": 19000
+    },
+    {
+      "time": 15,
+      "type": "Lỗ",
+      "price": 19000
+    },
+    {
+      "time": 16,
+      "type": "Phăng",
+      "price": 19000
+    },
+    {
+      "time": 16,
+      "type": "Lỗ",
+      "price": 19000
+    },
+    {
+      "time": 17,
+      "type": "Phăng",
+      "price": 19000
+    },
+    {
+      "time": 17,
+      "type": "Lỗ",
+      "price": 19000
+    },
+    {
+      "time": 18,
+      "type": "Phăng",
+      "price": 19000
+    },
+    {
+      "time": 18,
+      "type": "Lỗ",
+      "price": 19000
+    },
+    {
+      "time": 19,
+      "type": "Phăng",
+      "price": 19000
+    },
+    {
+      "time": 19,
+      "type": "Lỗ",
+      "price": 19000
+    },
+    {
+      "time": 20,
+      "type": "Phăng",
+      "price": 19000
+    },
+    {
+      "time": 20,
+      "type": "Lỗ",
+      "price": 19000
+    }
+  ],
+  "tableType": [
+    {
+      "id": 1,
+      "name": "Phăng"
+    },
+    {
+      "id": 2,
+      "name": "Lỗ"
     }
   ]
 }

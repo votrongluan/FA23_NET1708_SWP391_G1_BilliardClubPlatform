@@ -14,7 +14,6 @@ import {
     ModalContent,
     ModalHeader,
     ModalOverlay,
-    Select,
     Spacer,
     Table,
     TableContainer,
@@ -45,34 +44,40 @@ function StaffAccountManage(props) {
             </HStack>
             <SearchFilter data={staffs} methods={[
                 {value: 'name', label: 'Tên nhân viên'},
-                {value: 'district', label: 'Quận / huyện'},
+                {value: 'phone', label: 'Số điện thoại'},
+                {value: 'username', label: 'Tên đăng nhập'},
+                {value: 'clubName', label: 'Tên club quản lý'}
             ]} DisplayData={
                 ({filteredData}) => (
                     <TableContainer bgColor="white" borderRadius="4px">
                         <Table variant='simple'>
                             <Thead>
                                 <Tr>
+                                    <Th>Tên nhân viên</Th>
+                                    <Th>Tài khoản</Th>
+                                    <Th>Số điện thoại</Th>
                                     <Th>Mã club</Th>
                                     <Th>Tên club</Th>
-                                    <Th>Địa chỉ</Th>
-                                    <Th>Số điện thoại</Th>
                                     <Th textAlign="center">Thao tác</Th>
                                 </Tr>
                             </Thead>
                             <Tbody>
-                                {filteredData.map((club) => (
-                                    <Tr key={club.id}>
+                                {filteredData.map((staff) => (
+                                    <Tr key={staff.username}>
                                         <Td>
-                                            <Text>{club.id}</Text>
+                                            <Text>{staff.name}</Text>
                                         </Td>
                                         <Td>
-                                            <Text>{club.name}</Text>
+                                            <Text>{staff.username}</Text>
                                         </Td>
                                         <Td>
-                                            <Text>{club.address}, {districtMap[club.districtId]}</Text>
+                                            <Text>{staff.phone}</Text>
                                         </Td>
                                         <Td>
-                                            <Text>{club.phone}</Text>
+                                            <Text>{staff.clubId}</Text>
+                                        </Td>
+                                        <Td>
+                                            <Text>{staff.clubName}</Text>
                                         </Td>
                                         <Td textAlign="center">
                                             <Button colorScheme="red">Xóa</Button>
@@ -91,7 +96,7 @@ function StaffAccountManage(props) {
             >
                 <ModalOverlay/>
                 <ModalContent>
-                    <ModalHeader>Thêm club</ModalHeader>
+                    <ModalHeader>Thêm tài khoản nhân viên</ModalHeader>
                     <ModalCloseButton/>
                     <ModalBody pb={6}>
                         <form onSubmit={(e) => {
@@ -102,31 +107,36 @@ function StaffAccountManage(props) {
                             console.log(data);
                         }}>
                             <FormControl isRequired>
-                                <FormLabel>Tên club</FormLabel>
-                                <Input name="name" type="text" ref={initialRef}
-                                       placeholder='Nhập tên club'/>
+                                <FormLabel>Họ</FormLabel>
+                                <Input name="lastName" type="text" ref={initialRef}
+                                       placeholder='Nhập họ'/>
                             </FormControl>
 
                             <FormControl isRequired mt={4}>
-                                <FormLabel>Địa chỉ</FormLabel>
-                                <Input name="address" type="text" ref={initialRef}
-                                       placeholder='Nhập địa chỉ'/>
-                                <FormHelperText>Chỉ nhập số nhà, tên đường, phường xã</FormHelperText>
+                                <FormLabel>Tên, tên đệm</FormLabel>
+                                <Input name="firstName" type="text" ref={initialRef}
+                                       placeholder='Nhập phần sau họ'/>
                             </FormControl>
 
                             <FormControl isRequired mt={4}>
-                                <FormLabel>Chọn quận / huyện</FormLabel>
-                                <Select name="districtId" placeholder="Chọn quận / huyện">
-                                    {Object.entries(districtMap).map(([key, value]) => (
-                                        <option key={key} value={key}>{value}</option>
-                                    ))}
-                                </Select>
+                                <FormLabel>Tài khoản</FormLabel>
+                                <Input name="username" type="tel" ref={initialRef}
+                                       placeholder='Nhập tài khoản'/>
+                                <FormHelperText>Không thể đổi sau khi đã tạo</FormHelperText>
                             </FormControl>
 
                             <FormControl isRequired mt={4}>
-                                <FormLabel>Số điện thoại liên lạc</FormLabel>
-                                <Input name="phone" type="tel" ref={initialRef}
-                                       placeholder='Nhập số điện thoại'/>
+                                <FormLabel>Mật khẩu</FormLabel>
+                                <Input name="password" type="text" ref={initialRef}
+                                       placeholder='Nhập mật khẩu'/>
+                                <FormHelperText>Nên yêu cầu nhân viên đổi sau khi tạo</FormHelperText>
+                            </FormControl>
+
+                            <FormControl isRequired mt={4}>
+                                <FormLabel>Mã club quản lý</FormLabel>
+                                <Input name="clubId" type="text" ref={initialRef}
+                                       placeholder='Nhập mật khẩu'/>
+                                <FormHelperText>Tìm kiếm ở phần club, sao chép và dán vào</FormHelperText>
                             </FormControl>
 
                             <HStack mt={10}>
@@ -147,7 +157,7 @@ function StaffAccountManage(props) {
 export default StaffAccountManage;
 
 export const staffAccountLoader = async () => {
-    const res = await fetch(baseURL + '/users')
+    const res = await fetch(baseURL + '/staffAccount')
 
     if (!res.ok) {
         throw Error('Không tìm thấy tài khoản')

@@ -13,8 +13,8 @@ function SearchFilter({data, methods, DisplayData}) {
     const [sortMethod, setSortMethod] = useState("");
     const [sortOrder, setSortOrder] = useState("");
 
-    const filterAndSort = () => {
-        let filtered = [...data];
+    const sortData = (dataNeedSortedByMethod) => {
+        let filtered = [...dataNeedSortedByMethod];
 
         filtered.sort((a, b) => {
             if (sortMethod) {
@@ -29,7 +29,7 @@ function SearchFilter({data, methods, DisplayData}) {
             }
         });
 
-        setFilteredData(filtered);
+        return filtered;
     };
 
     const filtersData = (query) => {
@@ -46,13 +46,13 @@ function SearchFilter({data, methods, DisplayData}) {
     const handleSearchChange = (e) => {
         const newSearch = e.target.value;
         setSearch(newSearch);
-        console.log(newSearch);
-        setFilteredData(filtersData(newSearch));
     };
 
     useEffect(() => {
-        filterAndSort();
-    }, [sortMethod, sortOrder]);
+        const dataAfterFilterBySearch = filtersData(search);
+        const sortedData = sortData(dataAfterFilterBySearch);
+        setFilteredData(sortedData)
+    }, [sortMethod, sortOrder, search]);
 
     return (
         <>

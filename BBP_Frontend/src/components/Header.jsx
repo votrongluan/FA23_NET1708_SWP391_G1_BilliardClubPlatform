@@ -17,12 +17,6 @@ import useAuth from "../hooks/useAuth.js";
 function Header() {
     const {auth, setAuth} = useAuth();
 
-    const navLinkStyle = ({isActive}) => {
-        return {
-            textDecoration: isActive ? 'underline' : ''
-        }
-    }
-
     return (
         <Container maxW="1200px">
             <Flex as="nav" height="70px" alignItems="center">
@@ -35,9 +29,9 @@ function Header() {
                 <Spacer/>
                 <HStack spacing={5} fontSize="20px">
                     {auth?.role === 'User' || !auth ?
-                        <NavLink style={navLinkStyle} to="find">Tìm club</NavLink> : null}
+                        <NavLink to="find">Tìm club</NavLink> : null}
                     {auth?.role === 'User' || !auth ?
-                        <NavLink style={navLinkStyle} to="book">Đặt lịch</NavLink> : null}
+                        <NavLink to="book">Đặt lịch</NavLink> : null}
                     {auth?.username ? ( // Check if the user is authenticated
                         <Menu>
                             <MenuButton as={Button} rightIcon={<Avatar src={auth?.avatarLink} size="sm"/>}>
@@ -45,7 +39,8 @@ function Header() {
                             </MenuButton>
                             <MenuList>
                                 <Link to={`/users/${auth?.id}`}><MenuItem>Tài khoản của tôi</MenuItem></Link>
-                                <MenuItem>Lịch sử đặt bàn</MenuItem>
+                                <Link to={`/history/${auth?.id}`}><MenuItem>Lịch sử đặt
+                                    bàn</MenuItem></Link>
                                 <MenuItem onClick={() => {
                                     setAuth(null)
                                 }}>Đăng xuất</MenuItem>

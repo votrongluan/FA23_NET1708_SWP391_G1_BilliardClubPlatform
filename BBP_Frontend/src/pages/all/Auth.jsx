@@ -12,12 +12,12 @@ import {
     Tabs,
     useToast
 } from "@chakra-ui/react";
-import {Form, useLocation, useNavigate} from "react-router-dom";
-import useAuth from "../hooks/useAuth.js";
+import {Form, Navigate, useLocation, useNavigate} from "react-router-dom";
+import useAuth from "../../hooks/useAuth.js";
 
 function Auth(props) {
     const toast = useToast()
-    const {setAuth} = useAuth();
+    const {setAuth, auth} = useAuth();
     const navigate = useNavigate();
     const location = useLocation();
 
@@ -55,7 +55,7 @@ function Auth(props) {
                     "lastName": "Doe",
                     "firstName": "John"
                 });
-                navigate(from);
+                navigate(-1);
             } else if (data.username === 'admin' && data.password === 'admin') {
                 setAuth({
                     "id": 3,
@@ -67,7 +67,7 @@ function Auth(props) {
                     "lastName": "Johnson",
                     "firstName": "Mike"
                 });
-                navigate(from);
+                navigate('/admin/manage');
             } else if (data.username === 'staff' && data.password === 'staff') {
                 setAuth({
                     "id": 2,
@@ -96,13 +96,15 @@ function Auth(props) {
         }
     }
 
+    if (auth) return <Navigate to="/"/>
+
     return (
         <Container maxW="1200px" as="main" py={10}>
             <Tabs p="20px" variant="enclosed" colorScheme="purple" minH="70vh">
                 <TabList>
-                    <Tab fontSize="20px" _selected={{bg: 'gray.100'}}>Đăng nhập</Tab>
-                    <Tab fontSize="20px" _selected={{bg: 'gray.100'}}>Tạo tài khoản</Tab>
-                    <Tab fontSize="20px" _selected={{bg: 'gray.100'}}>Quên mật khẩu</Tab>
+                    <Tab fontWeight="semibold" fontSize="20px" _selected={{bg: 'gray.100'}}>Đăng nhập</Tab>
+                    <Tab fontWeight="semibold" fontSize="20px" _selected={{bg: 'gray.100'}}>Tạo tài khoản</Tab>
+                    <Tab fontWeight="semibold" fontSize="20px" _selected={{bg: 'gray.100'}}>Quên mật khẩu</Tab>
                 </TabList>
 
                 <TabPanels py="10px">
@@ -123,7 +125,7 @@ function Auth(props) {
                     </TabPanel>
 
                     <TabPanel>
-                        <Form method="post" action="/auth">
+                        <Form method="post" action="/all/Auth">
                             <FormControl isRequired mb="20px">
                                 <FormLabel>Tài khoản</FormLabel>
                                 <Input bgColor="white" type="text" name="username"/>
@@ -154,7 +156,7 @@ function Auth(props) {
                     </TabPanel>
 
                     <TabPanel>
-                        <Form method="post" action="/auth">
+                        <Form method="post" action="/all/Auth">
                             <FormControl isRequired mb="20px">
                                 <FormLabel>Số điện thoại</FormLabel>
                                 <Input bgColor="white" type="tel" name="phone"/>

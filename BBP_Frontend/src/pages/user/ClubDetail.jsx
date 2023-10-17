@@ -23,8 +23,7 @@ import Review from "../../components/Review.jsx";
 function ClubDetail() {
     const {id} = useParams();
     const club = useLoaderData();
-    const {districts} = useContext(GlobalContext);
-    const district = districts.find((district) => district.id === club.districtId);
+    const {districtMap} = useContext(GlobalContext);
     const [reviews, setReviews] = useState([]);
     const [loading, setLoading] = useState(true);
 
@@ -63,7 +62,7 @@ function ClubDetail() {
                                 <StarIcon color="yellow.500"/> Đánh giá: {club.rating} ({club.numberOfRating} đánh giá)
                             </Text>
                         </HStack>
-                        <Text>Địa chỉ: {club.address}, {district?.name}</Text>
+                        <Text>Địa chỉ: {club.address}, {districtMap[club.districtId]}</Text>
                         <Text>Giờ hoạt động: {club.openTime}h - {club.closeTime}h</Text>
                         <Text>Email: {club.email}</Text>
                         <Text>Số điện thoại: {club.phone}</Text>
@@ -84,6 +83,7 @@ function ClubDetail() {
                           mt={10}>
                         {hours.map((hour) => (
                             <GridItem
+                                key={hour}
                                 size="lg" // You can adjust the size here
                                 color="black"
                                 bgColor="white"

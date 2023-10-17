@@ -5,12 +5,8 @@ import {GlobalContext} from "../../context/GlobalContext.jsx";
 import EditFieldBox from "../../components/EditFieldBox.jsx";
 
 function OwnClub(props) {
-    const handleChange = (e) => {
-        console.log('implement later')
-    }
     const club = useLoaderData();
-    const {districts} = useContext(GlobalContext);
-    const district = districts.find((district) => district.id === club.districtId);
+    const {districtMap} = useContext(GlobalContext);
 
     return (
         <Container maxW="1200px" as="main">
@@ -19,9 +15,10 @@ function OwnClub(props) {
                 <EditFieldBox title="Tên club" value={club.name} onEditClick={() => {
                     console.log('implement later')
                 }}/>
-                <EditFieldBox title="Địa chỉ" value={`${club.address}, ${district.name}`} onEditClick={() => {
-                    console.log('implement later')
-                }}/>
+                <EditFieldBox title="Địa chỉ" value={`${club.address}, ${districtMap[club.districtId]}`}
+                              onEditClick={() => {
+                                  console.log('implement later')
+                              }}/>
                 <EditFieldBox title="Email" value={club.name} onEditClick={() => {
                     console.log('implement later')
                 }}/>

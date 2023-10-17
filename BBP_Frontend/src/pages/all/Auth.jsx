@@ -12,12 +12,12 @@ import {
     Tabs,
     useToast
 } from "@chakra-ui/react";
-import {Form, useLocation, useNavigate} from "react-router-dom";
+import {Form, Navigate, useLocation, useNavigate} from "react-router-dom";
 import useAuth from "../../hooks/useAuth.js";
 
 function Auth(props) {
     const toast = useToast()
-    const {setAuth} = useAuth();
+    const {setAuth, auth} = useAuth();
     const navigate = useNavigate();
     const location = useLocation();
 
@@ -95,6 +95,8 @@ function Auth(props) {
             console.log(err);
         }
     }
+
+    if (auth) return <Navigate to="/"/>
 
     return (
         <Container maxW="1200px" as="main" py={10}>

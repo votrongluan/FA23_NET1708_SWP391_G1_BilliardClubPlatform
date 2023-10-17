@@ -272,23 +272,6 @@
       "firstName": "Mike"
     }
   ],
-  "bookingDetailClubOne": [
-    {
-      "slotId": 1,
-      "typeId": 1,
-      "tableId": 1
-    },
-    {
-      "slotId": 1,
-      "typeId": 1,
-      "tableId": 2
-    },
-    {
-      "time": "10",
-      "typeId": 1,
-      "tableId": 3
-    }
-  ],
   "slotClubOne": [
     {
       "slotId": 2,
@@ -466,27 +449,69 @@
       "id": 1,
       "clubName": "Võ Đường",
       "clubAddress": "123 Nguyễn Văn Cừ Phường 1",
-      "clubDistrict": "Quận 1",
+      "districtId": 1,
       "date": "15/10/2023",
       "star": 4,
       "tableTypeId": 1,
       "tableId": 1,
       "firstSlotId": 1,
       "lastSlotId": 2,
-      "comment": "Tuyệt vời nha mọi người cứ đến đây chơi vào cuối tuần quán cực kỳ mát mẻ và kế bên quán còn có quán trà sữa ngon cực, đến chơi nha mọi người ơi"
+      "comment": "Tuyệt vời nha mọi người cứ đến đây chơi vào cuối tuần quán cực kỳ mát mẻ và kế bên quán còn có quán trà sữa ngon cực, đến chơi nha mọi người ơi",
+      "price": 50000
     },
     {
       "id": 2,
       "clubName": "Võ Đường",
       "clubAddress": "123 Nguyễn Văn Cừ Phường 1",
-      "clubDistrict": "Quận 1",
+      "districtId": 1,
       "date": "15/10/2023",
       "star": "",
       "tableTypeId": 1,
       "tableId": 1,
       "firstSlotId": 1,
       "lastSlotId": 2,
-      "comment": ""
+      "comment": "",
+      "price": 50000
+    }
+  ],
+  "getBookingDetail": {
+    "id": 1,
+    "clubName": "Võ Đường",
+    "clubAddress": "123 Nguyễn Văn Cừ Phường 1",
+    "districtId": 1,
+    "date": "15/10/2023",
+    "star": 4,
+    "tableTypeId": 1,
+    "tableId": 1,
+    "firstSlotId": 1,
+    "lastSlotId": 2,
+    "comment": "Tuyệt vời nha mọi người cứ đến đây chơi vào cuối tuần quán cực kỳ mát mẻ và kế bên quán còn có quán trà sữa ngon cực, đến chơi nha mọi người ơi",
+    "price": 50000
+  },
+  "tableClubOne": [
+    {
+      "id": 1,
+      "tableTypeId": 1
+    },
+    {
+      "id": 2,
+      "tableTypeId": 1
+    },
+    {
+      "id": 3,
+      "tableTypeId": 1
+    },
+    {
+      "id": 4,
+      "tableTypeId": 2
+    },
+    {
+      "id": 5,
+      "tableTypeId": 2
+    },
+    {
+      "id": 6,
+      "tableTypeId": 2
     }
   ]
 }

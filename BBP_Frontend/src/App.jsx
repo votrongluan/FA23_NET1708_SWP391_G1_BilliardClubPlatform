@@ -16,12 +16,13 @@ import Find from "./pages/user/Find.jsx";
 import Book from "./pages/user/Book.jsx";
 import ClubBook from "./pages/user/ClubBook.jsx";
 import OwnClub from "./pages/staff/OwnClub.jsx";
-import ClubTable from "./pages/staff/ClubTable.jsx";
+import ClubTable, {tableLoader} from "./pages/staff/ClubTable.jsx";
 import ClubSlot, {slotLoader} from "./pages/staff/ClubSlot.jsx";
 import ClubBooking from "./pages/staff/ClubBooking.jsx";
 import StaffLayout from "./layouts/StaffLayout.jsx";
 import {useEffect} from "react";
 import BookHistory, {bookingHistoryLoader} from "./pages/user/BookHistory.jsx";
+import BookDetail, {bookingDetailLoader} from "./pages/user/BookDetail.jsx";
 
 function App() {
     useEffect(() => {
@@ -36,7 +37,7 @@ function App() {
                     <Route index element={<NotFound/>}/>
                     <Route path="manage" element={<StaffLayout/>}>
                         <Route path="club/:id" element={<OwnClub/>} loader={clubLoader}/>
-                        <Route path="table/:id" element={<ClubTable/>}/>
+                        <Route path="table/:id" element={<ClubTable/>} loader={tableLoader}/>
                         <Route path="slot/:id" element={<ClubSlot/>} loader={slotLoader}/>
                         <Route path="booking/:id" element={<ClubBooking/>}/>
                     </Route>
@@ -80,7 +81,10 @@ function App() {
                     element={<RequireAuth allowedRoles={"User"}/>}
                 >
                     <Route index element={<NotFound/>}/>
-                    <Route path=":id" element={<BookHistory/>} loader={bookingHistoryLoader}/>
+                    <Route path=":id">
+                        <Route index element={<BookHistory/>} loader={bookingHistoryLoader}/>
+                        <Route path=":id" element={<BookDetail/>} loader={bookingDetailLoader}/>
+                    </Route>
                 </Route>
 
                 {/* User information route */}

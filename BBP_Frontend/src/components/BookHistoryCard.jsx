@@ -1,18 +1,20 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {Button, Card, CardFooter, CardHeader, Divider, HStack, Stack, Text} from "@chakra-ui/react";
 import {CalendarIcon, StarIcon, ViewIcon} from "@chakra-ui/icons";
 import {Link} from "react-router-dom";
 import useAuth from "../hooks/useAuth.js";
+import {GlobalContext} from "../context/GlobalContext.jsx";
 
 function BookHistoryCard({booking}) {
     const {auth} = useAuth();
+    const {districtMap} = useContext(GlobalContext)
 
     return (
         <Card>
             <CardHeader>
                 <Stack>
                     <Text fontWeight="semibold" as="h3" fontSize="20px">Club: {booking.clubName}</Text>
-                    <Text>Địa chỉ: {booking.clubAddress}, {booking.clubAddress}</Text>
+                    <Text>Địa chỉ: {booking.clubAddress}, {districtMap[booking.districtId]}</Text>
                     <Text>Ngày đặt: {booking.date}</Text>
                 </Stack>
             </CardHeader>

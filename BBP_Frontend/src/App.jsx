@@ -23,6 +23,9 @@ import StaffLayout from "./layouts/StaffLayout.jsx";
 import {useEffect} from "react";
 import BookHistory, {bookingHistoryLoader} from "./pages/user/BookHistory.jsx";
 import BookDetail, {bookingDetailLoader} from "./pages/user/BookDetail.jsx";
+import ClubManage from "./pages/admin/ClubManage.jsx";
+import AdminLayout from "./layouts/AdminLayout.jsx";
+import StaffAccountManage, {staffAccountLoader} from "./pages/admin/StaffAccountManage.jsx";
 
 function App() {
     useEffect(() => {
@@ -32,6 +35,15 @@ function App() {
     const router = createBrowserRouter(
         createRoutesFromElements(
             <Route path="/" element={<RootLayout/>} errorElement={<ElementError/>}>
+                {/* Admin page route */}
+                <Route path={"admin"} element={<RequireAuth allowedRoles={"Admin"}/>}>
+                    <Route index element={<NotFound/>}/>
+                    <Route path="manage" element={<AdminLayout/>}>
+                        <Route path="club" element={<ClubManage/>} loader={clubsLoader}/>
+                        <Route path="staffaccount" element={<StaffAccountManage/>} loader={staffAccountLoader}/>
+                    </Route>
+                </Route>
+
                 {/* Staff page route */}
                 <Route path={"staff"} element={<RequireAuth allowedRoles={"Staff"}/>}>
                     <Route index element={<NotFound/>}/>

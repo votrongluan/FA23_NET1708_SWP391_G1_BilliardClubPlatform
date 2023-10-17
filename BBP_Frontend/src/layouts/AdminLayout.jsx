@@ -1,8 +1,9 @@
-import {Grid, GridItem} from "@chakra-ui/react"
-import {Outlet} from "react-router-dom"
-import StaffSideBar from "../components/StaffSideBar.jsx";
+import React from 'react';
+import {Grid, GridItem} from "@chakra-ui/react";
+import {Outlet} from "react-router-dom";
+import AdminSideBar from "../components/AdminSideBar.jsx";
 
-export default function StaffLayout() {
+function AdminLayout(props) {
     return (
         <Grid templateColumns="repeat(6, 1fr)" bg="gray.50">
             {/* sidebar */}
@@ -13,7 +14,7 @@ export default function StaffLayout() {
                 minHeight={{lg: '100vh'}}
                 p={{base: '20px', lg: '30px'}}
             >
-                <StaffSideBar/>
+                <AdminSideBar/>
             </GridItem>
 
             {/* main content & navbar */}
@@ -25,5 +26,7 @@ export default function StaffLayout() {
                 <Outlet/>
             </GridItem>
         </Grid>
-    )
+    );
 }
+
+export default AdminLayout;

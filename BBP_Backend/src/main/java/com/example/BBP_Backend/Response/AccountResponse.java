@@ -16,4 +16,8 @@ public class AccountResponse {
     private String accessToken;
     @JsonProperty("role")
     private Role role;
+    @JsonProperty("status")
+    private boolean status;
+    @JsonProperty("message")
+    private String message;
 }

@@ -1,180 +1,255 @@
-drop database BBP
-Create database BBP
-use BBP
+-- Drop and create the database
+DROP DATABASE IF EXISTS BBP;
+CREATE DATABASE BBP;
+USE BBP;
 
-create table Users(
-	UserId varchar(10) not null,
-	Username varchar(20) not null,
-	Password nvarchar(255) not null,
-	FirstName nvarchar(50),
-	LastName nvarchar(50),
-	Email nvarchar(50),
-	Phone varchar(10),
-	AvatarLink nvarchar(100),
-	Role varchar(10)
-)
-alter table Users
-	add constraint PK_User_UserId primary key (UserId)
+-- Create Users table
+CREATE TABLE Users (
+    user_id VARCHAR(10) NOT NULL,
+    username VARCHAR(20) NOT NULL,
+    password NVARCHAR(255) NOT NULL,
+    first_name NVARCHAR(50),
+    last_name NVARCHAR(50),
+    email NVARCHAR(50),
+    phone VARCHAR(10),
+    avatar_link NVARCHAR(100),
+    role VARCHAR(10),
+    PRIMARY KEY (user_id)
+);
 
-create table TableType(
-	TableTypeId varchar(10) not null,
-	TypeName nvarchar(50) not null,
-	TypeDescription nvarchar(255),
-)
-alter table TableType
-	add constraint PK_TableType_TableTypeId primary key (TableTypeId)
+-- Create TableType table
+CREATE TABLE TableType (
+    table_type_id VARCHAR(10) NOT NULL,
+    type_name NVARCHAR(50) NOT NULL,
+    type_description NVARCHAR(255),
+    PRIMARY KEY (table_type_id)
+);
 
-create table Booking(
-	BookingId varchar(10) not null,
-	CustomerId varchar(10) not null,
-	ClubId varchar(10) not null,
-	ClubStaffId varchar(10) not null,
-	BookDate datetime,
-)
-alter table Booking
-	add constraint PK_Booking_BookingId primary key (BookingId)
+-- Create Booking table
+CREATE TABLE Booking (
+    booking_id VARCHAR(10) NOT NULL,
+    customer_id VARCHAR(10) NOT NULL,
+    club_id VARCHAR(10) NOT NULL,
+    club_staff_id VARCHAR(10) NOT NULL,
+    booking_status_id VARCHAR(10) NOT NULL,
+    book_date DATETIME,
+    PRIMARY KEY (booking_id)
+);
 
-create table Price(
-	TableTypeId varchar(10) not null,
-	ClubId varchar(10) not null,
-	SlotId varchar(10) not null,
-	Price int,
-)
-alter table Price
-	add constraint PK_Price_BookingId_ClubId_SlotId primary key (TableTypeId, ClubId, SlotId)
+-- Create Price table
+CREATE TABLE Price (
+    table_type_id VARCHAR(10) NOT NULL,
+    club_id VARCHAR(10) NOT NULL,
+    slot_id VARCHAR(10) NOT NULL,
+    price INT,
+    PRIMARY KEY (table_type_id, club_id, slot_id)
+);
 
-create table District(
-	DistrictId varchar(10) not null,
-	DistrictName nvarchar(50) not null,
-)
-alter table District
-	add constraint PK_District_DistrictId primary key (DistrictId)
+-- Create District table
+CREATE TABLE District (
+    district_id VARCHAR(10) NOT NULL,
+    district_name NVARCHAR(50) NOT NULL,
+    PRIMARY KEY (district_id)
+);
 
-create table Club(
-	ClubId varchar(10) not null,
-	Clubname nvarchar(50) not null,
-	Address nvarchar(100) not null,
-	DistrictId varchar(10) not null,
-	FanpageLink nvarchar(50),
-	AvatarLink nvarchar(50) not null,
-	OpenTime time,
-	CloseTime time,
-	Email varchar(30),
-	Phone varchar(10),
-)
-alter table Club
-	add constraint PK_Club_ClubId primary key (ClubId)
+-- Create Club table
+CREATE TABLE Club (
+    club_id VARCHAR(10) NOT NULL,
+    club_name NVARCHAR(50) NOT NULL,
+    address NVARCHAR(100) NOT NULL,
+    district_id VARCHAR(10) NOT NULL,
+    fanpage_link NVARCHAR(50),
+    avatar_link NVARCHAR(50) NOT NULL,
+    open_time TIME,
+    close_time TIME,
+    email VARCHAR(30),
+    phone VARCHAR(10),
+    PRIMARY KEY (club_id)
+);
 
-create table Review(
-	ReviewId varchar(10) not null,
-	BookingId varchar(10) not null,
-	Star int not null,
-	Comment nvarchar(255),
-)
-alter table Review
-	add constraint PK_Review_ReviewId primary key (ReviewId)
+-- Create ClubStaff table
+CREATE TABLE ClubStaff (
+    staff_id VARCHAR(10) NOT NULL,
+    club_id VARCHAR(10) NOT NULL,
+    PRIMARY KEY (staff_id, club_id),
+);
 
-create table BookingDetailStatus(
-	BookingDetailStatusId varchar(10) not null,
-	Status nvarchar(20) not null,
-)
-alter table BookingDetailStatus
-	add constraint PK_BookingDetailStatus_BookingDetailStatusId primary key (BookingDetailStatusId)
+-- Create Review table
+CREATE TABLE Review (
+    review_id VARCHAR(10) NOT NULL,
+    booking_id VARCHAR(10) NOT NULL,
+    star INT NOT NULL,
+    comment NVARCHAR(255),
+    PRIMARY KEY (review_id)
+);
 
-create table Voucher(
-	VoucherId varchar(20) not null,
-	VoucherValue float not null,
-	Description nvarchar(255) not null,
-	StartTime datetime not null,
-	EndTime datetime not null,
-)
-alter table Voucher
-	add constraint PK_Voucher_VoucherId primary key (VoucherId)
------------------------------------------------------------------------
-create table [Table](
-	TableId varchar(10) not null,
-	TableTypeId varchar(10) not null,
-	ClubId varchar(10) not null,
-	isAvailable	bit
-	--CONSTRAINT FK_TableType FOREIGN KEY (TableTypeId) REFERENCES TableType(TableTypeId),
-	--CONSTRAINT FK_Club FOREIGN KEY (ClubId) REFERENCES Club(ClubId),
-)
-alter table [Table]
-	add constraint PK_Table_TableId primary key (TableId)
+-- Create BookingDetailStatus table
+CREATE TABLE BookingStatus (
+    booking_status_id VARCHAR(10) NOT NULL,
+    status NVARCHAR(20) NOT NULL,
+    PRIMARY KEY (booking_status_id)
+);
 
-create table BookingDetail(
-	BookingDetailId varchar(10) not null,
-	BookingId varchar(10) not null,
-	SlotId varchar(10) not null,
-	TableId varchar(10) not null,
-	BookingDetailStatusId varchar(10) not null,
-	VoucherId varchar(20) not null,
-	Price int,
-	StatusId varchar(10) not null,
-	BookDate date
-	--CONSTRAINT PK_BookingDetail PRIMARY KEY (BookingDetailId)
-	--CONSTRAINT FK_Booking FOREIGN KEY (BookingId) REFERENCES Booking(BookingId)
-)
-alter table BookingDetail
-	add constraint PK_BookingDetail_BookingDetailId primary key (BookingDetailId)
+-- Create Table (Table is a reserved keyword, so we use square brackets)
+CREATE TABLE [Table] (
+    table_id VARCHAR(10) NOT NULL,
+    table_type_id VARCHAR(10) NOT NULL,
+    club_id VARCHAR(10) NOT NULL,
+    is_available BIT,
+    PRIMARY KEY (table_id)
+);
 
-create table Slot (
-	SlotId varchar(10) not null,
-	StartTime time,
-	EndTime time,
-)
-alter table Slot
-	add constraint PK_Slot_SlotId primary key (SlotId)
+-- Create BookingDetail table
+CREATE TABLE BookingDetail (
+    booking_detail_id VARCHAR(10) NOT NULL,
+    booking_id VARCHAR(10) NOT NULL,
+    slot_id VARCHAR(10) NOT NULL,
+    table_id VARCHAR(10) NOT NULL,
+    price INT,
+    status_id VARCHAR(10) NOT NULL,
+    book_date DATE,
+    PRIMARY KEY (booking_detail_id)
+);
 
----ForeignKey
-	--Review FK
-alter table Review
-	add constraint FK_Review_BookingDetailId foreign key (BookingId) references Booking(BookingId)
+-- Create Slot table
+CREATE TABLE Slot (
+    slot_id VARCHAR(10) NOT NULL,
+    start_time INT,
+    end_time INT,
+    PRIMARY KEY (slot_id)
+);
+
+-------------------------------------------------------------------------------------------------------------------------
+
+-- Define foreign keys
+-- Review FK
+ALTER TABLE Review
+ADD CONSTRAINT FK_Review_BookingId FOREIGN KEY (booking_id) REFERENCES Booking(booking_id);
+
+-- BookingDetail FK
+ALTER TABLE BookingDetail
+ADD CONSTRAINT FK_BookingDetail_BookingId FOREIGN KEY (booking_id) REFERENCES Booking(booking_id);
+
+ALTER TABLE BookingDetail
+ADD CONSTRAINT FK_BookingDetail_SlotId FOREIGN KEY (slot_id) REFERENCES Slot(slot_id);
+
+ALTER TABLE BookingDetail
+ADD CONSTRAINT FK_BookingDetail_TableId FOREIGN KEY (table_id) REFERENCES [Table](table_id);
+
+-- Table FK
+ALTER TABLE [Table]
+ADD CONSTRAINT FK_Table_TableTypeId FOREIGN KEY (table_type_id) REFERENCES TableType(table_type_id);
+
+ALTER TABLE [Table]
+ADD CONSTRAINT FK_Table_ClubId FOREIGN KEY (club_id) REFERENCES Club(club_id);
+
+-- Club FK
+ALTER TABLE Club
+ADD CONSTRAINT FK_Club_DistrictId FOREIGN KEY (district_id) REFERENCES District(district_id);
+
+-- Price FK
+ALTER TABLE Price
+ADD CONSTRAINT FK_Price_TableTypeId FOREIGN KEY (table_type_id) REFERENCES TableType(table_type_id);
+
+ALTER TABLE Price
+ADD CONSTRAINT FK_Price_ClubId FOREIGN KEY (club_id) REFERENCES Club(club_id);
+
+ALTER TABLE Price
+ADD CONSTRAINT FK_Price_SlotId FOREIGN KEY (slot_id) REFERENCES Slot(slot_id);
+
+-- ClubStaff FK
+ALTER TABLE ClubStaff
+ADD CONSTRAINT FK_ClubStaff_ClubId FOREIGN KEY (club_id) REFERENCES Club(club_id);
+
+ALTER TABLE ClubStaff
+ADD CONSTRAINT FK_ClubStaff_UserId FOREIGN KEY (staff_id) REFERENCES Users(user_id);
 
 
-	--BookingDetail FK
-alter table BookingDetail
-	add constraint FK_BookingDetail_BookingId foreign key (BookingId) references Booking(BookingId)
+-------------------------------------------------------------------------------------------------------------------------
 
-alter table BookingDetail
-	add constraint FK_BookingDetail_SlotId foreign key (SlotId) references Slot(SlotId)
+-- Sample Data Inserts
 
-alter table BookingDetail
-	add constraint FK_BookingDetail_TableId foreign key (TableId) references [Table](TableId)
+-- District Table
+INSERT INTO District (district_id, district_name)
+VALUES
+('1', 'Downtown'),
+('2', 'Suburb');
 
-alter table BookingDetail
-	add constraint FK_BookingDetail_BookingDetailStatusId foreign key (BookingDetailStatusId) references BookingDetailStatus(BookingDetailStatusId)
+-- Users Table
+INSERT INTO Users (user_id, username, password, first_name, last_name, email, phone, avatar_link, role)
+VALUES
+('1', 'john_doe', 'password123', 'John', 'Doe', 'john.doe@email.com', '1234567890', 'avatar1.jpg', 'customer'),
+('2', 'jane_smith', 'pass456', 'Jane', 'Smith', 'jane.smith@email.com', '9876543210', 'avatar2.jpg', 'customer'),
+('3', 'admin_user', 'adminpass', 'Admin', 'User', 'admin.user@email.com', '5555555555', 'admin_avatar.jpg', 'admin'),
+('4', 'A1_staff', 'staff1', 'staff', 'Staff1', 'staff1.user@email.com', '5555555555', 'staff1_avatar.jpg', 'staff'),
+('5', 'B2_staff', 'staff2', 'staff', 'Staff2', 'staff2.user@email.com', '5555555555', 'staff2_avatar.jpg', 'staff');
 
-alter table BookingDetail
-	add constraint FK_BookingDetail_VoucherId foreign key (VoucherId) references Voucher(VoucherId)
+-- TableType Table
+INSERT INTO TableType (table_type_id, type_name, type_description)
+VALUES
+('1', 'Regular', 'Standard table'),
+('2', 'VIP', 'VIP table with special features');
 
-	--Table FK
-alter table [Table]
-	add constraint FK_Table_TableTypeId foreign key (TableTypeId) references TableType(TableTypeId)
+-- Club Table
+INSERT INTO Club (club_id, club_name, address, district_id, fanpage_link, avatar_link, open_time, close_time, email, phone)
+VALUES
+('A1', 'Club A', '123 Main St, Downtown', '1', 'facebook.com/clubA', 'clubA_avatar.jpg', '18:00:00', '02:00:00', 'clubA@email.com', '1112223333'),
+('B2', 'Club B', '456 Elm St, Suburb', '2', 'facebook.com/clubB', 'clubB_avatar.jpg', '19:00:00', '03:00:00', 'clubB@email.com', '4445556666');
 
-alter table [Table]
-	add constraint FK_Table_ClubId foreign key (ClubId) references Club(ClubId)
+-- Booking Table
+INSERT INTO Booking (booking_id, customer_id, club_id, club_staff_id, booking_status_id, book_date)
+VALUES
+('101', '1', 'A1', '3', '1', '2023-10-19 14:30:00'),
+('102', '2', 'B2', '3', '1', '2023-10-20 20:00:00'),
+('103', '1', 'B2', '3', '2', '2023-10-22 18:15:00');
 
-	--Booking FK
-alter table Booking
-	add constraint FK_Booking_CustomerId foreign key (CustomerId) references Users(UserId)
+-- Slot Table
+INSERT INTO Slot (slot_id, start_time, end_time)
+VALUES
+('1', 18, 21),
+('2', 21, 24);
 
-alter table Booking
-	add constraint FK_Booking_ClubId foreign key (ClubId) references Club(ClubId)
+-- Price Table
+INSERT INTO Price (table_type_id, club_id, slot_id, price)
+VALUES
+('1', 'A1', '1', 50),
+('1', 'A1', '2', 60),
+('2', 'A1', '1', 100),
+('1', 'B2', '1', 45),
+('2', 'B2', '1', 90);
 
-alter table Booking
-	add constraint FK_Booking_ClubStaffId foreign key (ClubStaffId) references Users(UserId)
+-- Review Table
+INSERT INTO Review (review_id, booking_id, star, comment)
+VALUES
+('201', '101', 4, 'Great experience!'),
+('202', '102', 5, 'Amazing club!'),
+('203', '101', 3, 'Service could be better');
 
-	--Club FK
-alter table Club
-	add constraint FK_Club_DistrictId foreign key (DistrictId) references District(DistrictId)
+-- BookingStatus Table
+INSERT INTO BookingStatus (booking_status_id, status)
+VALUES
+('1', 'Confirmed'),
+('2', 'Cancelled'),
+('3', 'Pending');
 
-	--Price FK
-alter table Price
-	add constraint FK_Price_TableTypeId foreign key (TableTypeId) references TableType(TableTypeId)
+-- Table (Table is a reserved keyword, so we use square brackets) Table
+INSERT INTO [Table] (table_id, table_type_id, club_id, is_available)
+VALUES
+('T1', '1', 'A1', 1),
+('T2', '1', 'A1', 0),
+('T3', '2', 'A1', 1),
+('T4', '1', 'B2', 1);
 
-alter table Price
-	add constraint FK_Price_ClubId foreign key (ClubId) references Club(ClubId)
+-- BookingDetail Table
+INSERT INTO BookingDetail (booking_detail_id, booking_id, slot_id, table_id, price, status_id, book_date)
+VALUES
+('301', '101', '1', 'T1', 50, '1', '2023-10-19'),
+('302', '102', '2', 'T2', 60, '1', '2023-10-20'),
+('303', '103', '1', 'T3', 100, '1', '2023-10-22'),
+('304', '103', '2', 'T4', 45, '1', '2023-10-22');
 
-alter table Price
-	add constraint FK_Price_SlotId foreign key (SlotId) references Slot(SlotId)
+-- ClubStaff Table
+INSERT INTO ClubStaff (staff_id, club_id)
+VALUES
+('4', 'A1'),
+('4', 'B2');

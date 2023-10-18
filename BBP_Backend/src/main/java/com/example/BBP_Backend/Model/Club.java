@@ -7,7 +7,7 @@ import lombok.Data;
 import java.sql.Time;
 
 @Entity
-@Table(name = "club")
+@Table(name = "Club")
 @Data
 public class Club {
     @Id
@@ -16,7 +16,7 @@ public class Club {
 
     private String clubname;
     private String address;
-    private int districtId;
+    private String districtId;
     private String fanpageLink;
     private String avatarLink;
     private Time openTime;

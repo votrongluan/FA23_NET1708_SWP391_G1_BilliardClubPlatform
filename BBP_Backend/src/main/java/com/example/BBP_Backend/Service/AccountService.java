@@ -37,9 +37,13 @@ public class AccountService {
             return AccountResponse.builder()
                     .accessToken(jwtToken)
                     .role(user.getRole())
+                    .status(true)
+                    .message("Ok")
                     .build();
         }
         return AccountResponse.builder()
+                .status(false)
+                .message("Existed account")
                 .build();
     }
 
@@ -56,6 +60,8 @@ public class AccountService {
         return AccountResponse.builder()
                 .accessToken(jwtToken)
                 .role(user.getRole())
+                .status(true)
+                .message("Ok")
                 .build();
     }
 

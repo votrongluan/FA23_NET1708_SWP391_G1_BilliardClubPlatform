@@ -14,7 +14,7 @@ public class AccountController {
 
     private final AccountService service;
 
-    @GetMapping("/login")
+    @PostMapping("/login")
     public ResponseEntity<AccountResponse> login(
             @RequestBody AccountRequest request) {
         return ResponseEntity.ok(service.login(request));

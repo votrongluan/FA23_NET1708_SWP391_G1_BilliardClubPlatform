@@ -1,12 +1,8 @@
 package com.example.BBP_Backend.Controller;
 
 import com.example.BBP_Backend.Model.Club;
-import com.example.BBP_Backend.Model.ResponeObject;
-import com.example.BBP_Backend.Repository.ClubRepository;
 import com.example.BBP_Backend.Service.ClubService;
-import lombok.Data;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -38,17 +34,17 @@ public class ClubController {
 //                                "")
 //                );
 //    }
-    @GetMapping("/club/{clubId}")
-    ResponseEntity<ResponeObject> findClubById(@PathVariable Integer clubId) {
-        Optional<Club> foundClubs = clubService.findClubById(clubId);
-        return foundClubs.isPresent() ? ResponseEntity.status(HttpStatus.OK).body(
-                new ResponeObject("Ok", "Query club successfully", foundClubs)
-        ) :
-                ResponseEntity.status(HttpStatus.NOT_FOUND).body(
-                        new ResponeObject("Failed", "cannot find club with id = " + clubId,
-                                "")
-                );
-    }
+//    @GetMapping("/club/{clubId}")
+//    ResponseEntity<ResponeObject> findClubById(@PathVariable Integer clubId) {
+//        Optional<Club> foundClubs = clubService.findClubById(clubId);
+//        return foundClubs.isPresent() ? ResponseEntity.status(HttpStatus.OK).body(
+//                new ResponeObject("Ok", "Query club successfully", foundClubs)
+//        ) :
+//                ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+//                        new ResponeObject("Failed", "cannot find club with id = " + clubId,
+//                                "")
+//                );
+//    }
 
 //    @PostMapping("/clubInsert")
 //    ResponseEntity<ResponeObject> insertClub(@RequestBody Club newClubEntity) {

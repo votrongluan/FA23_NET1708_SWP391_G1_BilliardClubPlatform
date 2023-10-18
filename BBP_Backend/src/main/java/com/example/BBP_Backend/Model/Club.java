@@ -13,14 +13,13 @@ public class Club {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int clubId;
-
     private String clubname;
     private String address;
     private int districtId;
     private String fanpageLink;
     private String avatarLink;
-    private Time openTime;
-    private Time closeTime;
+    private int openTime;
+    private int closeTime;
     private String email;
     private String phone;
 

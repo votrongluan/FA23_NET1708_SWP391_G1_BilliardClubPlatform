@@ -1,6 +1,9 @@
 package com.example.BBP_Backend.Controller;
 
+import com.example.BBP_Backend.Model.Booking;
 import com.example.BBP_Backend.Model.Club;
+import com.example.BBP_Backend.Model.ResponeObject;
+import com.example.BBP_Backend.Response.ClubWithRating;
 import com.example.BBP_Backend.Service.ClubService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -16,11 +19,19 @@ import java.util.Optional;
 public class ClubController {
     private final ClubService clubService;
 
-
     @GetMapping("/club")
-    public List<Club> getClubList() {
+    public ResponseEntity<ResponeObject> getClubById(
+            @RequestBody Club club) {
+        return ResponseEntity.status(HttpStatus.OK).body(
+                new ResponeObject("OK", "ClubById", clubService.getClubWithRatingById(club.getClubId()))
+        );
+    }
 
-        return clubService.findAllClubs();
+    @GetMapping("/allClubs")
+    public ResponseEntity<ResponeObject> getClubList() {
+        return ResponseEntity.status(HttpStatus.OK).body(
+                new ResponeObject("OK", "ListClub", clubService.getAllClubWithRating())
+        );
     }
 
     @PostMapping("/clubInsert")

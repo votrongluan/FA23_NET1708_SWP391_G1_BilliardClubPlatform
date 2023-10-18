@@ -179,7 +179,7 @@
       "id": 1,
       "star": 4,
       "comment": "Great club with friendly staff and a good atmosphere.",
-      "date": "2023-10-15",
+      "date": "15/10/2023",
       "clubId": 1,
       "avatarLink": "https://example.com/avatar1.jpg",
       "name": "John Doe"
@@ -188,7 +188,7 @@
       "id": 2,
       "star": 5,
       "comment": "Cowboy quận 2 is fantastic! I had a wonderful time there.",
-      "date": "2023-10-15",
+      "date": "15/10/2023",
       "clubId": 2,
       "avatarLink": "https://example.com/avatar2.jpg",
       "name": "Jane Smith"
@@ -197,7 +197,7 @@
       "id": 3,
       "star": 5,
       "comment": "Cowboy quận 2 is fantastic! I had a wonderful time there.",
-      "date": "2023-10-15",
+      "date": "15/10/2023",
       "clubId": 2,
       "avatarLink": "https://example.com/avatar3.jpg",
       "name": "Mike Johnson"
@@ -206,7 +206,7 @@
       "id": 4,
       "star": 5,
       "comment": "Cowboy quận 2 is fantastic! I had a wonderful time there.",
-      "date": "2023-10-15",
+      "date": "15/10/2023",
       "clubId": 2,
       "avatarLink": "https://example.com/avatar4.jpg",
       "name": "Sarah Lee"
@@ -215,7 +215,7 @@
       "id": 5,
       "star": 4,
       "comment": "I enjoyed my time at Bid quận 3. Good place to hang out.",
-      "date": "2023-10-15",
+      "date": "15/10/2023",
       "clubId": 3,
       "avatarLink": "https://example.com/avatar5.jpg",
       "name": "David Smith"
@@ -224,7 +224,7 @@
       "id": 6,
       "star": 3,
       "comment": "Billiard quận 4 is the best! I love playing billiards there.",
-      "date": "2023-10-15",
+      "date": "15/10/2023",
       "clubId": 4,
       "avatarLink": "https://example.com/avatar6.jpg",
       "name": "Anna Johnson"
@@ -233,7 +233,7 @@
       "id": 7,
       "star": 4,
       "comment": "Acc quận 5 is decent, but it could be improved.",
-      "date": "2023-10-15",
+      "date": "15/10/2023",
       "clubId": 5,
       "avatarLink": "https://example.com/avatar7.jpg",
       "name": "Paul Davis"
@@ -253,22 +253,383 @@
     {
       "id": 2,
       "username": "staff",
-      "avatarLink": "https://example.com/avatar2.jpg",
+      "avatarLink": "https://i.pinimg.com/1200x/de/0a/97/de0a9757a21cda8550b8c94c1af5e3ff.jpg",
       "email": "staff@staff.com",
       "phone": "9876543210",
       "role": "Staff",
       "lastName": "Smith",
-      "firstName": "Jane"
+      "firstName": "Jane",
+      "clubId": 1
     },
     {
       "id": 3,
       "username": "admin",
-      "avatarLink": "https://example.com/avatar3.jpg",
+      "avatarLink": "https://i.pinimg.com/originals/28/03/f2/2803f2963bdea8302c0d07153b263e2d.jpg",
       "email": "admin@admin.com",
       "phone": "5555555555",
       "role": "Admin",
       "lastName": "Johnson",
       "firstName": "Mike"
+    }
+  ],
+  "slotClubOne": [
+    {
+      "slotId": 2,
+      "tableTypeId": 1,
+      "price": 19000
+    },
+    {
+      "slotId": 2,
+      "tableTypeId": 2,
+      "price": 19000
+    },
+    {
+      "slotId": 3,
+      "tableTypeId": 1,
+      "price": 19000
+    },
+    {
+      "slotId": 3,
+      "tableTypeId": 2,
+      "price": 19000
+    },
+    {
+      "slotId": 4,
+      "tableTypeId": 1,
+      "price": 19000
+    },
+    {
+      "slotId": 4,
+      "tableTypeId": 2,
+      "price": 19000
+    },
+    {
+      "slotId": 5,
+      "tableTypeId": 1,
+      "price": 19000
+    },
+    {
+      "slotId": 5,
+      "tableTypeId": 2,
+      "price": 19000
+    },
+    {
+      "slotId": 6,
+      "tableTypeId": 1,
+      "price": 19000
+    },
+    {
+      "slotId": 6,
+      "tableTypeId": 2,
+      "price": 19000
+    },
+    {
+      "slotId": 7,
+      "tableTypeId": 1,
+      "price": 19000
+    },
+    {
+      "slotId": 7,
+      "tableTypeId": 2,
+      "price": 19000
+    },
+    {
+      "slotId": 8,
+      "tableTypeId": 1,
+      "price": 19000
+    },
+    {
+      "slotId": 8,
+      "tableTypeId": 2,
+      "price": 19000
+    },
+    {
+      "slotId": 9,
+      "tableTypeId": 1,
+      "price": 19000
+    },
+    {
+      "slotId": 9,
+      "tableTypeId": 2,
+      "price": 19000
+    },
+    {
+      "slotId": 10,
+      "tableTypeId": 1,
+      "price": 19000
+    },
+    {
+      "slotId": 10,
+      "tableTypeId": 2,
+      "price": 19000
+    },
+    {
+      "slotId": 11,
+      "tableTypeId": 1,
+      "price": 19000
+    },
+    {
+      "slotId": 11,
+      "tableTypeId": 2,
+      "price": 19000
+    },
+    {
+      "slotId": 12,
+      "tableTypeId": 1,
+      "price": 19000
+    },
+    {
+      "slotId": 12,
+      "tableTypeId": 2,
+      "price": 19000
+    }
+  ],
+  "tableType": [
+    {
+      "id": 1,
+      "name": "Phăng"
+    },
+    {
+      "id": 2,
+      "name": "Lỗ"
+    }
+  ],
+  "slot": [
+    {
+      "id": 1,
+      "time": 9
+    },
+    {
+      "id": 2,
+      "time": 10
+    },
+    {
+      "id": 3,
+      "time": 11
+    },
+    {
+      "id": 4,
+      "time": 12
+    },
+    {
+      "id": 5,
+      "time": 13
+    },
+    {
+      "id": 6,
+      "time": 14
+    },
+    {
+      "id": 7,
+      "time": 15
+    },
+    {
+      "id": 8,
+      "time": 16
+    },
+    {
+      "id": 9,
+      "time": 17
+    },
+    {
+      "id": 10,
+      "time": 18
+    },
+    {
+      "id": 11,
+      "time": 19
+    },
+    {
+      "id": 12,
+      "time": 20
+    }
+  ],
+  "bookingHistoryUserOne": [
+    {
+      "id": 1,
+      "clubName": "Võ Đường",
+      "clubAddress": "123 Nguyễn Văn Cừ Phường 1",
+      "districtId": 1,
+      "date": "15/10/2023",
+      "star": 4,
+      "tableTypeId": 1,
+      "tableId": 1,
+      "firstSlotId": 1,
+      "lastSlotId": 2,
+      "comment": "Tuyệt vời nha mọi người cứ đến đây chơi vào cuối tuần quán cực kỳ mát mẻ và kế bên quán còn có quán trà sữa ngon cực, đến chơi nha mọi người ơi",
+      "price": 50000
+    },
+    {
+      "id": 2,
+      "clubName": "Võ Đường",
+      "clubAddress": "123 Nguyễn Văn Cừ Phường 1",
+      "districtId": 1,
+      "date": "15/10/2023",
+      "star": "",
+      "tableTypeId": 1,
+      "tableId": 1,
+      "firstSlotId": 1,
+      "lastSlotId": 2,
+      "comment": "",
+      "price": 50000
+    }
+  ],
+  "getBookingDetail": {
+    "id": 1,
+    "clubName": "Võ Đường",
+    "clubAddress": "123 Nguyễn Văn Cừ Phường 1",
+    "districtId": 1,
+    "date": "15/10/2023",
+    "star": 4,
+    "tableTypeId": 1,
+    "tableId": 1,
+    "firstSlotId": 1,
+    "lastSlotId": 2,
+    "comment": "Tuyệt vời nha mọi người cứ đến đây chơi vào cuối tuần quán cực kỳ mát mẻ và kế bên quán còn có quán trà sữa ngon cực, đến chơi nha mọi người ơi",
+    "price": 50000
+  },
+  "tableClubOne": [
+    {
+      "id": 1,
+      "tableTypeId": 1
+    },
+    {
+      "id": 2,
+      "tableTypeId": 1
+    },
+    {
+      "id": 3,
+      "tableTypeId": 1
+    },
+    {
+      "id": 4,
+      "tableTypeId": 2
+    },
+    {
+      "id": 5,
+      "tableTypeId": 2
+    },
+    {
+      "id": 6,
+      "tableTypeId": 2
+    }
+  ],
+  "clubBooking": [
+    {
+      "bookingId": 1,
+      "tableId": 7,
+      "firstSlotId": 1,
+      "lastSlotId": 3,
+      "tableTypeId": 1,
+      "price": 19000,
+      "date": "15/10/2023",
+      "phone": "0123456789"
+    },
+    {
+      "bookingId": 2,
+      "tableId": 8,
+      "firstSlotId": 4,
+      "lastSlotId": 6,
+      "tableTypeId": 2,
+      "price": 25000,
+      "date": "16/10/2023",
+      "phone": "9876543210"
+    },
+    {
+      "bookingId": 3,
+      "tableId": 9,
+      "firstSlotId": 7,
+      "lastSlotId": 9,
+      "tableTypeId": 2,
+      "price": 32000,
+      "date": "17/10/2023",
+      "phone": "5551234567"
+    },
+    {
+      "bookingId": 4,
+      "tableId": 10,
+      "firstSlotId": 10,
+      "lastSlotId": 12,
+      "tableTypeId": 2,
+      "price": 42000,
+      "date": "18/10/2023",
+      "phone": "3339998888"
+    },
+    {
+      "bookingId": 5,
+      "tableId": 1,
+      "firstSlotId": 3,
+      "lastSlotId": 5,
+      "tableTypeId": 1,
+      "price": 55000,
+      "date": "19/10/2023",
+      "phone": "7776665555"
+    },
+    {
+      "bookingId": 6,
+      "tableId": 2,
+      "firstSlotId": 5,
+      "lastSlotId": 6,
+      "tableTypeId": 1,
+      "price": 65000,
+      "date": "20/10/2023",
+      "phone": "1112223333"
+    },
+    {
+      "bookingId": 7,
+      "tableId": 3,
+      "firstSlotId": 7,
+      "lastSlotId": 7,
+      "tableTypeId": 2,
+      "price": 75000,
+      "date": "21/10/2023",
+      "phone": "9990001111"
+    },
+    {
+      "bookingId": 8,
+      "tableId": 4,
+      "firstSlotId": 4,
+      "lastSlotId": 5,
+      "tableTypeId": 1,
+      "price": 85000,
+      "date": "22/10/2023",
+      "phone": "4445556666"
+    },
+    {
+      "bookingId": 9,
+      "tableId": 5,
+      "firstSlotId": 6,
+      "lastSlotId": 7,
+      "tableTypeId": 2,
+      "price": 95000,
+      "date": "23/10/2023",
+      "phone": "1234567890"
+    },
+    {
+      "bookingId": 10,
+      "tableId": 6,
+      "firstSlotId": 6,
+      "lastSlotId": 7,
+      "tableTypeId": 1,
+      "price": 105000,
+      "date": "24/10/2023",
+      "phone": "8887779999"
+    }
+  ],
+  "staffAccount": [
+    {
+      "username": "staff",
+      "phone": "0123456789",
+      "name": "Jane Smith",
+      "clubId": 1,
+      "clubName": "Võ Đường"
+    },
+    {
+      "username": "anotherLove",
+      "phone": "0123456789",
+      "name": "Jane Smith",
+      "clubId": 2,
+      "clubName": "billiard quận 5"
     }
   ]
 }

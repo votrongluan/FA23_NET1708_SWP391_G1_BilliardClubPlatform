@@ -106,18 +106,6 @@ function StaffAccountManage(props) {
 
                             console.log(data);
                         }}>
-                            <FormControl isRequired>
-                                <FormLabel>Họ</FormLabel>
-                                <Input name="lastName" type="text" ref={initialRef}
-                                       placeholder='Nhập họ'/>
-                            </FormControl>
-
-                            <FormControl isRequired mt={4}>
-                                <FormLabel>Tên, tên đệm</FormLabel>
-                                <Input name="firstName" type="text" ref={initialRef}
-                                       placeholder='Nhập phần sau họ'/>
-                            </FormControl>
-
                             <FormControl isRequired mt={4}>
                                 <FormLabel>Tài khoản</FormLabel>
                                 <Input name="username" type="tel" ref={initialRef}

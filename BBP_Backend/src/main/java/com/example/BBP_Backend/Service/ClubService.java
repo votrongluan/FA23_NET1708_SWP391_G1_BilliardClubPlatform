@@ -51,18 +51,20 @@ public class ClubService {
     }
 
     public ClubWithRating getClubWithRatingById(Integer clubId) {
-        Club club = clubRepository.findById(clubId).get();
-        int noRating = getClubNoRatingById(club.getClubId());
-        double rating = getClubAvgRatingById(club.getClubId());
-        return new ClubWithRating(
-                        club,
-                        club.getBookings().size(),
-                        noRating,
-                        rating);
-//        return new ClubWithRating(
-//                club,
-//                club.getBookings().size()
-//        );
+        Optional<Club> optionalClub = clubRepository.findById(clubId);
+        if (optionalClub.isPresent()) {
+            Club club = optionalClub.get();
+            int noRating = getClubNoRatingById(club.getClubId());
+            double rating = getClubAvgRatingById(club.getClubId());
+            return new ClubWithRating(
+                    club,
+                    club.getBookings().size(),
+                    noRating,
+                    rating
+            );
+        } else {
+            return null; // or throw an exception, depending on your requirement
+        }
     }
 
     public List<ClubWithRating> getAllClubWithRating() {
@@ -74,7 +76,7 @@ public class ClubService {
             clubsWithRating.add(
                     new ClubWithRating(
                             club,
-                            club.getBookings().size() + 1,
+                            club.getBookings().size(),
                             noRating,
                             rating
                     ));

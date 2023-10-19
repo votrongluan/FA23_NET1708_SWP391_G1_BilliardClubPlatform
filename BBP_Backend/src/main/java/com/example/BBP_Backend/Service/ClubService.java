@@ -1,8 +1,10 @@
 package com.example.BBP_Backend.Service;
 
+import com.example.BBP_Backend.Model.Booking;
 import com.example.BBP_Backend.Model.Club;
 import com.example.BBP_Backend.Model.ResponeObject;
 import com.example.BBP_Backend.Repository.ClubRepository;
+import com.example.BBP_Backend.Response.ClubWithRating;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

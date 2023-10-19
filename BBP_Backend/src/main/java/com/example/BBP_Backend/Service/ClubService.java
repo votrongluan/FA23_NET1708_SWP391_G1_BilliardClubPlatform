@@ -74,7 +74,7 @@ public class ClubService {
             clubsWithRating.add(
                     new ClubWithRating(
                             club,
-                            club.getBookings().size() + 1,
+                            club.getBookings().size(),
                             noRating,
                             rating
                     ));

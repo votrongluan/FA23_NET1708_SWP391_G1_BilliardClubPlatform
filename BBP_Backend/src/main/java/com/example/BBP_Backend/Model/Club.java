@@ -27,7 +27,7 @@ public class Club {
     private Time closeTime;
     private String email;
     private String phone;
-    
+
     @OneToMany(mappedBy = "clubId", cascade = CascadeType.ALL)
     @EqualsAndHashCode.Exclude
     @ToString.Exclude

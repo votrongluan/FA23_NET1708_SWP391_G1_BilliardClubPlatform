@@ -22,9 +22,16 @@ public class ClubController {
     @GetMapping("/club")
     public ResponseEntity<ResponeObject> getClubById(
             @RequestBody Club club) {
-        return ResponseEntity.status(HttpStatus.OK).body(
-                new ResponeObject("OK", "ClubById", clubService.getClubWithRatingById(club.getClubId()))
-        );
+        ClubWithRating foundClub = clubService.getClubWithRatingById(club.getClubId());
+        if(foundClub != null){
+            return ResponseEntity.status(HttpStatus.OK).body(
+                    new ResponeObject("Ok", "Query club successfully", foundClub)
+            );
+        }else{
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+                    new ResponeObject("Failed", "Cannot find club with id = " + club.getClubId(), "")
+            );
+        }
     }
 
     @GetMapping("/allClubs")

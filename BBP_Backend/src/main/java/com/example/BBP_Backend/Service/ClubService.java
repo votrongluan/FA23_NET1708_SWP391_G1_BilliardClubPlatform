@@ -50,16 +50,22 @@ public class ClubService {
         return -1;
     }
 
-    public ClubWithRating getClubWithRatingById(Integer clubId) {
-        Club club = clubRepository.findById(clubId).get();
+public ClubWithRating getClubWithRatingById(Integer clubId) {
+    Optional<Club> optionalClub = clubRepository.findById(clubId);
+    if (optionalClub.isPresent()) {
+        Club club = optionalClub.get();
         int noRating = getClubNoRatingById(club.getClubId());
         double rating = getClubAvgRatingById(club.getClubId());
         return new ClubWithRating(
-                        club,
-                        club.getBookings().size() + 1,
-                        noRating,
-                        rating);
+                club,
+                club.getBookings().size() + 1,
+                noRating,
+                rating
+        );
+    } else {
+        return null;
     }
+}
 
     public List<ClubWithRating> getAllClubWithRating() {
         List<Club> clubs = findAllClubs();
@@ -84,18 +90,13 @@ public class ClubService {
     }
 
     public List<Club> findByClubname(Club newClub) {
-        return clubRepository.findByClubName(newClub.getClubName().trim());
+        return clubRepository.findByClubName(newClub.getClubName());
     }
     public Club saveNewClub(Club newClub) {
         return clubRepository.save(newClub);
     }
     public Optional<Club> updateClub(Club newClubEntity, Integer clubId) {
-        List<Club> foundClubs = clubRepository.findByClubName(newClubEntity.getClubName().trim());
         Optional<Club> existingClub = clubRepository.findById(clubId);
-
-        if (foundClubs.size() > 0) {
-            return Optional.empty();
-        } else {
             Club updatedClub;
             if (existingClub.isPresent()) {
                 updatedClub = existingClub.get();
@@ -108,6 +109,7 @@ public class ClubService {
                 updatedClub.setCloseTime(newClubEntity.getCloseTime());
                 updatedClub.setEmail(newClubEntity.getEmail());
                 updatedClub.setPhone(newClubEntity.getPhone());
+                updatedClub.setStatus(newClubEntity.isStatus());
             } else {
                 newClubEntity.setClubId(clubId);
                 updatedClub = newClubEntity;
@@ -115,7 +117,7 @@ public class ClubService {
 
             return Optional.of(clubRepository.save(updatedClub));
         }
-    }
+
 
     public boolean existsById(Integer clubId) {
         return clubRepository.existsById(clubId);

@@ -9,6 +9,8 @@ import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+
+import java.lang.reflect.Type;
 import java.util.Collection;
 import java.util.List;
 
@@ -17,7 +19,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "users")
+@Table(name = "Users")
 public class User implements UserDetails {
     @Id
     @GeneratedValue
@@ -29,7 +31,7 @@ public class User implements UserDetails {
     private String email;
     private String phone;
     private String avatarLink;
-    @Enumerated
+    @Enumerated(EnumType.STRING)
     private Role role;
 
     @Override

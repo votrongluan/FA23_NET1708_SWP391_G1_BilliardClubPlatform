@@ -4,7 +4,10 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.sql.Date;
+<<<<<<< HEAD
 import java.util.Collection;
+=======
+>>>>>>> 69d0158f1552c2042919cbd87bf4d133ee7c22ff
 
 @Data
 @Entity

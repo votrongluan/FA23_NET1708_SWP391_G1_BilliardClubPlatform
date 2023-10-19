@@ -19,6 +19,7 @@ import java.util.Optional;
 public class ClubController {
     private final ClubService clubService;
 
+<<<<<<< HEAD
     @GetMapping("/club")
     public ResponseEntity<ResponeObject> getClubById(
             @RequestBody Club club) {
@@ -32,6 +33,32 @@ public class ClubController {
         return ResponseEntity.status(HttpStatus.OK).body(
                 new ResponeObject("OK", "ListClub", clubService.getAllClubWithRating())
         );
+=======
+    @GetMapping("/allClubs")
+    public ResponseEntity<ResponeObject> getClubList() {
+        return ResponseEntity.status(HttpStatus.OK).body(
+                new ResponeObject("OK", "Query club successfully", clubService.getAllClubWithRating())
+        );
+    }
+
+//    @GetMapping("/club")
+//    public List<Club> getClubList() {
+//
+//        return clubService.findAllClubs();
+//    }
+
+    @GetMapping("/club/{clubId}")
+    ResponseEntity<ResponeObject> findClubById(@PathVariable Integer clubId,
+                                               @RequestBody Club club) {
+        Optional<Club> foundClubs = clubService.findClubById(clubId);
+        return foundClubs.isPresent() ? ResponseEntity.status(HttpStatus.OK).body(
+                new ResponeObject("Ok", "Query club successfully", clubService.getClubWithRatingById(club.getClubId()))
+        ) :
+                ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+                        new ResponeObject("Failed", "cannot find club with id = " + clubId,
+                                "")
+                );
+>>>>>>> 69d0158f1552c2042919cbd87bf4d133ee7c22ff
     }
 
     @PostMapping("/clubInsert")

@@ -1,10 +1,14 @@
 package com.example.BBP_Backend.Model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import java.sql.Time;
+import java.util.List;
 
 @Entity
 @Table(name = "Club")
@@ -23,5 +27,10 @@ public class Club {
     private Time closeTime;
     private String email;
     private String phone;
-
+    
+    @OneToMany(mappedBy = "clubId", cascade = CascadeType.ALL)
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    @JsonIgnore
+    private List<Booking> bookings;
 }

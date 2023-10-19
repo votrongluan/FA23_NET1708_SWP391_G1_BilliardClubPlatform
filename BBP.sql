@@ -64,6 +64,7 @@ CREATE TABLE Club (
     close_time INT,
     email VARCHAR(255),
     phone VARCHAR(255),
+	status bit,
     PRIMARY KEY (club_id)
 );
 
@@ -123,6 +124,11 @@ CREATE TABLE Slot (
 -------------------------------------------------------------------------------------------------------------------------
 
 -- Define foreign keys
+
+-- Booking
+ALTER TABLE Booking
+ADD CONSTRAINT FK_Booking_BookingStatusId FOREIGN KEY (booking_status_id) REFERENCES BookingStatus(booking_status_id);
+
 -- Review FK
 ALTER TABLE Review
 ADD CONSTRAINT FK_Review_BookingId FOREIGN KEY (booking_id) REFERENCES Booking(booking_id);
@@ -191,10 +197,17 @@ VALUES
 (2, 'VIP', 'VIP table with special features');
 
 -- Club Table
-INSERT INTO Club (club_id, club_name, address, district_id, fanpage_link, avatar_link, open_time, close_time, email, phone)
+INSERT INTO Club (club_id, club_name, address, district_id, fanpage_link, avatar_link, open_time, close_time, email, phone, status)
 VALUES
-(1, 'Club A', '123 Main St, Downtown', 1, 'facebook.com/clubA', 'clubA_avatar.jpg', '18', '02', 'clubA@email.com', '1112223333'),
-(2, 'Club B', '456 Elm St, Suburb', 2, 'facebook.com/clubB', 'clubB_avatar.jpg', '19', '03', 'clubB@email.com', '4445556666');
+(1, 'Club A', '123 Main St, Downtown', 1, 'facebook.com/clubA', 'clubA_avatar.jpg', '18', '02', 'clubA@email.com', '1112223333', 1),
+(2, 'Club B', '456 Elm St, Suburb', 2, 'facebook.com/clubB', 'clubB_avatar.jpg', '19', '03', 'clubB@email.com', '4445556666', 1);
+
+-- BookingStatus Table
+INSERT INTO BookingStatus (booking_status_id, status)
+VALUES
+(1, 'Confirmed'),
+(2, 'Cancelled'),
+(3, 'Pending');
 
 -- Booking Table
 INSERT INTO Booking (booking_id, customer_id, club_id, club_staff_id, booking_status_id, book_date)
@@ -224,13 +237,6 @@ VALUES
 (201, 101, 4, 'Great experience!'),
 (202, 102, 5, 'Amazing club!'),
 (203, 101, 3, 'Service could be better');
-
--- BookingStatus Table
-INSERT INTO BookingStatus (booking_status_id, status)
-VALUES
-(1, 'Confirmed'),
-(2, 'Cancelled'),
-(3, 'Pending');
 
 -- Table (Table is a reserved keyword, so we use square brackets) Table
 INSERT INTO [Table] (table_id, table_type_id, club_id, is_available)

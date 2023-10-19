@@ -24,6 +24,7 @@ public class Club {
     private int closeTime;
     private String email;
     private String phone;
+    private boolean status;
 
     @OneToMany(mappedBy = "clubId", cascade = CascadeType.ALL)
     @EqualsAndHashCode.Exclude

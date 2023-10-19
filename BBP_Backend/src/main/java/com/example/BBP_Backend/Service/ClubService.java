@@ -57,6 +57,7 @@ public ClubWithRating getClubWithRatingById(Integer clubId) {
         int noRating = getClubNoRatingById(club.getClubId());
         double rating = getClubAvgRatingById(club.getClubId());
         return new ClubWithRating(
+<<<<<<< HEAD
                 club,
                 club.getBookings().size() + 1,
                 noRating,
@@ -64,6 +65,16 @@ public ClubWithRating getClubWithRatingById(Integer clubId) {
         );
     } else {
         return null;
+=======
+                        club,
+                        club.getBookings().size(),
+                        noRating,
+                        rating);
+//        return new ClubWithRating(
+//                club,
+//                club.getBookings().size()
+//        );
+>>>>>>> 4da24159bbeb1827e8be11314e74f74ab55189f0
     }
 }
 
@@ -80,6 +91,10 @@ public ClubWithRating getClubWithRatingById(Integer clubId) {
                             noRating,
                             rating
                     ));
+//                    new ClubWithRating(
+//                            club,
+//                            club.getBookings().size()
+//                    ));
         }
         return clubsWithRating;
     }

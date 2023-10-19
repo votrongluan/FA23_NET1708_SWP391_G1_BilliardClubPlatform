@@ -37,7 +37,7 @@ public class ClubController {
     @GetMapping("/allClubs")
     public ResponseEntity<ResponeObject> getClubList() {
         return ResponseEntity.status(HttpStatus.OK).body(
-                new ResponeObject("OK", "ListClub", clubService.getAllClubWithRating())
+                new ResponeObject("OK", "Query Club Successfully", clubService.getAllClubWithRating())
         );
     }
 
@@ -52,7 +52,6 @@ public class ClubController {
                                 clubService.saveNewClub(newClub))
                 );
     }
-
 
     @PutMapping("/updateClub/{clubId}")
     public ResponseEntity<ResponeObject> updateClub(@RequestBody Club newClubEntity,

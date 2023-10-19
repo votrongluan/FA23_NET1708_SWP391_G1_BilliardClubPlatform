@@ -56,9 +56,13 @@ public class ClubService {
         double rating = getClubAvgRatingById(club.getClubId());
         return new ClubWithRating(
                         club,
-                        club.getBookings().size() + 1,
+                        club.getBookings().size(),
                         noRating,
                         rating);
+//        return new ClubWithRating(
+//                club,
+//                club.getBookings().size()
+//        );
     }
 
     public List<ClubWithRating> getAllClubWithRating() {
@@ -74,6 +78,10 @@ public class ClubService {
                             noRating,
                             rating
                     ));
+//                    new ClubWithRating(
+//                            club,
+//                            club.getBookings().size()
+//                    ));
         }
         return clubsWithRating;
     }

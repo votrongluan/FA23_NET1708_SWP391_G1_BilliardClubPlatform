@@ -94,13 +94,13 @@ public class ClubService {
     }
 
     public List<Club> findByClubname(Club newClub) {
-        return clubRepository.findByClubName(newClub.getClubName().trim());
+        return clubRepository.findByClubName(newClub.getClubName());
     }
     public Club saveNewClub(Club newClub) {
         return clubRepository.save(newClub);
     }
     public Optional<Club> updateClub(Club newClubEntity, Integer clubId) {
-        List<Club> foundClubs = clubRepository.findByClubName(newClubEntity.getClubName().trim());
+        List<Club> foundClubs = clubRepository.findByClubName(newClubEntity.getClubName());
         Optional<Club> existingClub = clubRepository.findById(clubId);
 
         if (foundClubs.size() > 0) {

@@ -4,12 +4,15 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
+
+import java.util.List;
+
 @Entity
 @Data
-@jakarta.persistence.Table(name = "Table")
-public class Tables {
+@Table(name = "my_table")
+public class MyTable {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int tableId;
 
     @ManyToOne()
@@ -20,4 +23,6 @@ public class Tables {
     private int clubId;
     private int is_available;
 
+    @OneToMany(mappedBy = "table")
+    private List<BookingDetail> bookingDetails;
 }

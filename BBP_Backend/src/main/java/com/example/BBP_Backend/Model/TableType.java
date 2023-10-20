@@ -24,6 +24,6 @@ public class TableType {
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     @JsonIgnore
-    private List<Tables> tables;
+    private List<MyTable> tables;
 
 }

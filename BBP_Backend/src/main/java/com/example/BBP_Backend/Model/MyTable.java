@@ -6,10 +6,10 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 @Entity
 @Data
-@jakarta.persistence.Table(name = "Table")
-public class Tables {
+@Table(name = "my_table")
+public class MyTable {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int tableId;
 
     @ManyToOne()

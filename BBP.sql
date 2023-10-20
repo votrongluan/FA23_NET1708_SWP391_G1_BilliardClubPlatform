@@ -129,6 +129,9 @@ CREATE TABLE Slot (
 ALTER TABLE Booking
 ADD CONSTRAINT FK_Booking_BookingStatusId FOREIGN KEY (booking_status_id) REFERENCES BookingStatus(booking_status_id);
 
+ALTER TABLE Booking
+ADD CONSTRAINT FK_Booking_ClubId FOREIGN KEY (club_id) REFERENCES Club(club_id);
+
 -- Review FK
 ALTER TABLE Review
 ADD CONSTRAINT FK_Review_BookingId FOREIGN KEY (booking_id) REFERENCES Booking(booking_id);
@@ -236,7 +239,7 @@ INSERT INTO Review (review_id, booking_id, star, comment)
 VALUES
 (201, 101, 4, 'Great experience!'),
 (202, 102, 5, 'Amazing club!'),
-(203, 101, 3, 'Service could be better');
+(203, 103, 3, 'Service could be better');
 
 -- Table (Table is a reserved keyword, so we use square brackets) Table
 INSERT INTO [Table] (table_id, table_type_id, club_id, is_available)

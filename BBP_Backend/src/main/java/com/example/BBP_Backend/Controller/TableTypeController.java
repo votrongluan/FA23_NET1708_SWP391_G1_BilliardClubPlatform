@@ -1,7 +1,9 @@
 package com.example.BBP_Backend.Controller;
 
-import com.example.BBP_Backend.Model.ResponseObject;
-import com.example.BBP_Backend.Model.TableRequest;
+import com.example.BBP_Backend.Model.MyTable;
+import com.example.BBP_Backend.Request.DeleteTableRequest;
+import com.example.BBP_Backend.Response.ResponseObject;
+import com.example.BBP_Backend.Request.TableRequest;
 import com.example.BBP_Backend.Model.TableType;
 import com.example.BBP_Backend.Service.TableTypeService;
 import lombok.RequiredArgsConstructor;
@@ -40,6 +42,24 @@ public class TableTypeController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body(new ResponseObject("Failed", "The clubId or tableTypeId you entered does not exist", ""));
         }
+    }
+
+    @DeleteMapping("/deleteTable")
+    public ResponseEntity<ResponseObject> deleteTable(@RequestBody MyTable myTable) {
+        Integer tableId = myTable.getTableId();
+
+        boolean exists = tableTypeService.existsById(tableId);
+
+        if (exists) {
+            tableTypeService.deleteTableWithBookingDetails(tableId);
+            return ResponseEntity.status(HttpStatus.OK).body(
+                    new ResponseObject("Ok", "Delete Table Successfully", "")
+            );
+        }
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+                new ResponseObject("Failed", "Cannot find Table to delete with id = " + tableId, "")
+        );
     }
 
 }

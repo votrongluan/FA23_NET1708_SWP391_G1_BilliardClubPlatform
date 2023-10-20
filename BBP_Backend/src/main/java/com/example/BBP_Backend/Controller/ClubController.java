@@ -1,7 +1,7 @@
 package com.example.BBP_Backend.Controller;
 
 import com.example.BBP_Backend.Model.Club;
-import com.example.BBP_Backend.Model.ResponseObject;
+import com.example.BBP_Backend.Response.ResponseObject;
 import com.example.BBP_Backend.Response.ClubWithRating;
 import com.example.BBP_Backend.Service.ClubService;
 import lombok.RequiredArgsConstructor;

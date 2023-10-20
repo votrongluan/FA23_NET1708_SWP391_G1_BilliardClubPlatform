@@ -1,4 +1,4 @@
-package com.example.BBP_Backend.Model;
+package com.example.BBP_Backend.Request;
 
 import lombok.Data;
 

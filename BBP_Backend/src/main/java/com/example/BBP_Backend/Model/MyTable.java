@@ -4,6 +4,9 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
+
+import java.util.List;
+
 @Entity
 @Data
 @Table(name = "my_table")
@@ -20,4 +23,6 @@ public class MyTable {
     private int clubId;
     private int is_available;
 
+    @OneToMany(mappedBy = "table")
+    private List<BookingDetail> bookingDetails;
 }

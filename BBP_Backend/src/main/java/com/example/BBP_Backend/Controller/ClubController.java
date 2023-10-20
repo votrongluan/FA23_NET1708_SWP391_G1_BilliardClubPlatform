@@ -52,30 +52,36 @@ public class ClubController {
                 );
     }
 
-    @PutMapping("/updateClub/{clubId}")
-    public ResponseEntity<ResponseObject> updateClub(@RequestBody Club newClubEntity,
-                                                     @PathVariable Integer clubId) {
-        Optional<Club> updatedClub = clubService.updateClub(newClubEntity, clubId);
+    @PutMapping("/updateClub")
+    public ResponseEntity<ResponseObject> updateClub(@RequestBody Club club) {
+        Integer clubId = club.getClubId();
+
+        Optional<Club> updatedClub = clubService.updateClub(clubId, club);
+
         if (updatedClub.isPresent()) {
             return ResponseEntity.status(HttpStatus.OK).body(
                     new ResponseObject("Ok", "Update Club Successfully", updatedClub.get())
             );
         } else {
             return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).body(
-                    new ResponseObject("Failed", "Cannot Update Club with id = " +clubId, "")
+                    new ResponseObject("Failed", "Cannot Update Club with id = " + clubId, "")
             );
         }
     }
 
-    @DeleteMapping("/deleteClub/{clubId}")
-    public ResponseEntity<ResponseObject> deleteClub(@PathVariable Integer clubId) {
+    @DeleteMapping("/deleteClub")
+    public ResponseEntity<ResponseObject> deleteClub(@RequestBody Club club) {
+        Integer clubId = club.getClubId();
+
         boolean exists = clubService.existsById(clubId);
+
         if (exists) {
             clubService.deleteById(clubId);
             return ResponseEntity.status(HttpStatus.OK).body(
                     new ResponseObject("Ok", "Delete Club Successfully", "")
             );
         }
+
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
                 new ResponseObject("Failed", "Cannot find Club to delete with id = " + clubId, "")
         );

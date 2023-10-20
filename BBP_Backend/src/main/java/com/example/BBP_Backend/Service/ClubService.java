@@ -99,33 +99,27 @@ public class ClubService {
     public Club saveNewClub(Club newClub) {
         return clubRepository.save(newClub);
     }
-    public Optional<Club> updateClub(Club newClubEntity, Integer clubId) {
-        List<Club> foundClubs = clubRepository.findByClubName(newClubEntity.getClubName());
+    public Optional<Club> updateClub(Integer clubId, Club newClub) {
         Optional<Club> existingClub = clubRepository.findById(clubId);
-
-        if (foundClubs.size() > 0) {
-            return Optional.empty();
-        } else {
             Club updatedClub;
             if (existingClub.isPresent()) {
                 updatedClub = existingClub.get();
-                updatedClub.setClubName(newClubEntity.getClubName());
-                updatedClub.setAddress(newClubEntity.getAddress());
-                updatedClub.setDistrictId(newClubEntity.getDistrictId());
-                updatedClub.setFanpageLink(newClubEntity.getFanpageLink());
-                updatedClub.setAvatarLink(newClubEntity.getAvatarLink());
-                updatedClub.setOpenTime(newClubEntity.getOpenTime());
-                updatedClub.setCloseTime(newClubEntity.getCloseTime());
-                updatedClub.setEmail(newClubEntity.getEmail());
-                updatedClub.setPhone(newClubEntity.getPhone());
+                updatedClub.setClubName(newClub.getClubName());
+                updatedClub.setAddress(newClub.getAddress());
+                updatedClub.setDistrictId(newClub.getDistrictId());
+                updatedClub.setFanpageLink(newClub.getFanpageLink());
+                updatedClub.setAvatarLink(newClub.getAvatarLink());
+                updatedClub.setOpenTime(newClub.getOpenTime());
+                updatedClub.setCloseTime(newClub.getCloseTime());
+                updatedClub.setEmail(newClub.getEmail());
+                updatedClub.setPhone(newClub.getPhone());
+                updatedClub.setStatus(newClub.isStatus());
             } else {
-                newClubEntity.setClubId(clubId);
-                updatedClub = newClubEntity;
+                newClub.setClubId(clubId);
+                updatedClub = newClub;
             }
-
             return Optional.of(clubRepository.save(updatedClub));
         }
-    }
 
     public boolean existsById(Integer clubId) {
         return clubRepository.existsById(clubId);

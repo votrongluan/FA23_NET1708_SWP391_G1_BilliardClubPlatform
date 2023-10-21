@@ -12,7 +12,11 @@ import java.util.List;
 public class BookingStatusService {
     private final BookingStatusRepository repository;
 
-    public List<BookingStatus> getAll() {
-        return repository.findAll();
+    public List<BookingStatus> getAll() throws Exception {
+        List<BookingStatus> bookingStatusList = repository.findAll();
+        if (bookingStatusList == null || bookingStatusList.isEmpty()) {
+            throw new Exception("No BookingStatus");
+        }
+        return bookingStatusList;
     }
 }

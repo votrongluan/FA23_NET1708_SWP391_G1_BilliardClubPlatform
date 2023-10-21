@@ -19,7 +19,7 @@ public class Review {
     private int reviewId;
 
     @OneToOne
-    @JoinColumn(name = "booking_id")
+    @JoinColumn(name = "bookingId")
     private Booking bookingId;
 
     private int star;

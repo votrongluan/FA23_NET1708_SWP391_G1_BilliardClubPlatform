@@ -1,4 +1,4 @@
-package com.example.BBP_Backend.Model;
+package com.example.BBP_Backend.Response;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

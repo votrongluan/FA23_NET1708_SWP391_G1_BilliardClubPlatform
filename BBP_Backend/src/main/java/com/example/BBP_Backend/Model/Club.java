@@ -26,7 +26,7 @@ public class Club {
     private String phone;
     private boolean status;
 
-    @OneToMany(mappedBy = "clubId", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "club", cascade = CascadeType.ALL)
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     @JsonIgnore

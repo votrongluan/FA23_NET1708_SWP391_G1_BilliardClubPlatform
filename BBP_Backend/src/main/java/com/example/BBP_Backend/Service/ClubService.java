@@ -51,18 +51,20 @@ public class ClubService {
     }
 
     public ClubWithRating getClubWithRatingById(Integer clubId) {
-        Club club = clubRepository.findById(clubId).get();
-        int noRating = getClubNoRatingById(club.getClubId());
-        double rating = getClubAvgRatingById(club.getClubId());
-        return new ClubWithRating(
-                        club,
-                        club.getBookings().size(),
-                        noRating,
-                        rating);
-//        return new ClubWithRating(
-//                club,
-//                club.getBookings().size()
-//        );
+        Optional<Club> optionalClub = clubRepository.findById(clubId);
+        if (optionalClub.isPresent()) {
+            Club club = optionalClub.get();
+            int noRating = getClubNoRatingById(club.getClubId());
+            double rating = getClubAvgRatingById(club.getClubId());
+            return new ClubWithRating(
+                    club,
+                    club.getBookings().size(),
+                    noRating,
+                    rating
+            );
+        } else {
+            return null; // or throw an exception, depending on your requirement
+        }
     }
 
     public List<ClubWithRating> getAllClubWithRating() {
@@ -91,38 +93,32 @@ public class ClubService {
     }
 
     public List<Club> findByClubname(Club newClub) {
-        return clubRepository.findByClubName(newClub.getClubName().trim());
+        return clubRepository.findByClubName(newClub.getClubName());
     }
     public Club saveNewClub(Club newClub) {
         return clubRepository.save(newClub);
     }
-    public Optional<Club> updateClub(Club newClubEntity, Integer clubId) {
-        List<Club> foundClubs = clubRepository.findByClubName(newClubEntity.getClubName().trim());
+    public Optional<Club> updateClub(Integer clubId, Club newClub) {
         Optional<Club> existingClub = clubRepository.findById(clubId);
-
-        if (foundClubs.size() > 0) {
-            return Optional.empty();
-        } else {
             Club updatedClub;
             if (existingClub.isPresent()) {
                 updatedClub = existingClub.get();
-                updatedClub.setClubName(newClubEntity.getClubName());
-                updatedClub.setAddress(newClubEntity.getAddress());
-                updatedClub.setDistrictId(newClubEntity.getDistrictId());
-                updatedClub.setFanpageLink(newClubEntity.getFanpageLink());
-                updatedClub.setAvatarLink(newClubEntity.getAvatarLink());
-                updatedClub.setOpenTime(newClubEntity.getOpenTime());
-                updatedClub.setCloseTime(newClubEntity.getCloseTime());
-                updatedClub.setEmail(newClubEntity.getEmail());
-                updatedClub.setPhone(newClubEntity.getPhone());
+                updatedClub.setClubName(newClub.getClubName());
+                updatedClub.setAddress(newClub.getAddress());
+                updatedClub.setDistrictId(newClub.getDistrictId());
+                updatedClub.setFanpageLink(newClub.getFanpageLink());
+                updatedClub.setAvatarLink(newClub.getAvatarLink());
+                updatedClub.setOpenTime(newClub.getOpenTime());
+                updatedClub.setCloseTime(newClub.getCloseTime());
+                updatedClub.setEmail(newClub.getEmail());
+                updatedClub.setPhone(newClub.getPhone());
+                updatedClub.setStatus(newClub.isStatus());
             } else {
-                newClubEntity.setClubId(clubId);
-                updatedClub = newClubEntity;
+                newClub.setClubId(clubId);
+                updatedClub = newClub;
             }
-
             return Optional.of(clubRepository.save(updatedClub));
         }
-    }
 
     public boolean existsById(Integer clubId) {
         return clubRepository.existsById(clubId);

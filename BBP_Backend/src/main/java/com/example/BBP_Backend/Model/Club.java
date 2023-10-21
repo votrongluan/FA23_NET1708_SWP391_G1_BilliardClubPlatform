@@ -2,6 +2,7 @@ package com.example.BBP_Backend.Model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.persistence.Table;
 import lombok.*;
 import java.util.List;
 
@@ -31,4 +32,7 @@ public class Club {
     @ToString.Exclude
     @JsonIgnore
     private List<Booking> bookings;
+
+    @OneToMany(mappedBy = "club", cascade = CascadeType.ALL)
+    private List<Price> prices;
 }

@@ -2,10 +2,10 @@ package com.example.BBP_Backend.Model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.persistence.Table;
 import lombok.*;
 
 import java.sql.Date;
-import java.util.Collection;
 
 @Data
 @Entity

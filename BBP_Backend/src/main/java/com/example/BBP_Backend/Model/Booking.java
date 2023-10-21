@@ -1,5 +1,6 @@
 package com.example.BBP_Backend.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.persistence.Table;
 import lombok.*;
@@ -32,6 +33,7 @@ public class Booking {
 
     private Date bookDate;
 
+    @JsonIgnore
     @OneToOne(mappedBy = "bookingId", cascade = CascadeType.ALL)
     private Review review;
 }

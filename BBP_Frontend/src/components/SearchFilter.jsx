@@ -1,11 +1,13 @@
 import React, {useEffect, useState} from 'react';
 import {HStack, Input, InputGroup, InputLeftElement, Select, Spacer, Text} from "@chakra-ui/react";
 import {SearchIcon} from "@chakra-ui/icons";
-import unorm from "unorm";
 
 function SearchFilter({data, methods, DisplayData}) {
     const normalize = (text) => {
-        return unorm.nfkd(text).replace(/[\u0300-\u036F]/g, "");
+        return text
+            .normalize('NFKD')
+            .replace(/[\u0300-\u036F]/g, '')
+            .replace(/đ/g, 'd');
     };
 
     const [filteredData, setFilteredData] = useState(data);
@@ -25,7 +27,7 @@ function SearchFilter({data, methods, DisplayData}) {
                         return b[sortMethod] - a[sortMethod];
                     }
                 }
-                
+
                 const valueA = a[sortMethod].toString();
                 const valueB = b[sortMethod].toString();
 

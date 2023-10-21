@@ -18,59 +18,71 @@ public class ClubController {
     private final ClubService clubService;
 
     @GetMapping("/club")
-    public ResponseEntity<ResponeObject> getClubById(
+    public ResponseEntity<ResponseObject> getClubById(
             @RequestBody Club club) {
-        return ResponseEntity.status(HttpStatus.OK).body(
-                new ResponeObject("OK", "ClubById", clubService.getClubWithRatingById(club.getClubId()))
-        );
+        ClubWithRating foundClub = clubService.getClubWithRatingById(club.getClubId());
+        if(foundClub != null){
+            return ResponseEntity.status(HttpStatus.OK).body(
+                    new ResponseObject("Ok", "Query club successfully", foundClub)
+            );
+        }else{
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+                    new ResponseObject("Failed", "Cannot find club with id = " + club.getClubId(), "")
+            );
+        }
     }
 
     @GetMapping("/allClubs")
-    public ResponseEntity<ResponeObject> getClubList() {
+    public ResponseEntity<ResponseObject> getClubList() {
         return ResponseEntity.status(HttpStatus.OK).body(
-                new ResponeObject("OK", "ListClub", clubService.getAllClubWithRating())
+                new ResponseObject("OK", "Query Club Successfully", clubService.getAllClubWithRating())
         );
     }
 
     @PostMapping("/clubInsert")
-    ResponseEntity<ResponeObject> insertClub(@RequestBody Club newClub) {
+    ResponseEntity<ResponseObject> insertClub(@RequestBody Club newClub) {
         List<Club> foundClubs = clubService.findByClubname(newClub);
         return foundClubs.size() > 0 ? ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).body(
-                new ResponeObject("Failed", "Club Name already taken", "")
+                new ResponseObject("Failed", "Club Name already taken", "")
         ) :
                 ResponseEntity.status(HttpStatus.OK).body(
-                        new ResponeObject("Ok", "Insert Club Successfully",
+                        new ResponseObject("Ok", "Insert Club Successfully",
                                 clubService.saveNewClub(newClub))
                 );
     }
 
+    @PutMapping("/updateClub")
+    public ResponseEntity<ResponseObject> updateClub(@RequestBody Club club) {
+        Integer clubId = club.getClubId();
 
-    @PutMapping("/updateClub/{clubId}")
-    public ResponseEntity<ResponeObject> updateClub(@RequestBody Club newClubEntity,
-                                                    @PathVariable Integer clubId) {
-        Optional<Club> updatedClub = clubService.updateClub(newClubEntity, clubId);
+        Optional<Club> updatedClub = clubService.updateClub(clubId, club);
+
         if (updatedClub.isPresent()) {
             return ResponseEntity.status(HttpStatus.OK).body(
-                    new ResponeObject("Ok", "Update Club Successfully", updatedClub.get())
+                    new ResponseObject("Ok", "Update Club Successfully", updatedClub.get())
             );
         } else {
             return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).body(
-                    new ResponeObject("Failed", "Club Name already taken", "")
+                    new ResponseObject("Failed", "Cannot Update Club with id = " + clubId, "")
             );
         }
     }
 
-    @DeleteMapping("/deleteClub/{clubId}")
-    public ResponseEntity<ResponeObject> deleteClub(@PathVariable Integer clubId) {
+    @DeleteMapping("/deleteClub")
+    public ResponseEntity<ResponseObject> deleteClub(@RequestBody Club club) {
+        Integer clubId = club.getClubId();
+
         boolean exists = clubService.existsById(clubId);
+
         if (exists) {
             clubService.deleteById(clubId);
             return ResponseEntity.status(HttpStatus.OK).body(
-                    new ResponeObject("Ok", "Delete Club Successfully", "")
+                    new ResponseObject("Ok", "Delete Club Successfully", "")
             );
         }
+
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
-                new ResponeObject("Failed", "Cannot find Club to delete with id = " + clubId, "")
+                new ResponseObject("Failed", "Cannot find Club to delete with id = " + clubId, "")
         );
     }
 

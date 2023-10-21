@@ -33,7 +33,9 @@ public class Booking {
 
     private Date bookDate;
 
-    @OneToOne(mappedBy = "bookingId", cascade = CascadeType.ALL)
-    @JsonIgnore
+    @OneToOne
+    @JoinColumn(name = "reviewId")
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
     private Review review;
 }

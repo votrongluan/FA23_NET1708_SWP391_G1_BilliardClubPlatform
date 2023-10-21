@@ -1,7 +1,12 @@
--- Drop and create the database
+﻿-- Drop and create the database
+USE master
+GO
 DROP DATABASE IF EXISTS BBP;
+GO
 CREATE DATABASE BBP;
+GO
 USE BBP;
+GO
 
 -- Create Users table  
 CREATE TABLE Users (
@@ -176,10 +181,32 @@ ADD CONSTRAINT FK_ClubStaff_UserId FOREIGN KEY (staffId) REFERENCES Users(userId
 -- Sample Data Inserts
 
 -- District Table
-INSERT INTO District (districtId, districtName)  
+INSERT INTO District (districtId, districtName)
 VALUES
-(1, 'Downtown'),
-(2, 'Suburb');
+    (1, N'Quận 1'),
+    (2, N'Quận 2'),
+    (3, N'Quận 3'),
+    (4, N'Quận 4'),
+    (5, N'Quận 5'),
+    (6, N'Quận 6'),
+    (7, N'Quận 7'),
+    (8, N'Quận 8'),
+    (9, N'Quận 9'),
+    (10, N'Quận 10'),
+    (11, N'Quận 11'),
+    (12, N'Quận 12'),
+    (13, N'Quận Thủ Đức'),
+    (14, N'Quận Gò Vấp'),
+    (15, N'Quận Bình Thạnh'),
+    (16, N'Quận Tân Bình'),
+    (17, N'Quận Tân Phú'),
+    (18, N'Quận Phú Nhuận'),
+    (19, N'Quận Bình Tân'),
+    (20, N'Huyện Củ Chi'),
+    (21, N'Huyện Hóc Môn'),
+    (22, N'Huyện Bình Chánh'),
+    (23, N'Huyện Nhà Bè'),
+    (24, N'Huyện Cần Giờ');
 
 -- Users Table
 INSERT INTO Users (userId, username, password, firstName, lastName, email, phone, avatarLink, role)
@@ -193,8 +220,8 @@ VALUES
 -- TableType Table  
 INSERT INTO TableType (tableTypeId, typeName, typeDescription)
 VALUES
-(1, 'Regular', 'Standard table'),  
-(2, 'VIP', 'VIP table with special features');
+(1, N'Phăng', 'Standard table'),  
+(2, N'Lỗ', 'VIP table with special features');
 
 -- Club Table
 INSERT INTO Club (clubId, clubName, address, districtId, fanpageLink, avatarLink, openTime, closeTime, email, phone, status)
@@ -212,15 +239,25 @@ VALUES
 -- Booking Table
 INSERT INTO Booking (bookingId, customerId, clubId, clubStaffId, bookingStatusId, bookDate)
 VALUES
-(101, 1, 1, 3, 1, '2023-10-19 14:30:00'),
-(102, 2, 2, 3, 1, '2023-10-20 20:00:00'),
-(103, 1, 2, 3, 2, '2023-10-22 18:15:00');
+(101, 1, 1, 3, 1, '2023-10-19'),
+(102, 2, 2, 3, 1, '2023-10-20'),
+(103, 1, 2, 3, 2, '2023-10-22');
 
 -- Slot Table
 INSERT INTO Slot (slotId, startTime, endTime)
 VALUES  
-(1, 18, 21),
-(2, 21, 24);
+(1, 9, 10),
+(2, 10, 11),
+(3, 11, 12),
+(4, 12, 13),
+(5, 13, 14),
+(6, 14, 15),
+(7, 15, 16),
+(8, 16, 17),
+(9, 17, 18),
+(10, 18, 19),
+(11, 19, 20),
+(12, 20, 21);
 
 -- Price Table 
 INSERT INTO Price (tableTypeId, clubId, slotId, price)

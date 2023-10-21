@@ -5,15 +5,16 @@ import {Container, Heading, HStack, Input, InputGroup, InputLeftElement, Select,
 import {SearchIcon} from "@chakra-ui/icons";
 import Clubs from "../../components/Clubs.jsx";
 
-import unorm from "unorm"; // Import the unorm library
-
 function Find(props) {
     const clubs = useLoaderData();
     const [search, setSearch] = useState("");
     const {districtMap} = useContext(GlobalContext);
 
     const normalize = (text) => {
-        return unorm.nfkd(text).replace(/[\u0300-\u036F]/g, "");
+        return text
+            .normalize('NFKD')
+            .replace(/[\u0300-\u036F]/g, '')
+            .replace(/đ/g, 'd');
     };
 
     const [sortMethod, setSortMethod] = useState("rating");
@@ -50,6 +51,7 @@ function Find(props) {
         return clubs.filter((el) => {
             return Object.values(el).some((field) => {
                 const normalizedFieldData = normalize(field.toString().toLowerCase());
+                console.log(query, normalizedFieldData)
                 return normalizedFieldData.includes(query);
             });
         });

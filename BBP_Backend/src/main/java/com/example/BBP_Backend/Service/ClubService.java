@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-@Data
+
 @RequiredArgsConstructor
 @Service
 public class ClubService {
@@ -23,7 +23,7 @@ public class ClubService {
     public int getClubNoRatingById(int clubId) {
         Optional<Club> club = findClubById(clubId);
         int noRating = 0;
-        if (!club.isEmpty()) {
+        if (club.isPresent()) {
             for (Booking booking: club.get().getBookings()) {
                 if (booking.getReview() != null) {
                     noRating++;
@@ -38,7 +38,7 @@ public class ClubService {
         Optional<Club> club = findClubById(clubId);
         int noRating = 0;
         double totalRating = 0;
-        if (!club.isEmpty()) {
+        if (club.isPresent()) {
             for (Booking booking: club.get().getBookings()) {
                 if (booking.getReview() != null) {
                     noRating++;
@@ -89,8 +89,7 @@ public class ClubService {
     }
 
     public Optional<Club> findClubById(Integer clubId) {
-        Optional<Club> foundClubs = clubRepository.findById(clubId);
-        return foundClubs;
+        return clubRepository.findById(clubId);
     }
 
     public List<Club> findByClubname(Club newClub) {

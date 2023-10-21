@@ -3,262 +3,262 @@ DROP DATABASE IF EXISTS BBP;
 CREATE DATABASE BBP;
 USE BBP;
 
--- Create Users table
+-- Create Users table  
 CREATE TABLE Users (
-    user_id INT NOT NULL,
-    username VARCHAR(255) NOT NULL,
-    password NVARCHAR(255) NOT NULL,
-    first_name NVARCHAR(255),
-    last_name NVARCHAR(255),
-    email NVARCHAR(255),
-    phone VARCHAR(255),
-    avatar_link NVARCHAR(255),
-    role VARCHAR(255),
-    PRIMARY KEY (user_id)
+  userId INT NOT NULL,
+  username VARCHAR(255) NOT NULL, 
+  password NVARCHAR(255) NOT NULL,
+  firstName NVARCHAR(255),
+  lastName NVARCHAR(255),
+  email NVARCHAR(255),
+  phone VARCHAR(255),
+  avatarLink NVARCHAR(255),
+  role VARCHAR(255),
+  PRIMARY KEY (userId)
 );
 
 -- Create TableType table
 CREATE TABLE TableType (
-    table_type_id INT NOT NULL,
-    type_name NVARCHAR(255) NOT NULL,
-    type_description NVARCHAR(255),
-    PRIMARY KEY (table_type_id)
+  tableTypeId INT NOT NULL,
+  typeName NVARCHAR(255) NOT NULL,
+  typeDescription NVARCHAR(255),
+  PRIMARY KEY (tableTypeId)
 );
 
 -- Create Booking table
 CREATE TABLE Booking (
-    booking_id INT NOT NULL,
-    customer_id INT NOT NULL,
-    club_id INT NOT NULL,
-    club_staff_id INT NOT NULL,
-    booking_status_id INT NOT NULL,
-    book_date DATETIME,
-    PRIMARY KEY (booking_id)
+  bookingId INT NOT NULL,
+  customerId INT NOT NULL,
+  clubId INT NOT NULL,
+  clubStaffId INT NOT NULL,
+  bookingStatusId INT NOT NULL,
+  bookDate DATETIME,
+  PRIMARY KEY (bookingId)
 );
 
--- Create Price table
+-- Create Price table  
 CREATE TABLE Price (
-    table_type_id INT NOT NULL,
-    club_id INT NOT NULL,
-    slot_id INT NOT NULL,
-    price INT,
-    PRIMARY KEY (table_type_id, club_id, slot_id)
+  tableTypeId INT NOT NULL,
+  clubId INT NOT NULL,
+  slotId INT NOT NULL,
+  price INT,
+  PRIMARY KEY (tableTypeId, clubId, slotId)
 );
 
 -- Create District table
 CREATE TABLE District (
-    district_id INT NOT NULL,
-    district_name NVARCHAR(255) NOT NULL,
-    PRIMARY KEY (district_id)
+  districtId INT NOT NULL,
+  districtName NVARCHAR(255) NOT NULL,
+  PRIMARY KEY (districtId)
 );
 
 -- Create Club table
 CREATE TABLE Club (
-    club_id INT NOT NULL,
-    club_name NVARCHAR(255) NOT NULL,
-    address NVARCHAR(255) NOT NULL,
-    district_id INT NOT NULL,
-    fanpage_link NVARCHAR(255),
-    avatar_link NVARCHAR(255) NOT NULL,
-    open_time INT,
-    close_time INT,
-    email VARCHAR(255),
-    phone VARCHAR(255),
-	status bit,
-    PRIMARY KEY (club_id)
+  clubId INT NOT NULL,
+  clubName NVARCHAR(255) NOT NULL,
+  address NVARCHAR(255) NOT NULL,
+  districtId INT NOT NULL,
+  fanpageLink NVARCHAR(255),
+  avatarLink NVARCHAR(255) NOT NULL,
+  openTime INT,
+  closeTime INT,
+  email VARCHAR(255),
+  phone VARCHAR(255),
+  status bit,
+  PRIMARY KEY (clubId)
 );
 
 -- Create ClubStaff table
 CREATE TABLE ClubStaff (
-    staff_id INT NOT NULL,
-    club_id INT NOT NULL,
-    PRIMARY KEY (staff_id, club_id)
+  staffId INT NOT NULL,
+  clubId INT NOT NULL,
+  PRIMARY KEY (staffId, clubId)
 );
 
 -- Create Review table
 CREATE TABLE Review (
-    review_id INT NOT NULL,
-    booking_id INT NOT NULL,
-    star INT NOT NULL,
-    comment NVARCHAR(255),
-    PRIMARY KEY (review_id)
+  reviewId INT NOT NULL,
+  bookingId INT NOT NULL,
+  star INT NOT NULL,
+  comment NVARCHAR(255),
+  PRIMARY KEY (reviewId) 
 );
 
--- Create BookingDetailStatus table
+-- Create BookingStatus table
 CREATE TABLE BookingStatus (
-    booking_status_id INT NOT NULL,
-    status NVARCHAR(255) NOT NULL,
-    PRIMARY KEY (booking_status_id)
+  bookingStatusId INT NOT NULL,
+  status NVARCHAR(255) NOT NULL,
+  PRIMARY KEY (bookingStatusId)
 );
 
--- Create Table (Table is a reserved keyword, so we use square brackets) Table
+-- Create Table (Table is a reserved keyword) Table  
 CREATE TABLE [Table] (
-    table_id INT NOT NULL,
-    table_type_id INT NOT NULL,
-    club_id INT NOT NULL,
-    is_available BIT,
-    PRIMARY KEY (table_id)
+  tableId INT NOT NULL,
+  tableTypeId INT NOT NULL,
+  clubId INT NOT NULL,
+  isAvailable BIT,
+  PRIMARY KEY (tableId)
 );
 
 -- Create BookingDetail table
 CREATE TABLE BookingDetail (
-    booking_detail_id INT NOT NULL,
-    booking_id INT NOT NULL,
-    slot_id INT NOT NULL,
-    table_id INT NOT NULL,
-    price INT,
-    status_id INT NOT NULL,
-    book_date DATE,
-    PRIMARY KEY (booking_detail_id)
+  bookingDetailId INT NOT NULL,
+  bookingId INT NOT NULL,
+  slotId INT NOT NULL,  
+  tableId INT NOT NULL,
+  price INT,
+  statusId INT NOT NULL,
+  bookDate DATE,
+  PRIMARY KEY (bookingDetailId)
 );
 
 -- Create Slot table
 CREATE TABLE Slot (
-    slot_id INT NOT NULL,
-    start_time INT,
-    end_time INT,
-    PRIMARY KEY (slot_id)
+  slotId INT NOT NULL,
+  startTime INT,
+  endTime INT,
+  PRIMARY KEY (slotId)
 );
 
-
--------------------------------------------------------------------------------------------------------------------------
 
 -- Define foreign keys
 
 -- Booking
 ALTER TABLE Booking
-ADD CONSTRAINT FK_Booking_BookingStatusId FOREIGN KEY (booking_status_id) REFERENCES BookingStatus(booking_status_id);
+ADD CONSTRAINT FK_Booking_BookingStatusId FOREIGN KEY (bookingStatusId) REFERENCES BookingStatus(bookingStatusId);
 
-ALTER TABLE Booking
-ADD CONSTRAINT FK_Booking_ClubId FOREIGN KEY (club_id) REFERENCES Club(club_id);
+ALTER TABLE Booking  
+ADD CONSTRAINT FK_Booking_ClubId FOREIGN KEY (clubId) REFERENCES Club(clubId);
 
 -- Review FK
 ALTER TABLE Review
-ADD CONSTRAINT FK_Review_BookingId FOREIGN KEY (booking_id) REFERENCES Booking(booking_id);
+ADD CONSTRAINT FK_Review_BookingId FOREIGN KEY (bookingId) REFERENCES Booking(bookingId);
 
 -- BookingDetail FK
 ALTER TABLE BookingDetail
-ADD CONSTRAINT FK_BookingDetail_BookingId FOREIGN KEY (booking_id) REFERENCES Booking(booking_id);
+ADD CONSTRAINT FK_BookingDetail_BookingId FOREIGN KEY (bookingId) REFERENCES Booking(bookingId);
 
 ALTER TABLE BookingDetail
-ADD CONSTRAINT FK_BookingDetail_SlotId FOREIGN KEY (slot_id) REFERENCES Slot(slot_id);
+ADD CONSTRAINT FK_BookingDetail_SlotId FOREIGN KEY (slotId) REFERENCES Slot(slotId);
 
 ALTER TABLE BookingDetail
-ADD CONSTRAINT FK_BookingDetail_TableId FOREIGN KEY (table_id) REFERENCES [Table](table_id);
+ADD CONSTRAINT FK_BookingDetail_TableId FOREIGN KEY (tableId) REFERENCES [Table](tableId);
 
 -- Table FK
-ALTER TABLE [Table]
-ADD CONSTRAINT FK_Table_TableTypeId FOREIGN KEY (table_type_id) REFERENCES TableType(table_type_id);
+ALTER TABLE [Table]  
+ADD CONSTRAINT FK_Table_TableTypeId FOREIGN KEY (tableTypeId) REFERENCES TableType(tableTypeId);
 
 ALTER TABLE [Table]
-ADD CONSTRAINT FK_Table_ClubId FOREIGN KEY (club_id) REFERENCES Club(club_id);
+ADD CONSTRAINT FK_Table_ClubId FOREIGN KEY (clubId) REFERENCES Club(clubId);
 
 -- Club FK
 ALTER TABLE Club
-ADD CONSTRAINT FK_Club_DistrictId FOREIGN KEY (district_id) REFERENCES District(district_id);
+ADD CONSTRAINT FK_Club_DistrictId FOREIGN KEY (districtId) REFERENCES District(districtId);
 
 -- Price FK
 ALTER TABLE Price
-ADD CONSTRAINT FK_Price_TableTypeId FOREIGN KEY (table_type_id) REFERENCES TableType(table_type_id);
+ADD CONSTRAINT FK_Price_TableTypeId FOREIGN KEY (tableTypeId) REFERENCES TableType(tableTypeId);
 
 ALTER TABLE Price
-ADD CONSTRAINT FK_Price_ClubId FOREIGN KEY (club_id) REFERENCES Club(club_id);
+ADD CONSTRAINT FK_Price_ClubId FOREIGN KEY (clubId) REFERENCES Club(clubId);
 
 ALTER TABLE Price
-ADD CONSTRAINT FK_Price_SlotId FOREIGN KEY (slot_id) REFERENCES Slot(slot_id);
+ADD CONSTRAINT FK_Price_SlotId FOREIGN KEY (slotId) REFERENCES Slot(slotId);
 
 -- ClubStaff FK
 ALTER TABLE ClubStaff
-ADD CONSTRAINT FK_ClubStaff_ClubId FOREIGN KEY (club_id) REFERENCES Club(club_id);
+ADD CONSTRAINT FK_ClubStaff_ClubId FOREIGN KEY (clubId) REFERENCES Club(clubId);
 
 ALTER TABLE ClubStaff
-ADD CONSTRAINT FK_ClubStaff_UserId FOREIGN KEY (staff_id) REFERENCES Users(user_id);
+ADD CONSTRAINT FK_ClubStaff_UserId FOREIGN KEY (staffId) REFERENCES Users(userId);
 
--------------------------------------------------------------------------------------------------------------------------
 
 -- Sample Data Inserts
 
 -- District Table
-INSERT INTO District (district_id, district_name)
+INSERT INTO District (districtId, districtName)  
 VALUES
 (1, 'Downtown'),
 (2, 'Suburb');
 
 -- Users Table
-INSERT INTO Users (user_id, username, password, first_name, last_name, email, phone, avatar_link, role)
+INSERT INTO Users (userId, username, password, firstName, lastName, email, phone, avatarLink, role)
 VALUES
 (1, 'john_doe', 'password123', 'John', 'Doe', 'john.doe@email.com', '1234567890', 'avatar1.jpg', 'customer'),
-(2, 'jane_smith', 'pass456', 'Jane', 'Smith', 'jane.smith@email.com', '9876543210', 'avatar2.jpg', 'customer'),
+(2, 'jane_smith', 'pass456', 'Jane', 'Smith', 'jane.smith@email.com', '9876543210', 'avatar2.jpg', 'customer'), 
 (3, 'admin_user', 'adminpass', 'Admin', 'User', 'admin.user@email.com', '5555555555', 'admin_avatar.jpg', 'admin'),
 (4, 'A1_staff', 'staff1', 'staff', 'Staff1', 'staff1.user@email.com', '5555555555', 'staff1_avatar.jpg', 'staff'),
 (5, 'B2_staff', 'staff2', 'staff', 'Staff2', 'staff2.user@email.com', '5555555555', 'staff2_avatar.jpg', 'staff');
 
--- TableType Table
-INSERT INTO TableType (table_type_id, type_name, type_description)
+-- TableType Table  
+INSERT INTO TableType (tableTypeId, typeName, typeDescription)
 VALUES
-(1, 'Regular', 'Standard table'),
+(1, 'Regular', 'Standard table'),  
 (2, 'VIP', 'VIP table with special features');
 
 -- Club Table
-INSERT INTO Club (club_id, club_name, address, district_id, fanpage_link, avatar_link, open_time, close_time, email, phone, status)
+INSERT INTO Club (clubId, clubName, address, districtId, fanpageLink, avatarLink, openTime, closeTime, email, phone, status)
 VALUES
 (1, 'Club A', '123 Main St, Downtown', 1, 'facebook.com/clubA', 'clubA_avatar.jpg', '18', '02', 'clubA@email.com', '1112223333', 1),
 (2, 'Club B', '456 Elm St, Suburb', 2, 'facebook.com/clubB', 'clubB_avatar.jpg', '19', '03', 'clubB@email.com', '4445556666', 1);
 
--- BookingStatus Table
-INSERT INTO BookingStatus (booking_status_id, status)
+-- BookingStatus Table  
+INSERT INTO BookingStatus (bookingStatusId, status)  
 VALUES
 (1, 'Confirmed'),
 (2, 'Cancelled'),
 (3, 'Pending');
 
 -- Booking Table
-INSERT INTO Booking (booking_id, customer_id, club_id, club_staff_id, booking_status_id, book_date)
+INSERT INTO Booking (bookingId, customerId, clubId, clubStaffId, bookingStatusId, bookDate)
 VALUES
 (101, 1, 1, 3, 1, '2023-10-19 14:30:00'),
 (102, 2, 2, 3, 1, '2023-10-20 20:00:00'),
 (103, 1, 2, 3, 2, '2023-10-22 18:15:00');
 
 -- Slot Table
-INSERT INTO Slot (slot_id, start_time, end_time)
-VALUES
+INSERT INTO Slot (slotId, startTime, endTime)
+VALUES  
 (1, 18, 21),
 (2, 21, 24);
 
--- Price Table
-INSERT INTO Price (table_type_id, club_id, slot_id, price)
+-- Price Table 
+INSERT INTO Price (tableTypeId, clubId, slotId, price)
 VALUES
-(1, 1, 1, 50),
+(1, 1, 1, 50),  
 (1, 1, 2, 60),
 (2, 1, 1, 100),
 (1, 2, 1, 45),
 (2, 2, 1, 90);
 
 -- Review Table
-INSERT INTO Review (review_id, booking_id, star, comment)
+
+INSERT INTO Review (reviewId, bookingId, star, comment)  
 VALUES
 (201, 101, 4, 'Great experience!'),
-(202, 102, 5, 'Amazing club!'),
+(202, 102, 5, 'Amazing club!'), 
 (203, 103, 3, 'Service could be better');
 
--- Table (Table is a reserved keyword, so we use square brackets) Table
-INSERT INTO [Table] (table_id, table_type_id, club_id, is_available)
+-- Table (Table is a reserved keyword) Table
+
+INSERT INTO [Table] (tableId, tableTypeId, clubId, isAvailable)
 VALUES
-(1, 1, 1, 1),
+(1, 1, 1, 1),  
 (2, 1, 1, 0),
 (3, 2, 1, 1),
-(4, 1, 2, 1);
+(4, 1, 2, 1); 
 
--- BookingDetail Table
-INSERT INTO BookingDetail (booking_detail_id, booking_id, slot_id, table_id, price, status_id, book_date)
+-- BookingDetail Table 
+
+INSERT INTO BookingDetail (bookingDetailId, bookingId, slotId, tableId, price, statusId, bookDate)
 VALUES
 (301, 101, 1, 1, 50, 1, '2023-10-19'),
-(302, 102, 2, 2, 60, 1, '2023-10-20'),
+(302, 102, 2, 2, 60, 1, '2023-10-20'),  
 (303, 103, 1, 3, 100, 1, '2023-10-22'),
 (304, 103, 2, 4, 45, 1, '2023-10-22');
 
 -- ClubStaff Table
-INSERT INTO ClubStaff (staff_id, club_id)
+INSERT INTO ClubStaff (staffId, clubId)  
 VALUES
 (4, 1),
 (4, 2);

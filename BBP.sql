@@ -207,13 +207,6 @@ VALUES
 (2, 'Cancelled'),
 (3, 'Pending');
 
--- Booking Table
-INSERT INTO Booking (bookingId, customerId, clubId, clubStaffId, bookingStatusId, reviewId, bookDate)
-VALUES
-(101, 1, 1, 3, 1, 201, '2023-10-19 14:30:00'),
-(102, 2, 2, 3, 1, 202, '2023-10-20 20:00:00'),
-(103, 1, 2, 3, 2, 203, '2023-10-22 18:15:00');
-
 -- Slot Table
 INSERT INTO Slot (slotId, startTime, endTime)
 VALUES  
@@ -230,12 +223,18 @@ VALUES
 (2, 2, 1, 90);
 
 -- Review Table
-
 INSERT INTO Review (reviewId, star, comment)  
 VALUES
 (201, 4, 'Great experience!'),
 (202, 5, 'Amazing club!'), 
 (203, 3, 'Service could be better');
+
+-- Booking Table
+INSERT INTO Booking (bookingId, customerId, clubId, clubStaffId, bookingStatusId, reviewId, bookDate)
+VALUES
+(101, 1, 1, 3, 1, 201, '2023-10-19 14:30:00'),
+(102, 2, 2, 3, 1, 202, '2023-10-20 20:00:00'),
+(103, 1, 2, 3, 2, 203, '2023-10-22 18:15:00');
 
 -- Table (Table is a reserved keyword) Table
 
@@ -248,12 +247,12 @@ VALUES
 
 -- BookingDetail Table 
 
-INSERT INTO BookingDetail (bookingDetailId, bookingId, slotId, tableId, price, statusId, bookDate)
+INSERT INTO BookingDetail (bookingDetailId, bookingId, slotId, tableId, price, bookDate)
 VALUES
-(301, 101, 1, 1, 50, 1, '2023-10-19'),
-(302, 102, 2, 2, 60, 1, '2023-10-20'),  
-(303, 103, 1, 3, 100, 1, '2023-10-22'),
-(304, 103, 2, 4, 45, 1, '2023-10-22');
+(301, 101, 1, 1, 50, '2023-10-19'),
+(302, 102, 2, 2, 60, '2023-10-20'),  
+(303, 103, 1, 3, 100, '2023-10-22'),
+(304, 103, 2, 4, 45, '2023-10-22');
 
 -- ClubStaff Table
 INSERT INTO ClubStaff (staffId, clubId)  

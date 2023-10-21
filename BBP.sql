@@ -32,6 +32,7 @@ CREATE TABLE Booking (
   clubId INT NOT NULL,
   clubStaffId INT NOT NULL,
   bookingStatusId INT NOT NULL,
+  reviewId INT NOT NULL,
   bookDate DATETIME,
   PRIMARY KEY (bookingId)
 );
@@ -78,7 +79,6 @@ CREATE TABLE ClubStaff (
 -- Create Review table
 CREATE TABLE Review (
   reviewId INT NOT NULL,
-  bookingId INT NOT NULL,
   star INT NOT NULL,
   comment NVARCHAR(255),
   PRIMARY KEY (reviewId) 
@@ -107,7 +107,6 @@ CREATE TABLE BookingDetail (
   slotId INT NOT NULL,  
   tableId INT NOT NULL,
   price INT,
-  statusId INT NOT NULL,
   bookDate DATE,
   PRIMARY KEY (bookingDetailId)
 );
@@ -130,9 +129,8 @@ ADD CONSTRAINT FK_Booking_BookingStatusId FOREIGN KEY (bookingStatusId) REFERENC
 ALTER TABLE Booking  
 ADD CONSTRAINT FK_Booking_ClubId FOREIGN KEY (clubId) REFERENCES Club(clubId);
 
--- Review FK
-ALTER TABLE Review
-ADD CONSTRAINT FK_Review_BookingId FOREIGN KEY (bookingId) REFERENCES Booking(bookingId);
+ALTER TABLE Booking
+ADD CONSTRAINT FK_Booking_ReviewId FOREIGN KEY (reviewId) REFERENCES Review(reviewId);
 
 -- BookingDetail FK
 ALTER TABLE BookingDetail
@@ -210,11 +208,11 @@ VALUES
 (3, 'Pending');
 
 -- Booking Table
-INSERT INTO Booking (bookingId, customerId, clubId, clubStaffId, bookingStatusId, bookDate)
+INSERT INTO Booking (bookingId, customerId, clubId, clubStaffId, bookingStatusId, reviewId, bookDate)
 VALUES
-(101, 1, 1, 3, 1, '2023-10-19 14:30:00'),
-(102, 2, 2, 3, 1, '2023-10-20 20:00:00'),
-(103, 1, 2, 3, 2, '2023-10-22 18:15:00');
+(101, 1, 1, 3, 1, 201, '2023-10-19 14:30:00'),
+(102, 2, 2, 3, 1, 202, '2023-10-20 20:00:00'),
+(103, 1, 2, 3, 2, 203, '2023-10-22 18:15:00');
 
 -- Slot Table
 INSERT INTO Slot (slotId, startTime, endTime)
@@ -233,11 +231,11 @@ VALUES
 
 -- Review Table
 
-INSERT INTO Review (reviewId, bookingId, star, comment)  
+INSERT INTO Review (reviewId, star, comment)  
 VALUES
-(201, 101, 4, 'Great experience!'),
-(202, 102, 5, 'Amazing club!'), 
-(203, 103, 3, 'Service could be better');
+(201, 4, 'Great experience!'),
+(202, 5, 'Amazing club!'), 
+(203, 3, 'Service could be better');
 
 -- Table (Table is a reserved keyword) Table
 

@@ -1,5 +1,6 @@
 package com.example.BBP_Backend.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.persistence.Table;
 import lombok.*;
@@ -21,10 +22,10 @@ public class Booking {
     private int customerId;
 
     @ManyToOne
-    @JoinColumn(name = "club_id")
+    @JoinColumn(name = "clubId")
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
-    private Club clubId;
+    private Club club;
 
     private int clubStaffId;
 
@@ -32,6 +33,9 @@ public class Booking {
 
     private Date bookDate;
 
-    @OneToOne(mappedBy = "bookingId", cascade = CascadeType.ALL)
+    @OneToOne
+    @JoinColumn(name = "reviewId")
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
     private Review review;
 }

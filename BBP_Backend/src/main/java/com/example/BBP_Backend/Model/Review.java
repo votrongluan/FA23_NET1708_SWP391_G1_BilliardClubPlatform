@@ -19,10 +19,6 @@ public class Review {
     @GeneratedValue
     private int reviewId;
 
-    @OneToOne
-    @JoinColumn(name = "booking_id")
-    private Booking bookingId;
-
     private int star;
 
     private String comment;

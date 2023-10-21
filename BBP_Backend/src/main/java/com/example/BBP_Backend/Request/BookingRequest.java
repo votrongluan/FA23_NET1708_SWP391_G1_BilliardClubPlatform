@@ -13,4 +13,6 @@ import lombok.NoArgsConstructor;
 public class BookingRequest {
     @JsonProperty("customerId")
     private String cusId;
+    @JsonProperty("bookingId")
+    private String bookingId;
 }

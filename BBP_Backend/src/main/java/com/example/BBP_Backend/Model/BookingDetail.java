@@ -19,6 +19,6 @@ public class BookingDetail {
     private Date bookDate;
 
     @ManyToOne
-    @JoinColumn(name = "table_id")
+    @JoinColumn(name = "tableId")
     private MyTable table;
 }

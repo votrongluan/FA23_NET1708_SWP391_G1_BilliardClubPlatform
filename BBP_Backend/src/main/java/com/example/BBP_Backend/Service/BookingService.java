@@ -25,4 +25,12 @@ public class BookingService {
         }
         return bookingList.get();
     }
+
+    public Booking getById(int bookingId) throws Exception{
+        Optional<Booking> booking = bookingRepository.findById(bookingId);
+        if (booking.isEmpty()) {
+            throw new Exception("No such item");
+        }
+        return booking.get();
+    }
 }

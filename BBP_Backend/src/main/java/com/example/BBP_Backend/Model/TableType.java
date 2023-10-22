@@ -10,7 +10,7 @@ import java.util.List;
 @Entity
 @Data
 @RequiredArgsConstructor
-@Table(name = "table_type")
+@Table(name = "tableType")
 public class TableType {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

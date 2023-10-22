@@ -182,11 +182,17 @@ VALUES
 -- Users Table
 INSERT INTO Users (userId, username, password, firstName, lastName, email, phone, avatarLink, role)
 VALUES
-(1, 'john_doe', 'password123', 'John', 'Doe', 'john.doe@email.com', '1234567890', 'avatar1.jpg', 'customer'),
-(2, 'jane_smith', 'pass456', 'Jane', 'Smith', 'jane.smith@email.com', '9876543210', 'avatar2.jpg', 'customer'), 
-(3, 'admin_user', 'adminpass', 'Admin', 'User', 'admin.user@email.com', '5555555555', 'admin_avatar.jpg', 'admin'),
-(4, 'A1_staff', 'staff1', 'staff', 'Staff1', 'staff1.user@email.com', '5555555555', 'staff1_avatar.jpg', 'staff'),
-(5, 'B2_staff', 'staff2', 'staff', 'Staff2', 'staff2.user@email.com', '5555555555', 'staff2_avatar.jpg', 'staff');
+(1, 'phong_user', '$2a$10$Nxg7/cws3MHDkl7jp8mzR.onOJ65t3qoDuUALI4WTtS2Orw5FK7yO', 'Phong', 'Phong', 'phong@gmail.com', '5555555555', 'phong_avatar.jpg', '0'),
+(2, 'thinh_user', '$2a$10$DzBwkrxoj6Bp/8vhIu3qCeuDB7kv67ZZtEA9.z6tiq752rbZwiQ/m', 'Thinh', 'Thinh', 'thinh@gmail.com', '5555555555', 'thinh_avatar.jpg', '0'),
+(3, 'luan_user', '$2a$10$ta3YkI3US02e5Pvf78W3o.BAGCF/ig1oVl84JGCZQ/bgu.Xy9cKv.', 'Luan', 'Luan', 'luan@gmail.com', '5555555555', 'luan_avatar.jpg', '0'),
+(4, 'quang_huy_user', '$2a$10$DfKGbwNdSqtDAKXZUYm63.rDXUpngWEaHoD40RhHBLo0Yc/K0Uwua', 'Quang Huy', 'Quang Huy', 'quang_huy@gmail.com', '5555555555', 'quang_huy_avatar.jpg', '0'),
+(5, 'gia_huy_user', '$2a$10$cVtm.vqjXrNgpWpsmtDZ/.Rr08tSBP7Sgraf4lPj/L2wlw9HVmOaK', 'Gia Huy', 'Gia Huy', 'gia_huy@gmail.com', '5555555555', 'gia_huy_avatar.jpg', '0'),
+(6, 'staff1', '$2a$10$0tDew6MHqMUMxEmjWDHoBufIwg7jtAFeZmib6tvfFlKJZNjIOPGSy', 'Staff', 'Staff1', 'staff1@gmail.com', '5555555555', 'staff1_avatar.jpg', '1'),
+(7, 'staff2', '$2a$10$l8.6g8PhXegwWQN3r1rHSul5.oLJh8KOzTpY8l7U2wc.GIN7Jj9rC', 'Staff', 'Staff2', 'staff2@gmail.com', '5555555555', 'staff2_avatar.jpg', '1'),
+(8, 'staff3', '$2a$10$57KANUmf9R6VNwG1MvVN.u3M3GfTsa2ynUox.KnYyL9DAjkot7LuC', 'Staff', 'Staff3', 'staff3@gmail.com', '5555555555', 'staff3_avatar.jpg', '1'),
+(9, 'staff4', '$2a$10$Xbs5Wgo.CbDypRVuedVziuA/xV9hlmxW6w5FBw7c1kDWEskd6iSJ.', 'Staff', 'Staff4', 'staff4@gmail.com', '5555555555', 'staff4_avatar.jpg', '1'),
+(10, 'staff5', '$2a$10$AxXioLavIjNeGe7oYHc5Wei3/h8V58Mr.UZSamXpH/.qsOMdXaUce', 'Staff', 'Staff5', 'staff5@gmail.com', '5555555555', 'staff5_avatar.jpg', '1'),
+(11, 'admin_user', '$2a$10$S/IUEe7mUGZnD2pdIrohIu0IPPfHPux3I2AHxeO9CtZEBdlovvYnm', 'Admin', 'User', 'admin_user@gmail.com', '5555555555', 'admin_avatar.jpg', '2');
 
 -- TableType Table  
 INSERT INTO TableType (tableTypeId, typeName, typeDescription)
@@ -232,9 +238,9 @@ VALUES
 -- Booking Table
 INSERT INTO Booking (bookingId, customerId, clubId, clubStaffId, bookingStatusId, reviewId, bookDate)
 VALUES
-(101, 1, 1, 3, 1, 201, '2023-10-19 14:30:00'),
-(102, 2, 2, 3, 1, 202, '2023-10-20 20:00:00'),
-(103, 1, 2, 3, 2, 203, '2023-10-22 18:15:00');
+(101, 1, 1, 6, 1, 201, '2023-10-19 14:30:00'),
+(102, 2, 2, 7, 1, 202, '2023-10-20 20:00:00'),
+(103, 3, 2, 10, 2, 203, '2023-10-22 18:15:00');
 
 -- Table (Table is a reserved keyword) Table
 
@@ -257,5 +263,8 @@ VALUES
 -- ClubStaff Table
 INSERT INTO ClubStaff (staffId, clubId)  
 VALUES
-(4, 1),
-(4, 2);
+(6, 1),
+(7, 2),
+(8, 1),
+(9, 1),
+(10, 2);

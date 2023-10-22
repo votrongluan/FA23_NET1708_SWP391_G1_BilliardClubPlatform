@@ -34,5 +34,6 @@ public class Club {
     private List<Booking> bookings;
 
     @OneToMany(mappedBy = "club", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Price> prices;
 }

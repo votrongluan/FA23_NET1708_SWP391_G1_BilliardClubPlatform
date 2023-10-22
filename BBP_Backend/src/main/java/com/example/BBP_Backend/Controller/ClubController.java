@@ -4,6 +4,7 @@ import com.example.BBP_Backend.Model.Club;
 import com.example.BBP_Backend.Response.ClubWithRating;
 import com.example.BBP_Backend.Response.ResponseObject;
 import com.example.BBP_Backend.Service.ClubService;
+import com.fasterxml.jackson.databind.JsonNode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,15 +22,16 @@ public class ClubController {
 
     @GetMapping("/club")
     public ResponseEntity<ResponseObject> getClubById(
-            @RequestBody Club club) {
-        ClubWithRating foundClub = clubService.getClubWithRatingById(club.getClubId());
+            @RequestBody JsonNode club) {
+        Integer clubId = club.get("clubId").asInt();
+        ClubWithRating foundClub = clubService.getClubWithRatingById(clubId);
         if(foundClub != null){
             return ResponseEntity.status(HttpStatus.OK).body(
                     new ResponseObject("Ok", "Query club successfully", foundClub)
             );
         }else{
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
-                    new ResponseObject("Failed", "Cannot find club with id = " + club.getClubId(), "")
+                    new ResponseObject("Failed", "Cannot find club with id = " + clubId, "")
             );
         }
     }

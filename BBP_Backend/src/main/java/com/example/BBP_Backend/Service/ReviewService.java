@@ -7,6 +7,7 @@ import com.example.BBP_Backend.Repository.ReviewRepository;
 import com.example.BBP_Backend.Response.ReviewsResponse;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.parsing.ReaderEventListener;
 import org.springframework.stereotype.Service;
 
 import java.awt.print.Book;
@@ -54,7 +55,30 @@ public class ReviewService {
         }
         return result;
     }
-        public List<Booking> getReviews(int clubId){
-        return  reviewRepository.getReviewsByClubId(clubId);
+
+    public String submitFeedback(int bookingId, int star, String comment) {
+        // Check if the booking with the specified ID exists
+        Booking booking = bookingRepository.getByBookingId(bookingId);
+        if (booking == null) {
+            return "Booking not found";
+        }
+        Review existReview = booking.getReview();
+        if(existReview != null){
+            existReview.setStar(star);
+            existReview.setComment(comment);
+            reviewRepository.save(existReview);
+        } else {
+
+        // Create a new feedback
+        Review newReview = new Review();
+            newReview.setReviewId(booking.getReview().getReviewId());
+            newReview.setStar(star);
+            newReview.setComment(comment);
+        // Save the feedback
+            reviewRepository.save(newReview);
+        }
+
+        return "Feedback submitted successfully";
     }
+
 }

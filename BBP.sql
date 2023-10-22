@@ -218,8 +218,6 @@ VALUES
 (9, 'staff4', '$2a$10$Xbs5Wgo.CbDypRVuedVziuA/xV9hlmxW6w5FBw7c1kDWEskd6iSJ.', 'Staff', 'Staff4', 'staff4@gmail.com', '5555555555', 'staff4_avatar.jpg', '1'),
 (10, 'staff5', '$2a$10$AxXioLavIjNeGe7oYHc5Wei3/h8V58Mr.UZSamXpH/.qsOMdXaUce', 'Staff', 'Staff5', 'staff5@gmail.com', '5555555555', 'staff5_avatar.jpg', '1'),
 (11, 'admin_user', '$2a$10$S/IUEe7mUGZnD2pdIrohIu0IPPfHPux3I2AHxeO9CtZEBdlovvYnm', 'Admin', 'User', 'admin_user@gmail.com', '5555555555', 'admin_avatar.jpg', '2');
-=======
-
 
 -- TableType Table  
 INSERT INTO TableType (tableTypeId, typeName, typeDescription)
@@ -242,8 +240,19 @@ VALUES
 -- Slot Table
 INSERT INTO Slot (slotId, startTime, endTime)
 VALUES  
-(1, 18, 21),
-(2, 21, 24);
+(1, 9, 10),
+(2, 10, 11),
+(3, 11, 12),
+(4, 12, 13),
+(5, 13, 14),
+(6, 14, 15),
+(7, 15, 16),
+(8, 16, 17),
+(9, 17, 18),
+(10, 18, 19),
+(11, 19, 20),
+(12, 20, 21);
+
 
 -- Price Table 
 INSERT INTO Price (tableTypeId, clubId, slotId, price)

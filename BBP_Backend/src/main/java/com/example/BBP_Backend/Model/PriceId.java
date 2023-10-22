@@ -12,4 +12,7 @@ public class PriceId implements Serializable {
     private Integer tableType;
     private Integer slot;
     private Integer club;
+
+    public PriceId(Club club, TableType tableType, Slot slot) {
+    }
 }

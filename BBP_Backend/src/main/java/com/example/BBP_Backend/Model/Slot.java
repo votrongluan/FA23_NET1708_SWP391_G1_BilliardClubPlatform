@@ -1,5 +1,6 @@
 package com.example.BBP_Backend.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -21,6 +22,7 @@ public class Slot {
     private int endTime;
 
     @OneToMany(mappedBy = "slot", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Price> prices;
 
 }

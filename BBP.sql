@@ -1,6 +1,10 @@
--- Drop and create the database
+﻿-- Drop and create the database
+USE master
+GO
 DROP DATABASE IF EXISTS BBP;
+GO
 CREATE DATABASE BBP;
+GO
 USE BBP;
 
 -- Create Users table  
@@ -33,7 +37,7 @@ CREATE TABLE Booking (
   clubStaffId INT NOT NULL,
   bookingStatusId INT NOT NULL,
   reviewId INT NOT NULL,
-  bookDate DATETIME,
+  bookDate DATE,
   PRIMARY KEY (bookingId)
 );
 
@@ -174,10 +178,31 @@ ADD CONSTRAINT FK_ClubStaff_UserId FOREIGN KEY (staffId) REFERENCES Users(userId
 -- Sample Data Inserts
 
 -- District Table
-INSERT INTO District (districtId, districtName)  
-VALUES
-(1, 'Downtown'),
-(2, 'Suburb');
+INSERT INTO District (districtId, districtName) VALUES
+(1, N'Quận 1'),
+(2, N'Quận 2'),
+(3, N'Quận 3'),
+(4, N'Quận 4'),
+(5, N'Quận 5'),
+(6, N'Quận 6'),
+(7, N'Quận 7'),
+(8, N'Quận 8'),
+(9, N'Quận 9'),
+(10, N'Quận 10'),
+(11, N'Quận 11'),
+(12, N'Quận 12'),
+(13, N'Quận Thủ Đức'),
+(14, N'Quận Gò Vấp'),
+(15, N'Quận Bình Thạnh'),
+(16, N'Quận Tân Bình'),
+(17, N'Quận Tân Phú'),
+(18, N'Quận Phú Nhuận'),
+(19, N'Quận Bình Tân'),
+(20, N'Huyện Củ Chi'),
+(21, N'Huyện Hóc Môn'),
+(22, N'Huyện Bình Chánh'),
+(23, N'Huyện Nhà Bè'),
+(24, N'Huyện Cần Giờ');
 
 -- Users Table
 INSERT INTO Users (userId, username, password, firstName, lastName, email, phone, avatarLink, role)
@@ -193,12 +218,14 @@ VALUES
 (9, 'staff4', '$2a$10$Xbs5Wgo.CbDypRVuedVziuA/xV9hlmxW6w5FBw7c1kDWEskd6iSJ.', 'Staff', 'Staff4', 'staff4@gmail.com', '5555555555', 'staff4_avatar.jpg', '1'),
 (10, 'staff5', '$2a$10$AxXioLavIjNeGe7oYHc5Wei3/h8V58Mr.UZSamXpH/.qsOMdXaUce', 'Staff', 'Staff5', 'staff5@gmail.com', '5555555555', 'staff5_avatar.jpg', '1'),
 (11, 'admin_user', '$2a$10$S/IUEe7mUGZnD2pdIrohIu0IPPfHPux3I2AHxeO9CtZEBdlovvYnm', 'Admin', 'User', 'admin_user@gmail.com', '5555555555', 'admin_avatar.jpg', '2');
+=======
+
 
 -- TableType Table  
 INSERT INTO TableType (tableTypeId, typeName, typeDescription)
 VALUES
-(1, 'Regular', 'Standard table'),  
-(2, 'VIP', 'VIP table with special features');
+(1, N'Phăng', 'Bàn loại phăng'),  
+(2, N'Lỗ', 'Bàn loại lỗ');
 
 -- Club Table
 INSERT INTO Club (clubId, clubName, address, districtId, fanpageLink, avatarLink, openTime, closeTime, email, phone, status)
@@ -209,9 +236,8 @@ VALUES
 -- BookingStatus Table  
 INSERT INTO BookingStatus (bookingStatusId, status)  
 VALUES
-(1, 'Confirmed'),
-(2, 'Cancelled'),
-(3, 'Pending');
+(1, N'Đã thanh toán'),
+(2, N'Chưa thanh toán');
 
 -- Slot Table
 INSERT INTO Slot (slotId, startTime, endTime)

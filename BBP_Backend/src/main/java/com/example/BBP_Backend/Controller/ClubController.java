@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
+@CrossOrigin("http://localhost:5173/")
 @RequestMapping("/api/v1")
 @RequiredArgsConstructor
 public class ClubController {

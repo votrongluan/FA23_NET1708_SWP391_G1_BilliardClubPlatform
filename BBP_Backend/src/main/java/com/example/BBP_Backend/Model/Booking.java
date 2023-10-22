@@ -22,10 +22,10 @@ public class Booking {
     private int customerId;
 
     @ManyToOne
-    @JoinColumn(name = "clubId")
+    @JoinColumn(name = "club_id")
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
-    private Club club;
+    private Club clubId;
 
     private int clubStaffId;
 
@@ -33,9 +33,7 @@ public class Booking {
 
     private Date bookDate;
 
-    @OneToOne
-    @JoinColumn(name = "reviewId")
-    @EqualsAndHashCode.Exclude
-    @ToString.Exclude
+    @JsonIgnore
+    @OneToOne(mappedBy = "bookingId", cascade = CascadeType.ALL)
     private Review review;
 }

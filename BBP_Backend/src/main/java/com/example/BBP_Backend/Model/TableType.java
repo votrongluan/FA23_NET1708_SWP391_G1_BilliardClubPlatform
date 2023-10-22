@@ -2,8 +2,10 @@ package com.example.BBP_Backend.Model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.*;
-
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.RequiredArgsConstructor;
+import lombok.ToString;
 import java.util.List;
 
 
@@ -18,7 +20,6 @@ public class TableType {
 
     private String typeName;
     private String typeDescription;
-
     @OneToMany(mappedBy = "tableTypeId", cascade = CascadeType.ALL)
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
@@ -28,5 +29,4 @@ public class TableType {
     @OneToMany(mappedBy = "tableType", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<Price> prices;
-
 }

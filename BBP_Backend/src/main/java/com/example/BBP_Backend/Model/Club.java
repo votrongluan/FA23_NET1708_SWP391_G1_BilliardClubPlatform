@@ -11,7 +11,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "Club")
+@Table(name = "club")
 public class Club {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,12 +27,13 @@ public class Club {
     private String phone;
     private boolean status;
 
-    @OneToMany(mappedBy = "club", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "clubId", cascade = CascadeType.ALL)
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     @JsonIgnore
     private List<Booking> bookings;
 
+    //Map to Price
     @OneToMany(mappedBy = "club", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<Price> prices;

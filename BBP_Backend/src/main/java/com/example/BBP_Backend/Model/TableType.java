@@ -26,4 +26,7 @@ public class TableType {
     @JsonIgnore
     private List<MyTable> tables;
 
+    @OneToMany(mappedBy = "tableType", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<Price> prices;
 }

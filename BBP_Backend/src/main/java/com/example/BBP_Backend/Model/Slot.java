@@ -1,14 +1,14 @@
 package com.example.BBP_Backend.Model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.TypeAlias;
+
+import java.util.List;
 
 @Entity
 @Data
@@ -22,4 +22,8 @@ public class Slot {
     private int slotId;
     private int startTime;
     private int endTime;
+
+    @OneToMany(mappedBy = "slot", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<Price> prices;
 }

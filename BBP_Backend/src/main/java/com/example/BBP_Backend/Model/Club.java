@@ -32,4 +32,9 @@ public class Club {
     @ToString.Exclude
     @JsonIgnore
     private List<Booking> bookings;
+
+    //Map to Price
+    @OneToMany(mappedBy = "club", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<Price> prices;
 }

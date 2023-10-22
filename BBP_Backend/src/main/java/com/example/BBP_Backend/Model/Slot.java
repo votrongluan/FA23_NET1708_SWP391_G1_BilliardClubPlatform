@@ -3,20 +3,22 @@ package com.example.BBP_Backend.Model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
+import org.springframework.data.annotation.TypeAlias;
 
-import java.sql.Time;
 import java.util.List;
 
 @Entity
 @Data
-@RequiredArgsConstructor
-@Table(name = "Slot")
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+@Table(name="Slot")
 public class Slot {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     private int slotId;
     private int startTime;
     private int endTime;
@@ -24,5 +26,4 @@ public class Slot {
     @OneToMany(mappedBy = "slot", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<Price> prices;
-
 }

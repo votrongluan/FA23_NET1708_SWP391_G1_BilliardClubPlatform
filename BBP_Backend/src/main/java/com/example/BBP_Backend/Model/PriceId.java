@@ -1,18 +1,21 @@
 package com.example.BBP_Backend.Model;
 
-import lombok.AllArgsConstructor;
+import jakarta.persistence.Embeddable;
+import jakarta.persistence.Embedded;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import java.io.Serializable;
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-public class PriceId implements Serializable {
-    private Integer tableType;
-    private Integer slot;
-    private Integer club;
 
-    public PriceId(Club club, TableType tableType, Slot slot) {
-    }
+@Embeddable
+public class PriceId implements Serializable {
+
+    private int slotId;
+    private int tableTypeId;
+    private int clubId;
+
+
 }

@@ -13,6 +13,9 @@ public interface PriceRepository extends JpaRepository<Price, PriceId> {
     @Modifying
     @Query("DELETE FROM Price p WHERE p.tableType.tableTypeId = :tableTypeId AND p.slot.slotId = :slotId AND p.club.clubId = :clubId")
     int deleteByClubIdAndTableTypeIdAndSlotId(int clubId, int tableTypeId, int slotId);
+
+    @Query("SELECT p.price FROM Price p WHERE p.club.clubId = :clubId AND p.slot.slotId = :slotId AND p.tableType.tableTypeId = :tableTypeId")
+    Integer findPriceByClubAndSlotAndTableType(int clubId, int slotId, int tableTypeId);
 }
 
 

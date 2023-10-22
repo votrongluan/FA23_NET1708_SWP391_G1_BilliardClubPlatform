@@ -34,9 +34,9 @@ CREATE TABLE Booking (
   bookingId INT NOT NULL,
   customerId INT NOT NULL,
   clubId INT NOT NULL,
-  clubStaffId INT NOT NULL,
-  bookingStatusId INT NOT NULL,
-  reviewId INT NOT NULL,
+  clubStaffId INT,
+  bookingStatusId INT,
+  reviewId INT,
   bookDate DATE,
   PRIMARY KEY (bookingId)
 );
@@ -64,7 +64,7 @@ CREATE TABLE Club (
   address NVARCHAR(255) NOT NULL,
   districtId INT NOT NULL,
   fanpageLink NVARCHAR(255),
-  avatarLink NVARCHAR(255) NOT NULL,
+  avatarLink NVARCHAR(255),
   openTime INT,
   closeTime INT,
   email VARCHAR(255),
@@ -222,8 +222,8 @@ VALUES
 -- TableType Table  
 INSERT INTO TableType (tableTypeId, typeName, typeDescription)
 VALUES
-(1, N'Phăng', 'Bàn loại phăng'),  
-(2, N'Lỗ', 'Bàn loại lỗ');
+(1, N'Phăng', N'Bàn loại phăng'),  
+(2, N'Lỗ', N'Bàn loại lỗ');
 
 -- Club Table
 INSERT INTO Club (clubId, clubName, address, districtId, fanpageLink, avatarLink, openTime, closeTime, email, phone, status)

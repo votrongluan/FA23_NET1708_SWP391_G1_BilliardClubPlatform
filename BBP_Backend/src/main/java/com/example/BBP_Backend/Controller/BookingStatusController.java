@@ -1,6 +1,6 @@
 package com.example.BBP_Backend.Controller;
 
-import com.example.BBP_Backend.Response.ResponeObject;
+import com.example.BBP_Backend.Response.ResponseObject;
 import com.example.BBP_Backend.Service.BookingStatusService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -16,10 +16,10 @@ public class BookingStatusController {
     private final BookingStatusService service;
 
     @GetMapping("/getAll")
-    public ResponseEntity<ResponeObject> getAll() {
+    public ResponseEntity<ResponseObject> getAll() {
         try {
             return ResponseEntity.ok(
-                    new ResponeObject(
+                    new ResponseObject(
                             "Ok",
                             "All booking status",
                             service.getAll()
@@ -27,7 +27,7 @@ public class BookingStatusController {
             );
         } catch (Exception ex) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
-                    new ResponeObject(
+                    new ResponseObject(
                             "Not Found",
                             ex.getMessage(),
                             null

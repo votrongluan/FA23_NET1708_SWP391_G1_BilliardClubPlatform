@@ -15,17 +15,17 @@ public class Price {
 
     @Id
     @ManyToOne
-    @JoinColumn(name = "table_type_id")
+    @JoinColumn(name = "tableTypeId")
     private TableType tableType;
 
     @Id
     @ManyToOne
-    @JoinColumn(name = "slot_id")
+    @JoinColumn(name = "slotId")
     private Slot slot;
 
     @Id
     @ManyToOne
-    @JoinColumn(name = "club_id")
+    @JoinColumn(name = "clubId")
     private Club club;
 
     private int price;

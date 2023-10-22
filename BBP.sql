@@ -1,12 +1,7 @@
-﻿-- Drop and create the database
-USE master
-GO
+-- Drop and create the database
 DROP DATABASE IF EXISTS BBP;
-GO
 CREATE DATABASE BBP;
-GO
 USE BBP;
-GO
 
 -- Create Users table  
 CREATE TABLE Users (
@@ -37,6 +32,7 @@ CREATE TABLE Booking (
   clubId INT NOT NULL,
   clubStaffId INT NOT NULL,
   bookingStatusId INT NOT NULL,
+  reviewId INT NOT NULL,
   bookDate DATETIME,
   PRIMARY KEY (bookingId)
 );
@@ -83,7 +79,6 @@ CREATE TABLE ClubStaff (
 -- Create Review table
 CREATE TABLE Review (
   reviewId INT NOT NULL,
-  bookingId INT NOT NULL,
   star INT NOT NULL,
   comment NVARCHAR(255),
   PRIMARY KEY (reviewId) 
@@ -112,7 +107,6 @@ CREATE TABLE BookingDetail (
   slotId INT NOT NULL,  
   tableId INT NOT NULL,
   price INT,
-  statusId INT NOT NULL,
   bookDate DATE,
   PRIMARY KEY (bookingDetailId)
 );
@@ -135,9 +129,8 @@ ADD CONSTRAINT FK_Booking_BookingStatusId FOREIGN KEY (bookingStatusId) REFERENC
 ALTER TABLE Booking  
 ADD CONSTRAINT FK_Booking_ClubId FOREIGN KEY (clubId) REFERENCES Club(clubId);
 
--- Review FK
-ALTER TABLE Review
-ADD CONSTRAINT FK_Review_BookingId FOREIGN KEY (bookingId) REFERENCES Booking(bookingId);
+ALTER TABLE Booking
+ADD CONSTRAINT FK_Booking_ReviewId FOREIGN KEY (reviewId) REFERENCES Review(reviewId);
 
 -- BookingDetail FK
 ALTER TABLE BookingDetail
@@ -181,32 +174,10 @@ ADD CONSTRAINT FK_ClubStaff_UserId FOREIGN KEY (staffId) REFERENCES Users(userId
 -- Sample Data Inserts
 
 -- District Table
-INSERT INTO District (districtId, districtName)
+INSERT INTO District (districtId, districtName)  
 VALUES
-    (1, N'Quận 1'),
-    (2, N'Quận 2'),
-    (3, N'Quận 3'),
-    (4, N'Quận 4'),
-    (5, N'Quận 5'),
-    (6, N'Quận 6'),
-    (7, N'Quận 7'),
-    (8, N'Quận 8'),
-    (9, N'Quận 9'),
-    (10, N'Quận 10'),
-    (11, N'Quận 11'),
-    (12, N'Quận 12'),
-    (13, N'Quận Thủ Đức'),
-    (14, N'Quận Gò Vấp'),
-    (15, N'Quận Bình Thạnh'),
-    (16, N'Quận Tân Bình'),
-    (17, N'Quận Tân Phú'),
-    (18, N'Quận Phú Nhuận'),
-    (19, N'Quận Bình Tân'),
-    (20, N'Huyện Củ Chi'),
-    (21, N'Huyện Hóc Môn'),
-    (22, N'Huyện Bình Chánh'),
-    (23, N'Huyện Nhà Bè'),
-    (24, N'Huyện Cần Giờ');
+(1, 'Downtown'),
+(2, 'Suburb');
 
 -- Users Table
 INSERT INTO Users (userId, username, password, firstName, lastName, email, phone, avatarLink, role)
@@ -220,8 +191,8 @@ VALUES
 -- TableType Table  
 INSERT INTO TableType (tableTypeId, typeName, typeDescription)
 VALUES
-(1, N'Phăng', 'Standard table'),  
-(2, N'Lỗ', 'VIP table with special features');
+(1, 'Regular', 'Standard table'),  
+(2, 'VIP', 'VIP table with special features');
 
 -- Club Table
 INSERT INTO Club (clubId, clubName, address, districtId, fanpageLink, avatarLink, openTime, closeTime, email, phone, status)
@@ -236,28 +207,11 @@ VALUES
 (2, 'Cancelled'),
 (3, 'Pending');
 
--- Booking Table
-INSERT INTO Booking (bookingId, customerId, clubId, clubStaffId, bookingStatusId, bookDate)
-VALUES
-(101, 1, 1, 3, 1, '2023-10-19'),
-(102, 2, 2, 3, 1, '2023-10-20'),
-(103, 1, 2, 3, 2, '2023-10-22');
-
 -- Slot Table
 INSERT INTO Slot (slotId, startTime, endTime)
 VALUES  
-(1, 9, 10),
-(2, 10, 11),
-(3, 11, 12),
-(4, 12, 13),
-(5, 13, 14),
-(6, 14, 15),
-(7, 15, 16),
-(8, 16, 17),
-(9, 17, 18),
-(10, 18, 19),
-(11, 19, 20),
-(12, 20, 21);
+(1, 18, 21),
+(2, 21, 24);
 
 -- Price Table 
 INSERT INTO Price (tableTypeId, clubId, slotId, price)
@@ -269,12 +223,18 @@ VALUES
 (2, 2, 1, 90);
 
 -- Review Table
-
-INSERT INTO Review (reviewId, bookingId, star, comment)  
+INSERT INTO Review (reviewId, star, comment)  
 VALUES
-(201, 101, 4, 'Great experience!'),
-(202, 102, 5, 'Amazing club!'), 
-(203, 103, 3, 'Service could be better');
+(201, 4, 'Great experience!'),
+(202, 5, 'Amazing club!'), 
+(203, 3, 'Service could be better');
+
+-- Booking Table
+INSERT INTO Booking (bookingId, customerId, clubId, clubStaffId, bookingStatusId, reviewId, bookDate)
+VALUES
+(101, 1, 1, 3, 1, 201, '2023-10-19 14:30:00'),
+(102, 2, 2, 3, 1, 202, '2023-10-20 20:00:00'),
+(103, 1, 2, 3, 2, 203, '2023-10-22 18:15:00');
 
 -- Table (Table is a reserved keyword) Table
 
@@ -287,12 +247,12 @@ VALUES
 
 -- BookingDetail Table 
 
-INSERT INTO BookingDetail (bookingDetailId, bookingId, slotId, tableId, price, statusId, bookDate)
+INSERT INTO BookingDetail (bookingDetailId, bookingId, slotId, tableId, price, bookDate)
 VALUES
-(301, 101, 1, 1, 50, 1, '2023-10-19'),
-(302, 102, 2, 2, 60, 1, '2023-10-20'),  
-(303, 103, 1, 3, 100, 1, '2023-10-22'),
-(304, 103, 2, 4, 45, 1, '2023-10-22');
+(301, 101, 1, 1, 50, '2023-10-19'),
+(302, 102, 2, 2, 60, '2023-10-20'),  
+(303, 103, 1, 3, 100, '2023-10-22'),
+(304, 103, 2, 4, 45, '2023-10-22');
 
 -- ClubStaff Table
 INSERT INTO ClubStaff (staffId, clubId)  

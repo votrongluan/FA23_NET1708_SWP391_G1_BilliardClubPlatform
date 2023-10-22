@@ -9,19 +9,19 @@ import java.util.List;
 
 @Entity
 @Data
-@Table(name = "my_table")
+@Table(name = "[Table]")
 public class MyTable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int tableId;
 
     @ManyToOne()
-    @JoinColumn(name = "table_type_id")
+    @JoinColumn(name = "tableTypeId")
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     private TableType tableTypeId;
     private int clubId;
-    private int is_available;
+    private boolean isAvailable;
 
     @OneToMany(mappedBy = "table")
     private List<BookingDetail> bookingDetails;

@@ -1,5 +1,7 @@
 package com.example.BBP_Backend.Controller;
 
+import com.example.BBP_Backend.Model.PriceId;
+import com.example.BBP_Backend.Request.DeletePriceRequest;
 import com.example.BBP_Backend.Request.UpdatePriceRequest;
 import com.example.BBP_Backend.Response.ResponseObject;
 import com.example.BBP_Backend.Service.PriceService;
@@ -20,6 +22,15 @@ public class PriceController {
     @PutMapping("/updatePrice")
     public ResponseEntity<ResponseObject> updateOrInsertPrice(@RequestBody UpdatePriceRequest request) {
         ResponseObject responseObject = priceService.updateOrInsertPrices(request);
+        return ResponseEntity.status(HttpStatus.OK).body(responseObject);
+    }
+
+    @DeleteMapping("/deletePrice")
+    public ResponseEntity<ResponseObject> deletePrice(@RequestBody DeletePriceRequest request) {
+        ResponseObject responseObject = priceService.deletePrice(request);
+        if ("Failed".equals(responseObject.getStatus())) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseObject);
+        }
         return ResponseEntity.status(HttpStatus.OK).body(responseObject);
     }
 }

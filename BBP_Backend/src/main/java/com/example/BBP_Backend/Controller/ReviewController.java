@@ -23,8 +23,6 @@ public class ReviewController {
     private final ReviewService reviewService;
 
 
-
-
    @GetMapping("/getReviews/{clubId}")
 
     public ResponseEntity<List<ReviewsResponse>> getReviews(@PathVariable(name = "clubId") int clubId){

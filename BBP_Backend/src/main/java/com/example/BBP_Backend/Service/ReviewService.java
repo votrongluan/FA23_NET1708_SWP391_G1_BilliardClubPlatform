@@ -1,5 +1,6 @@
 package com.example.BBP_Backend.Service;
 
+import com.example.BBP_Backend.Model.Booking;
 import com.example.BBP_Backend.Model.Review;
 import com.example.BBP_Backend.Repository.BookingRepository;
 import com.example.BBP_Backend.Repository.ReviewRepository;
@@ -8,6 +9,7 @@ import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.awt.print.Book;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,36 +22,39 @@ public class ReviewService {
 
 
 
-    public List<Review> getReviewByClubId(int clubId){
-        List<Review> result = new ArrayList<>();
-    List<Review> reviews = reviewRepository.findAll();
-    if(!reviews.isEmpty()){
-        for (Review review: reviews) {
-            if(review.getBookingId().getClubId().equals(clubId)){
-                result.add(review);
-        }
-        }
-        return result;
-
-        }
-        return null;
-    }
+//    public List<Review> getReviewByClubId(int clubId){
+//        List<Review> result = new ArrayList<>();
+//    List<Review> reviews = reviewRepository.findAll();
+//    if(!reviews.isEmpty()){
+//        for (Review review: reviews) {
+//            if(review.getBookingId().getClubId().equals(clubId)){
+//                result.add(review);
+//        }
+//        }
+//        return result;
+//
+//        }
+//        return null;
+//    }
     public List<ReviewsResponse> getCustomReview(int clubId){
         List<ReviewsResponse> result = new ArrayList<>();
-        for (Review rev: reviewRepository.getReviewsByClubId(clubId)) {
-            result.add(new ReviewsResponse(
-                    rev.getReviewId(),
-                    rev.getStar(),
-                    rev.getComment(),
-                    rev.getBookingId().getBookDate(),
-                    rev.getBookingId().getClubId().getAvatarLink(),
-                    rev.getBookingId().getClubId().getClubName())
 
-            );
+        for (Booking rev: reviewRepository.getReviewsByClubId(clubId)) {
+           // if(rev.getClub().getClubId() == clubId) {
+                result.add(new ReviewsResponse(
+                        rev.getReview().getReviewId(),
+                        rev.getReview().getStar(),
+                        rev.getReview().getComment(),
+                        rev.getBookDate(),
+                        rev.getClub().getAvatarLink(),
+                        rev.getClub().getClubName())
+
+                );
+
         }
         return result;
     }
-        public List<Review> getReviews(int clubId){
+        public List<Booking> getReviews(int clubId){
         return  reviewRepository.getReviewsByClubId(clubId);
     }
 }

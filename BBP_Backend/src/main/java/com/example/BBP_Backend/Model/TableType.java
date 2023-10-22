@@ -10,7 +10,7 @@ import java.util.List;
 @Entity
 @Data
 @RequiredArgsConstructor
-@Table(name = "table_type")
+@Table(name = "TableType")
 public class TableType {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,6 +26,7 @@ public class TableType {
     private List<MyTable> tables;
 
     @OneToMany(mappedBy = "tableType", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Price> prices;
 
 }

@@ -15,7 +15,6 @@ public class BookingDetail {
     private int bookingId;
     private int slotId;
     private int price;
-    private int statusId;
     private Date bookDate;
 
     @ManyToOne

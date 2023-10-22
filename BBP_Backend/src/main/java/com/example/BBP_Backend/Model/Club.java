@@ -11,7 +11,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "club")
+@Table(name = "Club")
 public class Club {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,5 +34,6 @@ public class Club {
     private List<Booking> bookings;
 
     @OneToMany(mappedBy = "club", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Price> prices;
 }

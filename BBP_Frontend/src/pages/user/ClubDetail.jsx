@@ -17,7 +17,7 @@ import {
 import {CalendarIcon, ExternalLinkIcon, StarIcon, TimeIcon} from "@chakra-ui/icons";
 import {Link, useLoaderData, useParams} from "react-router-dom";
 import {GlobalContext} from "../../context/GlobalContext.jsx";
-import {baseURL} from "../../api/axios.js";
+import axios, {baseURL} from "../../api/axios.js";
 import Review from "../../components/Review.jsx";
 
 function ClubDetail() {
@@ -121,13 +121,18 @@ export default ClubDetail;
 
 
 export const clubLoader = async ({params}) => {
-    const {id} = params
+    const {id} = params;
 
-    const res = await fetch(baseURL + '/clubs/' + id)
+    try {
+        const res = await axios.get('/v1/club/' + id);
 
-    if (!res.ok) {
-        throw Error('Không tìm thấy club')
+        const club = res.data.data.club;
+        club.noRating = res.data.data.noRating;
+        club.rating = res.data.data.rating;
+        club.noBooking = res.data.data.noBooking;
+
+        return club;
+    } catch (error) {
+        console.error('Error:', error);
     }
-
-    return res.json()
 }

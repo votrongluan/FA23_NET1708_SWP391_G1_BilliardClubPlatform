@@ -3,6 +3,7 @@ package com.example.BBP_Backend.Controller;
 import com.example.BBP_Backend.Request.BookingRequest;
 import com.example.BBP_Backend.Response.ResponseObject;
 import com.example.BBP_Backend.Service.BookingService;
+import com.fasterxml.jackson.databind.JsonNode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -65,6 +66,36 @@ public class BookingController {
                     )
             );
         }
+    }
 
+    @PostMapping("/book")
+    public ResponseEntity<ResponseObject> booking(
+            @RequestBody JsonNode request
+    ) {
+        try {
+            return ResponseEntity.ok(
+                    new ResponseObject(
+                            "Ok",
+                            "Booking By CusId",
+                            service.booking(
+                                    request.get("tableId").asInt(),
+                                    request.get("firstSlotId").asInt(),
+                                    request.get("lastSlotId").asInt(),
+                                    request.get("tableTypeId").asInt(),
+                                    request.get("clubId").asInt(),
+                                    request.get("date").asText(),
+                                    request.get("customerId").asInt()
+                            )
+                    )
+            );
+        } catch (Exception ex) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+                    new ResponseObject(
+                            "NotFound",
+                            ex.getMessage(),
+                            null
+                    )
+            );
+        }
     }
 }

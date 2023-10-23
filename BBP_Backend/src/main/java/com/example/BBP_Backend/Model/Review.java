@@ -22,4 +22,8 @@ public class Review {
     private int star;
 
     private String comment;
+
+    @OneToOne(mappedBy = "review")
+    private Booking booking; // A one-to-one relationship with Booking
+
 }

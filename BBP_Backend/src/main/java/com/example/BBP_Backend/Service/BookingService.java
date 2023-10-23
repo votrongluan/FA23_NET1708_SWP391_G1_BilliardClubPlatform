@@ -3,15 +3,13 @@ package com.example.BBP_Backend.Service;
 import com.example.BBP_Backend.Model.Booking;
 import com.example.BBP_Backend.Model.BookingDetail;
 import com.example.BBP_Backend.Model.MyTable;
-import com.example.BBP_Backend.Model.Price;
 import com.example.BBP_Backend.Repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
-import java.util.Calendar;
-import java.util.List;
-import java.util.Optional;
+
+import java.sql.Timestamp;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -75,5 +73,19 @@ public class BookingService {
             bookingDetailRepository.save(bookingDetail);
         }
         return booking.getBookingId();
+    }
+
+    public List<Map<String, Object>> getTableBookingInfo(Integer tableId, Date bookDate) {
+        List<Object[]> result = bookingDetailRepository.getTableBookingInfo(tableId, bookDate);
+        List<Map<String, Object>> response = new ArrayList<>();
+
+        for (Object[] row : result) {
+            Map<String, Object> entry = new HashMap<>();
+            entry.put("userPhone", row[0]);
+            entry.put("slotId", row[1]);
+            response.add(entry);
+        }
+
+        return response;
     }
 }

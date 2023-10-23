@@ -20,21 +20,21 @@ import java.util.Optional;
 public class ClubController {
     private final ClubService clubService;
 
-    @GetMapping("/club")
-    public ResponseEntity<ResponseObject> getClubById(
-            @RequestBody JsonNode club) {
-        Integer clubId = club.get("clubId").asInt();
+    @GetMapping("/club/{clubId}")
+    public ResponseEntity<ResponseObject> getClubById(@PathVariable Integer clubId) {
         ClubWithRating foundClub = clubService.getClubWithRatingById(clubId);
-        if(foundClub != null){
+
+        if (foundClub != null) {
             return ResponseEntity.status(HttpStatus.OK).body(
                     new ResponseObject("Ok", "Query club successfully", foundClub)
             );
-        }else{
+        } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
                     new ResponseObject("Failed", "Cannot find club with id = " + clubId, "")
             );
         }
     }
+
 
     @GetMapping("/allClubs")
     public ResponseEntity<ResponseObject> getClubList() {

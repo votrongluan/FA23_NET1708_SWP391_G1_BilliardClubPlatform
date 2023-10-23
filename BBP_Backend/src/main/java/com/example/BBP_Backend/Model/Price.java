@@ -12,20 +12,24 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@IdClass(PriceId.class)
 public class Price {
 
-    @EmbeddedId
-    private PriceId id;
+
 
     private int price;
+
+    @Id
     @ManyToOne
-    @JoinColumn(name = "clubId", insertable = false, updatable = false)
+    @JoinColumn(name = "clubId",insertable = false, updatable = false)
     private Club club;
 
+    @Id
     @ManyToOne
-    @JoinColumn(name = "slotId", insertable = false, updatable = false)
+    @JoinColumn(name = "slotId",insertable = false, updatable = false)
     private Slot slot;
 
+    @Id
     @ManyToOne
     @JoinColumn(name = "tableTypeId", insertable = false, updatable = false)
     private TableType tableType;

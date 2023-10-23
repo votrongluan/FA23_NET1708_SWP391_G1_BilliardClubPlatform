@@ -1,8 +1,10 @@
 package com.example.BBP_Backend.Model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 @Entity
@@ -15,6 +17,7 @@ public class BookingDetail {
     private int bookingId;
     private int slotId;
     private int price;
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date bookDate;
 
     @ManyToOne

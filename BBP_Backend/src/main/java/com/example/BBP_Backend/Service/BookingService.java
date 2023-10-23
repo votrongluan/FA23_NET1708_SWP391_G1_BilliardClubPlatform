@@ -88,4 +88,12 @@ public class BookingService {
 
         return response;
     }
+
+    public boolean existsById(Integer bookingId) {
+        return bookingRepository.existsById(bookingId);
+    }
+
+    public void deleteById(Integer bookingId) {
+        bookingRepository.deleteById(bookingId);
+    }
 }

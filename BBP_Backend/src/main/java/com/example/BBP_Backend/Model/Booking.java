@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import jakarta.persistence.Table;
 import lombok.*;
 
-import java.sql.Date;
+import java.util.Date;
 
 @Data
 @Entity
@@ -38,4 +38,7 @@ public class Booking {
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     private Review review;
+
+
+
 }

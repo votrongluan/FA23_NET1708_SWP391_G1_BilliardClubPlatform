@@ -18,7 +18,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "users")
+@Table(name = "Users")
 public class User implements UserDetails {
     @Id
     @GeneratedValue
@@ -32,6 +32,8 @@ public class User implements UserDetails {
     private String avatarLink;
     @Enumerated
     private Role role;
+
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

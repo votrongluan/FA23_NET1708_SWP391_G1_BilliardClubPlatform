@@ -10,4 +10,6 @@ import java.util.Optional;
 @Repository
 public interface BookingRepository extends JpaRepository<Booking, Integer> {
     Optional<List<Booking>> findAllByCustomerId(int customerId);
+
+    Booking getByBookingId(int bookingId);
 }

@@ -1,33 +1,38 @@
 package com.example.BBP_Backend.Model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
-
-import java.util.List;
 
 @Entity
-@Data
 @Table(name = "Price")
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 @IdClass(PriceId.class)
 public class Price {
 
-    @Id
-    @ManyToOne
-    @JoinColumn(name = "tableTypeId")
-    private TableType tableType;
+
+
+    private int price;
 
     @Id
     @ManyToOne
-    @JoinColumn(name = "slotId")
+    @JoinColumn(name = "clubId",insertable = false, updatable = false)
+    private Club club;
+
+    @Id
+    @ManyToOne
+    @JoinColumn(name = "slotId",insertable = false, updatable = false)
     private Slot slot;
 
     @Id
     @ManyToOne
-    @JoinColumn(name = "clubId")
-    private Club club;
+    @JoinColumn(name = "tableTypeId", insertable = false, updatable = false)
+    private TableType tableType;
 
-    private int price;
 
 }

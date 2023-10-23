@@ -1,7 +1,6 @@
 package com.example.BBP_Backend.Controller;
 
-import com.example.BBP_Backend.Model.MyTable;
-import com.example.BBP_Backend.Request.DeleteTableRequest;
+import com.example.BBP_Backend.Model.Table;
 import com.example.BBP_Backend.Response.ResponseObject;
 import com.example.BBP_Backend.Request.TableRequest;
 import com.example.BBP_Backend.Model.TableType;
@@ -45,8 +44,8 @@ public class TableTypeController {
     }
 
     @DeleteMapping("/deleteTable")
-    public ResponseEntity<ResponseObject> deleteTable(@RequestBody MyTable myTable) {
-        Integer tableId = myTable.getTableId();
+    public ResponseEntity<ResponseObject> deleteTable(@RequestBody Table table) {
+        Integer tableId = table.getTableId();
 
         boolean exists = tableTypeService.existsById(tableId);
 

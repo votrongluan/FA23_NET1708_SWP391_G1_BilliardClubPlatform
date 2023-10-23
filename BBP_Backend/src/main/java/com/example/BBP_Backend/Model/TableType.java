@@ -10,7 +10,7 @@ import java.util.List;
 @Entity
 @Data
 @RequiredArgsConstructor
-@Table(name = "tableType")
+@jakarta.persistence.Table(name = "tableType")
 public class TableType {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,11 +19,11 @@ public class TableType {
     private String typeName;
     private String typeDescription;
 
-    @OneToMany(mappedBy = "tableTypeId", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "tableType", cascade = CascadeType.ALL)
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     @JsonIgnore
-    private List<MyTable> tables;
+    private List<Table> tables;
 
     @OneToMany(mappedBy = "tableType", cascade = CascadeType.ALL)
     @JsonIgnore

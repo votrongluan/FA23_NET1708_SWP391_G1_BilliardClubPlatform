@@ -2,7 +2,7 @@ package com.example.BBP_Backend.Service;
 
 import com.example.BBP_Backend.Model.BookingDetail;
 import com.example.BBP_Backend.Model.TableType;
-import com.example.BBP_Backend.Model.MyTable;
+import com.example.BBP_Backend.Model.Table;
 import com.example.BBP_Backend.Repository.BookingDetailRepository;
 import com.example.BBP_Backend.Repository.TableRepository;
 import com.example.BBP_Backend.Repository.TableTypeRepository;
@@ -27,9 +27,9 @@ public class TableTypeService {
 
     public void addNewTables(int clubId, TableType tableType, int noTable) {
         for (int i = 0; i < noTable; i++) {
-            MyTable table = new MyTable();
+            Table table = new Table();
             table.setClubId(clubId);
-            table.setTableTypeId(tableType);
+            table.setTableType(tableType);
             // Các thuộc tính khác của bàn có thể được thiết lập ở đây nếu cần
             tableRepository.save(table);
         }
@@ -40,11 +40,11 @@ public class TableTypeService {
     }
     @Transactional
     public boolean deleteTableWithBookingDetails(int tableId) {
-        MyTable myTable = tableRepository.findById(tableId).orElse(null);
+        Table table = tableRepository.findById(tableId).orElse(null);
 
-        if (myTable != null) {
+        if (table != null) {
             // Lấy danh sách BookingDetails liên quan đến bàn
-            List<BookingDetail> bookingDetails = myTable.getBookingDetails();
+            List<BookingDetail> bookingDetails = table.getBookingDetails();
 
             // Xóa các BookingDetails liên quan đến bàn
             if (bookingDetails != null) {

@@ -34,15 +34,16 @@ public class AccountService {
         if(repository.findByUsername(user.getUsername()).isEmpty()) {
             repository.save(user);
             var jwtToken = jwtService.generateToken(user);
+            user.setPassword("");
             return AccountResponse.builder()
                     .accessToken(jwtToken)
-                    .role(user.getRole())
-                    .status(true)
-                    .message("Ok")
+                    .user(user)
+                    .status("Ok")
+                    .message("Register success")
                     .build();
         }
         return AccountResponse.builder()
-                .status(false)
+                .status("Ok")
                 .message("Existed account")
                 .build();
     }
@@ -57,11 +58,12 @@ public class AccountService {
         var user = repository.findByUsername(request.getUsername())
                 .orElseThrow();
         var jwtToken = jwtService.generateToken(user);
+        user.setPassword("");
         return AccountResponse.builder()
                 .accessToken(jwtToken)
-                .role(user.getRole())
-                .status(true)
-                .message("Ok")
+                .user(user)
+                .status("Ok")
+                .message("Login success")
                 .build();
     }
 

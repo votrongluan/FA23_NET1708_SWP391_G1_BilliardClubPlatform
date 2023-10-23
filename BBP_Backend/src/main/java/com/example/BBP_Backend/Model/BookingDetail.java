@@ -17,7 +17,6 @@ public class BookingDetail {
     private int bookingId;
     private int slotId;
     private int price;
-    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date bookDate;
 
     @ManyToOne

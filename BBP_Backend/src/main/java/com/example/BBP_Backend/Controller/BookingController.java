@@ -1,5 +1,7 @@
 package com.example.BBP_Backend.Controller;
 
+import com.example.BBP_Backend.Model.Booking;
+import com.example.BBP_Backend.Model.Club;
 import com.example.BBP_Backend.Request.BookingRequest;
 import com.example.BBP_Backend.Request.TableBookingRequest;
 import com.example.BBP_Backend.Response.ResponseObject;
@@ -108,5 +110,21 @@ public class BookingController {
 
         List<Map<String, Object>> tableBookingInfo = bookingService.getTableBookingInfo(request.getTableId(), bookDate);
         return ResponseEntity.ok(tableBookingInfo);
+    }
+
+    @DeleteMapping("/cancelBooking/{bookingId}")
+    public ResponseEntity<ResponseObject> deleteClub(@PathVariable Integer bookingId) {
+        boolean exists = bookingService.existsById(bookingId);
+
+        if (exists) {
+            bookingService.deleteById(bookingId);
+            return ResponseEntity.status(HttpStatus.OK).body(
+                    new ResponseObject("Ok", "Cancel Booking Successfully", "")
+            );
+        }
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+                new ResponseObject("Failed", "Cannot Cancel Booking with id = " + bookingId, "")
+        );
     }
 }

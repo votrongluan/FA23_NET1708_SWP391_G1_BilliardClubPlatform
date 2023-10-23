@@ -30,13 +30,11 @@ function ClubDetail() {
     const hours = Array.from({length: 12}, (_, i) => 9 + i);
 
     useEffect(() => {
-        // Fetch reviews from the API
-        fetch(`${baseURL}/reviews`)
+        fetch(`${baseURL}/getReviews/${club.id}`)
             .then((response) => response.json())
             .then((data) => {
-                // Filter reviews by clubId
-                const clubReviews = data.filter((review) => review.clubId === club.id);
-                setReviews(clubReviews);
+                console.log(data)
+                setReviews(data);
                 setLoading(false);
             })
             .catch((error) => {
@@ -131,8 +129,6 @@ export const clubLoader = async ({params}) => {
         club.noRating = res.data.data.noRating;
         club.rating = res.data.data.rating;
         club.noBooking = res.data.data.noBooking;
-
-        console.log(club)
 
         return club;
     } catch (error) {

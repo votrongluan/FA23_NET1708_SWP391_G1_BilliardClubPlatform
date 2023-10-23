@@ -51,7 +51,6 @@ function Find(props) {
         return clubs.filter((el) => {
             return Object.values(el).some((field) => {
                 const normalizedFieldData = normalize(field.toString().toLowerCase());
-                console.log(query, normalizedFieldData)
                 return normalizedFieldData.includes(query);
             });
         });

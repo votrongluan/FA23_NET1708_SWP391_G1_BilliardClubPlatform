@@ -1,11 +1,16 @@
-import React from 'react';
-import {GlobalProvider} from "./context/GlobalContext.jsx";
+import React, {useContext} from 'react';
+import {GlobalContext} from "./context/GlobalContext.jsx";
 
-function TestComponent(props) {
+function TestComponent() {
+    const {districtMap, slotMap, tableTypeMap, bookingStatusMap} = useContext(GlobalContext)
+    console.log(districtMap)
+    console.log(slotMap)
+    console.log(tableTypeMap)
+    console.log(bookingStatusMap)
+
+
     return (
-        <GlobalProvider>
-            <h1>Hello</h1>
-        </GlobalProvider>
+        <h1>abc</h1>
     );
 }
 

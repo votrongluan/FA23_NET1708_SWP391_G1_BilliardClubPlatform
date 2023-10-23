@@ -1,17 +1,27 @@
-import React, {useContext} from 'react';
-import {GlobalContext} from "./context/GlobalContext.jsx";
+import { useEffect } from "react";
 
 function TestComponent() {
-    const {districtMap, slotMap, tableTypeMap, bookingStatusMap} = useContext(GlobalContext)
-    console.log(districtMap)
-    console.log(slotMap)
-    console.log(tableTypeMap)
-    console.log(bookingStatusMap)
+  useEffect(() => {
+    fetch("http://localhost:8080/api/booking/getTableBookingDetail", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        tableId: 3,
+        bookDate: "22/10/2023",
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  }, []);
 
-
-    return (
-        <h1>abc</h1>
-    );
+  return <h1>abc</h1>;
 }
 
 export default TestComponent;

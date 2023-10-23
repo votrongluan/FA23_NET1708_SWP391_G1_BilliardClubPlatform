@@ -9,6 +9,6 @@ import java.sql.Timestamp;
 @Data
 public class TableBookingRequest {
     private Integer tableId;
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private Date bookDate;
 }

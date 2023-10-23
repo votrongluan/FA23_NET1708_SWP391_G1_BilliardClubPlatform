@@ -19,7 +19,7 @@ public class ReviewsResponse {
 
     private String comment;
 
-    @JsonFormat(pattern="dd-MM-yyyy")
+    @JsonFormat(pattern="dd/MM/yyyy")
     private Date date;
 
     private String avatarLink;

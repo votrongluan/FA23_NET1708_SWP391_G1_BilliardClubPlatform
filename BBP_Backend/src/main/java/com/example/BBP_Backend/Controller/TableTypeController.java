@@ -1,7 +1,6 @@
 package com.example.BBP_Backend.Controller;
 
 import com.example.BBP_Backend.Model.MyTable;
-import com.example.BBP_Backend.Request.DeleteTableRequest;
 import com.example.BBP_Backend.Response.ResponseObject;
 import com.example.BBP_Backend.Request.TableRequest;
 import com.example.BBP_Backend.Model.TableType;
@@ -12,7 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@CrossOrigin("http://localhost:5173/")
 @RequiredArgsConstructor
 @RequestMapping("/api/v1")
 public class TableTypeController {
@@ -54,12 +52,12 @@ public class TableTypeController {
         if (exists) {
             tableTypeService.deleteTableWithBookingDetails(tableId);
             return ResponseEntity.status(HttpStatus.OK).body(
-                    new ResponseObject("Ok", "Delete Table Successfully", "")
+                    new ResponseObject("Ok", "Delete MyTable Successfully", "")
             );
         }
 
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
-                new ResponseObject("Failed", "Cannot find Table to delete with id = " + tableId, "")
+                new ResponseObject("Failed", "Cannot find MyTable to delete with id = " + tableId, "")
         );
     }
 

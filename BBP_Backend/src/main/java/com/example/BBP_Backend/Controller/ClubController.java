@@ -4,7 +4,6 @@ import com.example.BBP_Backend.Model.Club;
 import com.example.BBP_Backend.Response.ClubWithRating;
 import com.example.BBP_Backend.Response.ResponseObject;
 import com.example.BBP_Backend.Service.ClubService;
-import com.fasterxml.jackson.databind.JsonNode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,27 +13,25 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@CrossOrigin("http://localhost:5173/")
 @RequestMapping("/api/v1")
 @RequiredArgsConstructor
 public class ClubController {
     private final ClubService clubService;
 
-    @GetMapping("/club/{clubId}")
-    public ResponseEntity<ResponseObject> getClubById(@PathVariable Integer clubId) {
-        ClubWithRating foundClub = clubService.getClubWithRatingById(clubId);
-
-        if (foundClub != null) {
+    @GetMapping("/club")
+    public ResponseEntity<ResponseObject> getClubById(
+            @RequestBody Club club) {
+        ClubWithRating foundClub = clubService.getClubWithRatingById(club.getClubId());
+        if(foundClub != null){
             return ResponseEntity.status(HttpStatus.OK).body(
                     new ResponseObject("Ok", "Query club successfully", foundClub)
             );
-        } else {
+        }else{
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
-                    new ResponseObject("Failed", "Cannot find club with id = " + clubId, "")
+                    new ResponseObject("Failed", "Cannot find club with id = " + club.getClubId(), "")
             );
         }
     }
-
 
     @GetMapping("/allClubs")
     public ResponseEntity<ResponseObject> getClubList() {

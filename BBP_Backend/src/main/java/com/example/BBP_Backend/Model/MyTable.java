@@ -9,7 +9,7 @@ import java.util.List;
 
 @Entity
 @Data
-@Table(name = "[Table]")
+@jakarta.persistence.Table(name = "[Table]")
 public class MyTable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,10 +19,10 @@ public class MyTable {
     @JoinColumn(name = "tableTypeId")
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
-    private TableType tableTypeId;
+    private TableType tableType;
     private int clubId;
     private boolean isAvailable;
 
-    @OneToMany(mappedBy = "table")
+    @OneToMany(mappedBy = "myTable")
     private List<BookingDetail> bookingDetails;
 }

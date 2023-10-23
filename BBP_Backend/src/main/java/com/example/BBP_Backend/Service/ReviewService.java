@@ -2,8 +2,10 @@ package com.example.BBP_Backend.Service;
 
 import com.example.BBP_Backend.Model.Booking;
 import com.example.BBP_Backend.Model.Review;
+import com.example.BBP_Backend.Model.User;
 import com.example.BBP_Backend.Repository.BookingRepository;
 import com.example.BBP_Backend.Repository.ReviewRepository;
+import com.example.BBP_Backend.Repository.UserRepository;
 import com.example.BBP_Backend.Response.ReviewsResponse;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +22,7 @@ import java.util.List;
 public class ReviewService {
     private final BookingRepository bookingRepository;
     private final ReviewRepository reviewRepository;
-
+    private final UserRepository userRepository;
 
 
 //    public List<Review> getReviewByClubId(int clubId){
@@ -41,14 +43,15 @@ public class ReviewService {
         List<ReviewsResponse> result = new ArrayList<>();
 
         for (Booking rev: reviewRepository.getReviewsByClubId(clubId)) {
-           // if(rev.getClub().getClubId() == clubId) {
+           User user = userRepository.getUserByUserId(rev.getCustomerId());
+
                 result.add(new ReviewsResponse(
                         rev.getReview().getReviewId(),
                         rev.getReview().getStar(),
                         rev.getReview().getComment(),
                         rev.getBookDate(),
-                        rev.getClub().getAvatarLink(),
-                        rev.getClub().getClubName())
+                        user.getAvatarLink(),
+                        user.getUsername())
 
                 );
 

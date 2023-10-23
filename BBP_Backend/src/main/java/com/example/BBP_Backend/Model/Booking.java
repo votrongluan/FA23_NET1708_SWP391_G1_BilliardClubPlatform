@@ -38,4 +38,7 @@ public class Booking {
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     private Review review;
+
+
+
 }

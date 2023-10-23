@@ -9,6 +9,8 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface ReviewRepository extends JpaRepository<Review, Integer> {
-    @Query("Select bk from Review rv join Booking bk on rv.reviewId  = bk.review.reviewId where bk.club.clubId = :clubId")
+    @Query("Select bk from Review rv join Booking bk " +
+            "on rv.reviewId  = bk.review.reviewId " +
+            "where bk.club.clubId = :clubId")
     List<Booking> getReviewsByClubId( int clubId);
 }

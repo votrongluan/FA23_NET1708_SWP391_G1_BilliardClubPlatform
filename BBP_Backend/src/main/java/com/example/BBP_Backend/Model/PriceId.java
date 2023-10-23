@@ -4,18 +4,17 @@ import jakarta.persistence.Embeddable;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
+import lombok.*;
 
 import java.io.Serializable;
-
-@Embeddable
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class PriceId implements Serializable {
+    private Integer tableType;
+    private Integer slot;
+    private Integer club;
 
-    private int slotId;
-    private int tableTypeId;
-    private int clubId;
-
-
+    public PriceId(int tableTypeId, int clubId, Integer slotId) {
+    }
 }

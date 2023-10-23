@@ -10,8 +10,8 @@ function Clubs({clubs}) {
             lg: 4,
         }}>
             {/* eslint-disable-next-line react/prop-types */}
-            {clubs.map(club => (
-                <Club key={club.id} club={club}/>
+            {clubs.map(data => (
+                <Club key={data.club.clubId} data={data}/>
             ))}
         </SimpleGrid>
     );

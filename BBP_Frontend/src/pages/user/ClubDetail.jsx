@@ -49,17 +49,18 @@ function ClubDetail() {
         <Container maxW="1200px" as="main" py={10}>
             <Grid templateColumns="repeat(6, 1fr)" bg="gray.50" bgColor="white" borderRadius="4px"
                   border="1px solid black">
-                <GridItem colSpan={1} Height="300px" p={10}>
+                <GridItem colSpan={1} height="300px" p={10}>
                     <Avatar height="200px" width="200px" src={club.avatarLink}/>
                 </GridItem>
 
                 <GridItem colSpan={5} p={10}>
                     <Stack>
                         <HStack>
-                            <Heading size="md">{club.name}</Heading>
+                            <Heading size="md">{club.clubName}</Heading>
                             <Spacer/>
                             <Text gap={2} display="flex" alignItems="center" color="gray.500">
-                                <StarIcon color="yellow.500"/> Đánh giá: {club.rating} ({club.numberOfRating} đánh giá)
+                                <StarIcon color="yellow.500"/> Đánh
+                                giá: {club.rating !== 0.0 ? club.rating : "Chưa có đánh giá"} ({club.noRating} đánh giá)
                             </Text>
                         </HStack>
                         <Text>Địa chỉ: {club.address}, {districtMap[club.districtId]}</Text>
@@ -69,8 +70,8 @@ function ClubDetail() {
                         <Text>Fanpage: <ChakraLink color="blue.500" href={club.fanpageLink}
                                                    isExternal>{club.fanpageLink}<ExternalLinkIcon
                             mx='2px'/></ChakraLink></Text>
-                        <Link to={`/book/${club.id}`}><Button width="100%" mt={2} colorScheme="yellow"
-                                                              leftIcon={<CalendarIcon/>}>Đặt
+                        <Link to={`/book/${club.clubId}`}><Button width="100%" mt={2} colorScheme="yellow"
+                                                                  leftIcon={<CalendarIcon/>}>Đặt
                             bàn</Button></Link>
                     </Stack>
                 </GridItem>
@@ -130,6 +131,8 @@ export const clubLoader = async ({params}) => {
         club.noRating = res.data.data.noRating;
         club.rating = res.data.data.rating;
         club.noBooking = res.data.data.noBooking;
+
+        console.log(club)
 
         return club;
     } catch (error) {

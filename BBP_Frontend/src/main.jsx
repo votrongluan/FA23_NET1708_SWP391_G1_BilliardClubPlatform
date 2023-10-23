@@ -1,12 +1,9 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import {GlobalProvider} from "./context/GlobalContext.jsx";
-import TestComponent from "./TestComponent.jsx";
+import App from "./App.jsx";
 
 ReactDOM.createRoot(document.getElementById('root')).render(
     <React.StrictMode>
-        <GlobalProvider>
-            <TestComponent/>
-        </GlobalProvider>
+        <App/>
     </React.StrictMode>,
 )

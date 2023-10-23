@@ -1,7 +1,7 @@
 import {useLoaderData} from "react-router-dom";
 import Clubs from "../../components/Clubs.jsx";
 import {Container, Heading} from "@chakra-ui/react";
-import {baseURL} from "../../api/axios.js";
+import axios from "../../api/axios.js";
 
 function AllClubs() {
     const clubs = useLoaderData();
@@ -17,11 +17,7 @@ function AllClubs() {
 export default AllClubs;
 
 export const clubsLoader = async () => {
-    const res = await fetch(baseURL + '/clubs')
+    const res = await axios.get('/v1/allClubs')
 
-    if (!res.ok) {
-        throw Error('Could not fetch the list of careers')
-    }
-
-    return res.json()
+    return res.data.data
 }

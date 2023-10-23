@@ -10,4 +10,5 @@ import java.util.List;
 @Repository
 public interface TableRepository extends JpaRepository<MyTable, Integer> {
     List<MyTable> getAllByClubId(int clubId);
+    MyTable findByTableId(int tableId);
 }

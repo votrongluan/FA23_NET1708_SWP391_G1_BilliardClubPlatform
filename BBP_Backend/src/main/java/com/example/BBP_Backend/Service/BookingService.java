@@ -4,11 +4,11 @@ import com.example.BBP_Backend.Model.Booking;
 import com.example.BBP_Backend.Model.BookingDetail;
 import com.example.BBP_Backend.Model.MyTable;
 import com.example.BBP_Backend.Repository.*;
+import com.example.BBP_Backend.Response.BookingResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 
-import java.sql.Timestamp;
 import java.util.*;
 
 @Service
@@ -21,23 +21,23 @@ public class BookingService {
     private final ClubRepository clubRepository;
     private final UserRepository userRepository;
 
-    public List<Booking> getAllByCusId(int customerId) throws Exception {
+    public List<BookingResponse> getAllByCusId(int customerId) throws Exception {
         if (userRepository.findById(customerId).isEmpty()) {
-            throw new Exception("Customer not exits");
+            throw new Exception("Customer " + customerId + " do not exits");
         }
-        Optional<List<Booking>> bookingList = bookingRepository.findAllByCustomerId(customerId);
-        if (bookingList.get().isEmpty()) {
-            throw new Exception("Customer do not have booking history");
+        Optional<List<BookingDetail>> bookingDetailList = bookingDetailRepository.findAllByBooking_CustomerId(customerId);
+        if (bookingDetailList.isEmpty() || bookingDetailList.get().isEmpty()) {
+            throw new Exception("Customer " + customerId + " do not have booking history");
         }
-        return bookingList.get();
+        return getAllBookingResponseInBookingDetailList(bookingDetailList.get());
     }
 
-    public Booking getById(int bookingId) throws Exception{
-        Optional<Booking> booking = bookingRepository.findById(bookingId);
-        if (booking.isEmpty()) {
-            throw new Exception("No such item");
+    public List<BookingResponse> getById(int bookingId) throws Exception{
+        Optional<List<BookingDetail>> bookingDetailList = bookingDetailRepository.findAllByBooking_BookingId(bookingId);
+        if (bookingDetailList.isEmpty() || bookingDetailList.get().isEmpty()) {
+            throw new Exception("Booking with id " + bookingId + " do not exists");
         }
-        return booking.get();
+        return getAllBookingResponseInBookingDetailList(bookingDetailList.get());
     }
 
     public int booking(int tableId, int firstSlotId, int lastSlotId, int tableTypeId, int clubId, String date, int customerId) {
@@ -63,7 +63,7 @@ public class BookingService {
         // Add from firstSlotId to lastSlotId to booking detail repository
         for (int i = firstSlotId; i <= lastSlotId; i++) {
             BookingDetail bookingDetail = new BookingDetail();
-            bookingDetail.setBookingId(booking.getBookingId());
+            bookingDetail.getBooking().setBookingId(booking.getBookingId());
             bookingDetail.setSlotId(i);
             bookingDetail.setBookDate(bookDate);
             Optional<MyTable> table = tableRepository.findById(tableId);
@@ -95,5 +95,47 @@ public class BookingService {
 
     public void deleteById(Integer bookingId) {
         bookingRepository.deleteById(bookingId);
+    }
+
+    private List<BookingResponse> getAllBookingResponseInBookingDetailList(List<BookingDetail> bookingDetailList) {
+        List<BookingResponse> bookingResponses = new ArrayList<>();
+        for (BookingDetail bookingDetail: bookingDetailList) {
+            int index = bookingDetailList.indexOf(bookingDetail);
+            if (index == 0) {
+                createBookingResponse(bookingResponses, bookingDetail);
+            } else {
+                boolean bookingExisted = false;
+                for (BookingResponse b : bookingResponses) {
+                    if (b.getBookingId() == bookingDetail.getBooking().getBookingId()) {
+                        b.setLastSlotId(bookingDetail.getSlotId());
+                        bookingExisted = true;
+                        break;
+                    }
+                }
+                if (!bookingExisted) {
+                    createBookingResponse(bookingResponses, bookingDetail);
+                }
+            }
+        }
+        return bookingResponses;
+    }
+
+    private void createBookingResponse(List<BookingResponse> bookingResponses, BookingDetail bookingDetail) {
+        bookingResponses.add(
+                BookingResponse.builder()
+                        .bookingId(bookingDetail.getBooking().getBookingId())
+                        .clubAddress(bookingDetail.getBooking().getClub().getAddress())
+                        .districtId(bookingDetail.getBooking().getClub().getDistrictId())
+                        .price(bookingDetail.getPrice())
+                        .clubName(bookingDetail.getBooking().getClub().getClubName())
+                        .comment(bookingDetail.getBooking().getReview().getComment())
+                        .date(bookingDetail.getBooking().getBookDate())
+                        .firstSlotId(bookingDetail.getSlotId())
+                        .lastSlotId(bookingDetail.getSlotId())
+                        .star(bookingDetail.getBooking().getReview().getStar())
+                        .tableId(bookingDetail.getTable().getTableId())
+                        .tableTypeId(bookingDetail.getTable().getTableTypeId().getTableTypeId())
+                        .build()
+        );
     }
 }

@@ -12,9 +12,13 @@ import java.util.Date;
 @Table(name = "BookingDetail")
 public class BookingDetail {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int bookingDetailId;
-    private int bookingId;
+
+    @OneToOne
+    @JoinColumn(name = "bookingId")
+    private Booking booking;
+
     private int slotId;
     private int price;
     private Date bookDate;

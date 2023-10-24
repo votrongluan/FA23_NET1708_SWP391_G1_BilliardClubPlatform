@@ -1,5 +1,6 @@
 package com.example.BBP_Backend.Model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.persistence.Table;
@@ -31,6 +32,7 @@ public class Booking {
 
     private int bookingStatusId;
 
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private Date bookDate;
 
     @OneToOne

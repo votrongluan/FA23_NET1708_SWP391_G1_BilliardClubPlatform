@@ -57,7 +57,7 @@ public class BookingController {
             return ResponseEntity.ok(
                     new ResponseObject(
                             "Ok",
-                            "Booking By CusId",
+                            "Booking By BookingId",
                             bookingService.getById(
                                     Integer.parseInt(request.getBookingId())
                             )

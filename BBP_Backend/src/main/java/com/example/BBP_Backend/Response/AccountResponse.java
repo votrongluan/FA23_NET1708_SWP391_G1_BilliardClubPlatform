@@ -20,4 +20,18 @@ public class AccountResponse {
     private boolean status;
     @JsonProperty("message")
     private String message;
+    @JsonProperty("id")
+    private int id;
+    @JsonProperty("username")
+    private String username;
+    @JsonProperty("avatarLink")
+    private String avatarLink;
+    @JsonProperty("email")
+    private String email;
+    @JsonProperty("phone")
+    private String phone;
+    @JsonProperty("firstName")
+    private String firstName;
+    @JsonProperty("lastName")
+    private String lastName;
 }

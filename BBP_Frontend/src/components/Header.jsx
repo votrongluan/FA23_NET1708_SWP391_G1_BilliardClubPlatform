@@ -20,9 +20,9 @@ function Header() {
     return (
         <Container maxW="1200px">
             <Flex as="nav" height="70px" alignItems="center">
-                {auth?.role === 'Staff' ? <NavLink to="/staff/manage">
+                {auth?.role === 'STAFF' ? <NavLink to="/staff/manage">
                     <Heading as="h1">Billiards</Heading>
-                </NavLink> : auth?.role === 'Admin' ? <NavLink to="/admin/manage">
+                </NavLink> : auth?.role === 'ADMIN' ? <NavLink to="/admin/manage">
                     <Heading as="h1">Billiards</Heading>
                 </NavLink> : <NavLink to="/">
                     <Heading as="h1">Billiards</Heading>
@@ -30,9 +30,9 @@ function Header() {
 
                 <Spacer/>
                 <HStack spacing={5} fontSize="20px">
-                    {auth?.role === 'User' || !auth ?
+                    {auth?.role === 'CUSTOMER' || !auth ?
                         <NavLink to="find">Tìm club</NavLink> : null}
-                    {auth?.role === 'User' || !auth ?
+                    {auth?.role === 'CUSTOMER' || !auth ?
                         <NavLink to="book">Đặt lịch</NavLink> : null}
                     {auth?.username ? (
                         <Menu>
@@ -41,7 +41,7 @@ function Header() {
                             </MenuButton>
                             <MenuList>
                                 <Link to={`/users/${auth?.id}`}><MenuItem>Tài khoản của tôi</MenuItem></Link>
-                                {auth?.role === 'User' ? <Link to={`/history/${auth?.id}`}><MenuItem>Lịch sử đặt
+                                {auth?.role === 'CUSTOMER' ? <Link to={`/history/${auth?.id}`}><MenuItem>Lịch sử đặt
                                     bàn</MenuItem></Link> : null}
                                 <MenuItem onClick={() => {
                                     setAuth(null)

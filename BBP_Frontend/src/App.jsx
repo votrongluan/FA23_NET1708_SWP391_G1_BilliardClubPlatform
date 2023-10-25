@@ -36,7 +36,7 @@ function App() {
         createRoutesFromElements(
             <Route path="/" element={<RootLayout/>} errorElement={<ElementError/>}>
                 {/* Admin page route */}
-                <Route path={"admin"} element={<RequireAuth allowedRoles={"Admin"}/>}>
+                <Route path={"admin"} element={<RequireAuth allowedRoles={"ADMIN"}/>}>
                     <Route index element={<NotFound/>}/>
                     <Route path="manage" element={<AdminLayout/>}>
                         <Route path="club" element={<ClubManage/>} loader={clubsLoader}/>
@@ -45,7 +45,7 @@ function App() {
                 </Route>
 
                 {/* Staff page route */}
-                <Route path={"staff"} element={<RequireAuth allowedRoles={"Staff"}/>}>
+                <Route path={"staff"} element={<RequireAuth allowedRoles={"STAFF"}/>}>
                     <Route index element={<NotFound/>}/>
                     <Route path="manage" element={<StaffLayout/>}>
                         <Route path="club/:id" element={<OwnClub/>} loader={clubLoader}/>
@@ -81,7 +81,7 @@ function App() {
                 {/* Booking route */}
                 <Route
                     path="book"
-                    element={<RequireAuth allowedRoles={"User"}/>}
+                    element={<RequireAuth allowedRoles={"CUSTOMER"}/>}
                 >
                     <Route index element={<Book/>}/>
                     <Route path=":id" loader={clubLoader} element={<ClubBook/>}/>
@@ -90,7 +90,7 @@ function App() {
                 {/* Booking history route */}
                 <Route
                     path="history"
-                    element={<RequireAuth allowedRoles={"User"}/>}
+                    element={<RequireAuth allowedRoles={"CUSTOMER"}/>}
                 >
                     <Route index element={<NotFound/>}/>
                     <Route path=":id">

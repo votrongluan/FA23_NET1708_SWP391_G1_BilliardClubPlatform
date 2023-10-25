@@ -41,7 +41,7 @@ function Header() {
                             </MenuButton>
                             <MenuList>
                                 <Link to={`/users/${auth?.id}`}><MenuItem>Tài khoản của tôi</MenuItem></Link>
-                                {auth?.role === 'User' ? <Link to={`/history/${auth?.id}`}><MenuItem>Lịch sử đặt
+                                {auth?.role === 'CUSTOMER' ? <Link to={`/history/${auth?.id}`}><MenuItem>Lịch sử đặt
                                     bàn</MenuItem></Link> : null}
                                 <MenuItem onClick={() => {
                                     setAuth(null)

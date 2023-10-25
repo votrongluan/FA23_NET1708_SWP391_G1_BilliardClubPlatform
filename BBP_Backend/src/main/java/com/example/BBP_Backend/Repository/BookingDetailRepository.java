@@ -3,10 +3,8 @@ package com.example.BBP_Backend.Repository;
 import com.example.BBP_Backend.Model.BookingDetail;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -23,4 +21,8 @@ public interface BookingDetailRepository extends JpaRepository<BookingDetail, In
     Optional<List<BookingDetail>> findAllByBooking_CustomerId(int customerId);
 
     Optional<List<BookingDetail>> findAllByBooking_BookingId(int bookingId);
+
+    Optional<List<BookingDetail>> findAllByBooking_Club_ClubIdAndBookDate(int clubId, Date date);
+
+    Optional<List<BookingDetail>> findAllByBooking_Club_ClubId(int clubId);
 }

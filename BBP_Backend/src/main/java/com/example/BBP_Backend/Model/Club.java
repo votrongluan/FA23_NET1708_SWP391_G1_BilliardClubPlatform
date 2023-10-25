@@ -37,4 +37,9 @@ public class Club {
     @OneToMany(mappedBy = "club", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<Price> prices;
+
+    //Map to ClubStaff
+    @OneToMany(mappedBy = "club", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<ClubStaff> clubStaffs;
 }

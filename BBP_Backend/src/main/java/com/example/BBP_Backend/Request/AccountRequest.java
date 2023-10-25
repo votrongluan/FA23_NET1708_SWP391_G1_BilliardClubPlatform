@@ -18,5 +18,6 @@ public class AccountRequest {
     private String email;
     private String phone;
     private String avatarLink;
+    private int clubId;
     private Role role;
 }

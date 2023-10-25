@@ -14,6 +14,7 @@ import {
 } from "@chakra-ui/react";
 import {Form, Navigate, useLocation, useNavigate} from "react-router-dom";
 import useAuth from "../../hooks/useAuth.js";
+import axios from "../../api/axios.js";
 
 function Auth(props) {
     const toast = useToast()
@@ -27,72 +28,37 @@ function Auth(props) {
         e.preventDefault();
 
         try {
-            // const response = await axios.post(LOGIN_URL,
-            //     JSON.stringify({user, pwd}),
-            //     {
-            //         headers: {'Content-Type': 'application/json'},
-            //         withCredentials: true
-            //     }
-            // );
-            // console.log(JSON.stringify(response?.data));
-            // //console.log(JSON.stringify(response));
-            // const accessToken = response?.data?.accessToken;
-            // const roles = response?.data?.roles;
-            // setAuth({user, pwd, roles, accessToken});
-            // setUser('');
-            // setPwd('');
-            // get data from form
             const formData = new FormData(e.target);
             const data = Object.fromEntries(formData.entries());
-            if (data.username === 'user' && data.password === 'user') {
-                setAuth({
-                    "id": 1,
-                    "username": "user",
-                    "avatarLink": "https://i.pinimg.com/originals/d8/ed/33/d8ed337d0a83bc67d355d0f1d0d29097.jpg",
-                    "email": "user@usr.com",
-                    "phone": "0123456789",
-                    "role": "User",
-                    "lastName": "Doe",
-                    "firstName": "John"
-                });
-                navigate(-1);
-            } else if (data.username === 'admin' && data.password === 'admin') {
-                setAuth({
-                    "id": 3,
-                    "username": "admin",
-                    "avatarLink": "https://i.pinimg.com/originals/28/03/f2/2803f2963bdea8302c0d07153b263e2d.jpg",
-                    "email": "admin@admin.com",
-                    "phone": "5555555555",
-                    "role": "Admin",
-                    "lastName": "Johnson",
-                    "firstName": "Mike"
-                });
-                navigate('/admin/manage');
-            } else if (data.username === 'staff' && data.password === 'staff') {
-                setAuth({
-                    "id": 2,
-                    "username": "staff",
-                    "avatarLink": "https://i.pinimg.com/1200x/de/0a/97/de0a9757a21cda8550b8c94c1af5e3ff.jpg",
-                    "email": "staff@staff.com",
-                    "phone": "9876543210",
-                    "role": "Staff",
-                    "lastName": "Smith",
-                    "firstName": "Jane",
-                    "clubId": 1,
-                });
-                navigate('/staff/manage');
-            } else {
-                toast({
-                    title: "Đăng nhập thất bại",
-                    description: "Tài khoản hoặc mật khẩu không đúng",
-                    status: "error",
-                    duration: 1500,
-                    isClosable: true,
-                    position: "top-right"
-                });
+            const res = await axios.post('/account/login', JSON.stringify(data), {
+                headers: {'Content-Type': 'application/json'}
+            });
+            const user = res.data;
+            switch (user.role) {
+                case 'CUSTOMER':
+                    setAuth(user);
+                    navigate(from);
+                    break;
+                case 'STAFF':
+                    setAuth(user);
+                    navigate('/staff/manage');
+                    break;
+                case 'ADMIN':
+                    setAuth(user);
+                    navigate('/admin/manage');
+                    break;
+                default:
+                    break;
             }
         } catch (err) {
-            console.log(err);
+            toast({
+                title: "Đăng nhập thất bại",
+                description: "Tài khoản hoặc mật khẩu không đúng",
+                status: "error",
+                duration: 1500,
+                isClosable: true,
+                position: "top-right"
+            });
         }
     }
 

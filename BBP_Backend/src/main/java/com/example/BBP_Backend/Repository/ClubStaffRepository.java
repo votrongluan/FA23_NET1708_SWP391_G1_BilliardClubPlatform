@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ClubStaffRepository extends JpaRepository<ClubStaff, ClubStaffId> {
-
+    void deleteByStaff_Username(String username);
 }

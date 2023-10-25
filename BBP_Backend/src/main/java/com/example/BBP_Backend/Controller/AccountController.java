@@ -17,6 +17,29 @@ public class AccountController {
 
     private final AccountService service;
 
+    @DeleteMapping("/deleteStaffAccount")
+    public ResponseEntity<ResponseObject> deleteStaff(
+            @RequestBody AccountRequest request
+    ) {
+        try {
+            return ResponseEntity.ok().body(
+                    new ResponseObject(
+                            "Ok",
+                            "Delete account successfully",
+                            service.deleteStaffByUsername(request.getUsername())
+                    )
+            );
+        } catch (Exception ex) {
+            return ResponseEntity.ofNullable(
+                    new ResponseObject(
+                            "Exception",
+                            ex.getMessage(),
+                            null
+                    )
+            );
+        }
+    }
+
     @PostMapping("/addNewStaff")
     public ResponseEntity<ResponseObject> addNewStaff(
             @RequestBody AccountRequest request

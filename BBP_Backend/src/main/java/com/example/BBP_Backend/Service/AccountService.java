@@ -15,6 +15,9 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -111,6 +114,17 @@ public class AccountService {
                 .status(false)
                 .message("Non existed club")
                 .build();
+    }
+
+    @Transactional
+    public User deleteStaffByUsername(String username) throws Exception {
+        Optional<User> user = userRepository.findByUsername(username);
+        if (user.isEmpty()) {
+            throw new Exception("Account do not exists!!!");
+        }
+        clubStaffRepository.deleteByStaff_Username(username);
+        userRepository.deleteByUsername(username);
+        return user.get();
     }
 
 //    public AccountResponse authenticate(AccountService request) {

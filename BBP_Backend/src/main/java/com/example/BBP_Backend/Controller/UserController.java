@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
     private final UserService userService;
 
-
     @PutMapping("/updateUser/{userId}")
     public ResponseEntity<ResponseObject> updateUserInformation(
             @PathVariable("userId") int userId,

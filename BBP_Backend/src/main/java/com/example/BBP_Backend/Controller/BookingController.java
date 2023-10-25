@@ -74,6 +74,33 @@ public class BookingController {
         }
     }
 
+    @GetMapping("/getByClubIdAndDate")
+    public ResponseEntity<ResponseObject> getByClubIdAndDate(
+            @RequestBody BookingRequest request
+    ) {
+        try {
+            return ResponseEntity.ok(
+                    new ResponseObject(
+                            "Ok",
+                            "Booking By BookingId",
+                            bookingService.getByClubIdAndDate(
+                                    Integer.parseInt(request.getClubId()),
+                                    request.getDate()
+                            )
+//                            request.getDate()
+                    )
+            );
+        } catch (Exception ex) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+                    new ResponseObject(
+                            "NotFound",
+                            ex.getMessage(),
+                            null
+                    )
+            );
+        }
+    }
+
     @PostMapping("/book")
     public ResponseEntity<ResponseObject> booking(
             @RequestBody JsonNode request

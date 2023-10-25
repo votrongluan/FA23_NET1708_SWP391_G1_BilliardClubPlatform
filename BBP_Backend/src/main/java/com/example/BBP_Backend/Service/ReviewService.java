@@ -6,6 +6,7 @@ import com.example.BBP_Backend.Model.User;
 import com.example.BBP_Backend.Repository.BookingRepository;
 import com.example.BBP_Backend.Repository.ReviewRepository;
 import com.example.BBP_Backend.Repository.UserRepository;
+import com.example.BBP_Backend.Request.GiveReviewRequest;
 import com.example.BBP_Backend.Response.ReviewsResponse;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -59,24 +60,24 @@ public class ReviewService {
         return result;
     }
 
-    public String submitFeedback(int bookingId, int star, String comment) {
+    public String submitFeedback(GiveReviewRequest grr) {
         // Check if the booking with the specified ID exists
-        Booking booking = bookingRepository.getByBookingId(bookingId);
+        Booking booking = bookingRepository.getByBookingId(grr.getBookingId());
         if (booking == null) {
             return "Booking not found";
         }
         Review existReview = booking.getReview();
         if(existReview != null){
-            existReview.setStar(star);
-            existReview.setComment(comment);
+            existReview.setStar(grr.getStar());
+            existReview.setComment(grr.getComment());
             reviewRepository.save(existReview);
         } else {
 
         // Create a new feedback
         Review newReview = new Review();
             newReview.setReviewId(booking.getReview().getReviewId());
-            newReview.setStar(star);
-            newReview.setComment(comment);
+            newReview.setStar(grr.getStar());
+            newReview.setComment(grr.getComment());
         // Save the feedback
             reviewRepository.save(newReview);
         }

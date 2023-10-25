@@ -154,4 +154,27 @@ public class BookingController {
                 new ResponseObject("Failed", "Cannot Cancel Booking with id = " + bookingId, "")
         );
     }
+
+    @GetMapping("/getBookingsByClubId/{clubId}")
+    public ResponseEntity<ResponseObject> getBookingsIn4ByClubId(
+            @PathVariable(name = "clubId") int clubId
+    ) {
+        try {
+            return ResponseEntity.ok(
+                    new ResponseObject(
+                            "Ok",
+                            "Booking Informations By ClubId",
+                            bookingService.getBookingsInfoByClubId(clubId))
+                            );
+        } catch (Exception ex) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+                    new ResponseObject(
+                            "Not Found!!!",
+                            ex.getMessage(),
+                            null
+                    )
+            );
+        }
+
+    }
 }

@@ -4,10 +4,16 @@ import com.example.BBP_Backend.Model.User;
 import com.example.BBP_Backend.Request.UpdatePasswordRequest;
 import com.example.BBP_Backend.Request.UserUpdateRequest;
 import com.example.BBP_Backend.Response.ResponseObject;
+import com.example.BBP_Backend.Response.StaffInfoResponse;
 import com.example.BBP_Backend.Service.UserService;
+import jakarta.websocket.server.PathParam;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.nio.file.Path;
+import java.util.List;
+import java.util.Objects;
 
 @RestController
 @CrossOrigin("http://localhost:5173")
@@ -55,6 +61,22 @@ public class UserController {
          return  ResponseEntity.badRequest().body(new ResponseObject(
                     "Failed", "Can not find User!!!", ""));
     }
+@GetMapping("/getAllStaff")
+    public ResponseEntity<List<StaffInfoResponse>> getAllStaff(){
+        List<StaffInfoResponse> staffs = userService.getAllStaff();
+        if(staffs != null){
+            return ResponseEntity.ok(staffs);
+        }else{
+            return ResponseEntity.badRequest().body(staffs);
+        }
+
+    }
+@GetMapping("/getBookingInforByClubId")
+    public ResponseEntity<List<Objects>> getBookingInfoByClubId(@PathVariable(name ="clubId") int clubId){
+
+
+        return null;
+    }
 }
 
 
@@ -64,16 +86,4 @@ public class UserController {
 
 
 
-//    @PutMapping("/updateUser2/{userId}")
-//    public ResponseEntity<User> updateUserInformation2(
-//            @PathVariable("userId") int userId,
-//            @RequestBody UserUpdateRequest updatedUser
-//    ) {
-//        User updatedUserInfo = userService.updateUserInformation(userId, updatedUser);
-//        if (updatedUserInfo != null) {
-//            return ResponseEntity.ok(updatedUserInfo);
-//        } else {
-//            return ResponseEntity.notFound().build();
-//        }
-//    }
 

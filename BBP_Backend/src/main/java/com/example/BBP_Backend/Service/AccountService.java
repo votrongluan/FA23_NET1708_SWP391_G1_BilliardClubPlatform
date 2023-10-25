@@ -69,6 +69,13 @@ public class AccountService {
                 .role(user.getRole())
                 .status(true)
                 .message("Ok")
+                .id(user.getUserId())
+                .username(user.getUsername())
+                .avatarLink(user.getAvatarLink())
+                .email(user.getEmail())
+                .phone(user.getPhone())
+                .firstName(user.getFirstName())
+                .lastName(user.getLastName())
                 .build();
     }
 

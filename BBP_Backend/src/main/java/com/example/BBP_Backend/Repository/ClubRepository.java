@@ -10,4 +10,5 @@ import java.util.List;
 public interface ClubRepository extends JpaRepository<Club, Integer> {
     List<Club> findByClubName(String clubname);
     Club findByClubId(int clubId);
+
 }

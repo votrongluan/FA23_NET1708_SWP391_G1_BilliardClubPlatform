@@ -34,4 +34,5 @@ public class AccountResponse {
     private String firstName;
     @JsonProperty("lastName")
     private String lastName;
+    private int clubId;
 }

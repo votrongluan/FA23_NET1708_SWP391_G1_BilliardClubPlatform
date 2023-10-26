@@ -67,6 +67,22 @@ public class AccountService {
         var user = userRepository.findByUsername(request.getUsername())
                 .orElseThrow();
         var jwtToken = jwtService.generateToken(user);
+        if(user.getRole().getRole().equals("Staff")){
+            return AccountResponse.builder()
+                    .accessToken(jwtToken)
+                    .role(user.getRole())
+                    .status(true)
+                    .message("Ok")
+                    .id(user.getUserId())
+                    .username(user.getUsername())
+                    .avatarLink(user.getAvatarLink())
+                    .email(user.getEmail())
+                    .phone(user.getPhone())
+                    .firstName(user.getFirstName())
+                    .lastName(user.getLastName())
+                    .clubId(clubStaffRepository.getClubIdByClubStaffId(user.getUserId()))
+                    .build();
+        }
         return AccountResponse.builder()
                 .accessToken(jwtToken)
                 .role(user.getRole())

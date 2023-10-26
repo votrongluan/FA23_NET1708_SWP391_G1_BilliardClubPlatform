@@ -6,13 +6,14 @@ import EditFieldBox from "../../components/EditFieldBox.jsx";
 
 function OwnClub(props) {
     const club = useLoaderData();
+    console.log(club);
     const {districtMap} = useContext(GlobalContext);
 
     return (
         <Container maxW="1200px" as="main">
             <Heading mb={5} as="h2" size="lg" textAlign="center">Quản lý club</Heading>
             <Box>
-                <EditFieldBox title="Tên club" value={club.name} onEditClick={() => {
+                <EditFieldBox title="Tên club" value={club.clubName} onEditClick={() => {
                     console.log('implement later')
                 }}/>
                 <EditFieldBox title="Địa chỉ" value={`${club.address}, ${districtMap[club.districtId]}`}

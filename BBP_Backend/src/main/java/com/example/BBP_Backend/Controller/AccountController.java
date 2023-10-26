@@ -17,16 +17,16 @@ public class AccountController {
 
     private final AccountService service;
 
-    @DeleteMapping("/deleteStaffAccount")
+    @DeleteMapping("/deleteStaffAccount/{username}")
     public ResponseEntity<ResponseObject> deleteStaff(
-            @RequestBody AccountRequest request
+            @PathVariable(name = "username") String username
     ) {
         try {
             return ResponseEntity.ok().body(
                     new ResponseObject(
                             "Ok",
                             "Delete account successfully",
-                            service.deleteStaffByUsername(request.getUsername())
+                            service.deleteStaffByUsername(username)
                     )
             );
         } catch (Exception ex) {

@@ -23,20 +23,18 @@ public class BookingController {
 
     private final BookingService bookingService;
 
-    @GetMapping("/getAllByCusId")
+    @GetMapping("/getAllByCusId/{cusId}")
     public ResponseEntity<ResponseObject> getAllByCusId(
-            @RequestBody BookingRequest request
+            @PathVariable(name = "cusId") int cusId
     ) {
         try {
             return ResponseEntity.ok(
                     new ResponseObject(
                             "Ok",
                             "Booking By CusId",
-                            bookingService.getAllByCusId(
-                                    Integer.parseInt(request.getCusId())
+                            bookingService.getAllByCusId(cusId)
                             )
-                    )
-            );
+                    ) ;
         } catch (Exception ex) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
                     new ResponseObject(
@@ -49,18 +47,16 @@ public class BookingController {
 
     }
 
-    @GetMapping("/getByBookingId")
+    @GetMapping("/getByBookingId/{bookingId}")
     public ResponseEntity<ResponseObject> getByBookingId(
-            @RequestBody BookingRequest request
+            @PathVariable(name ="bookingId") int bookingId
     ) {
         try {
             return ResponseEntity.ok(
                     new ResponseObject(
                             "Ok",
                             "Booking By BookingId",
-                            bookingService.getById(
-                                    Integer.parseInt(request.getBookingId())
-                            )
+                            bookingService.getById(bookingId)
                     )
             );
         } catch (Exception ex) {

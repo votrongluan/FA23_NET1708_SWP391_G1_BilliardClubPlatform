@@ -71,17 +71,12 @@ public class UserController {
         }
 
     }
-@GetMapping("/getBookingInforByClubId")
-    public ResponseEntity<List<Objects>> getBookingInfoByClubId(@PathVariable(name ="clubId") int clubId){
 
-
-        return null;
-    }
 }
 
 
 
-
+        
 
 
 

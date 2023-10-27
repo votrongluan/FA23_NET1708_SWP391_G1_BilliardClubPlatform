@@ -28,8 +28,8 @@ function BookHistoryCard({booking}) {
                     </HStack>
                     <Text><span style={{color: 'gray'}}>Bình luận của bạn:</span> {booking.comment}</Text>
                 </Stack> : <Button leftIcon={<CalendarIcon/>}>Viết đánh giá</Button>}
-                <Link to={`/history/${auth?.id}/${booking.id}`}><Button colorScheme="telegram" variant="ghost"
-                                                                        leftIcon={<ViewIcon/>}>Chi
+                <Link to={`/history/${auth?.id}/${booking.bookingId}`}><Button colorScheme="telegram" variant="ghost"
+                                                                               leftIcon={<ViewIcon/>}>Chi
                     tiết</Button></Link>
             </CardFooter>
         </Card>

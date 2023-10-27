@@ -97,7 +97,7 @@ public class BookingService {
         // Add from firstSlotId to lastSlotId to booking detail repository
         for (int i = firstSlotId; i <= lastSlotId; i++) {
             BookingDetail bookingDetail = new BookingDetail();
-            bookingDetail.getBooking().setBookingId(booking.getBookingId());
+            bookingDetail.setBooking(booking);
             bookingDetail.setSlotId(i);
             bookingDetail.setBookDate(bookDate);
             Optional<MyTable> table = tableRepository.findById(tableId);
@@ -155,22 +155,24 @@ public class BookingService {
     }
 
     private void createBookingResponse(List<BookingResponse> bookingResponses, BookingDetail bookingDetail) {
-        bookingResponses.add(
-                BookingResponse.builder()
-                        .bookingId(bookingDetail.getBooking().getBookingId())
-                        .clubAddress(bookingDetail.getBooking().getClub().getAddress())
-                        .districtId(bookingDetail.getBooking().getClub().getDistrictId())
-                        .price(bookingDetail.getPrice())
-                        .clubName(bookingDetail.getBooking().getClub().getClubName())
-                        .comment(bookingDetail.getBooking().getReview().getComment())
-                        .date(bookingDetail.getBooking().getBookDate())
-                        .firstSlotId(bookingDetail.getSlotId())
-                        .lastSlotId(bookingDetail.getSlotId())
-                        .star(bookingDetail.getBooking().getReview().getStar())
-                        .tableId(bookingDetail.getTable().getTableId())
-                        .tableTypeId(bookingDetail.getTable().getTableTypeId().getTableTypeId())
-                        .build()
-        );
+        BookingResponse.BookingResponseBuilder builder = BookingResponse.builder()
+                .bookingId(bookingDetail.getBooking().getBookingId())
+                .clubAddress(bookingDetail.getBooking().getClub().getAddress())
+                .districtId(bookingDetail.getBooking().getClub().getDistrictId())
+                .price(bookingDetail.getPrice())
+                .clubName(bookingDetail.getBooking().getClub().getClubName())
+                .date(bookingDetail.getBooking().getBookDate())
+                .firstSlotId(bookingDetail.getSlotId())
+                .lastSlotId(bookingDetail.getSlotId())
+                .tableId(bookingDetail.getTable().getTableId())
+                .tableTypeId(bookingDetail.getTable().getTableTypeId().getTableTypeId());
+
+        if (bookingDetail.getBooking().getReview() != null) {
+            builder.comment(bookingDetail.getBooking().getReview().getComment());
+            builder.star(bookingDetail.getBooking().getReview().getStar());
+        }
+
+        bookingResponses.add(builder.build());
     }
         public List<BookingInforResponse> getBookingsInfoByClubId(int clubId) throws Exception {
             if (clubRepository.findById(clubId).isEmpty()) {

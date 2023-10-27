@@ -8,8 +8,6 @@ import SearchFilter from "../../components/SearchFilter.jsx";
 function BookHistory() {
     const bookings = useLoaderData();
 
-    console.log(bookings);
-
     return (
         <Container maxW="1200px" as="main" py={10}>
             <Heading as="h2" fontSize="24px" mb={5} textAlign="center">Lịch sử đặt bàn</Heading>
@@ -21,7 +19,7 @@ function BookHistory() {
                 (
                     <Flex flexDirection="column" gap={5}>
                         {filteredData.map(booking => (
-                            <BookHistoryCard key={booking.id} booking={booking}/>
+                            <BookHistoryCard key={booking.bookingId} booking={booking}/>
                         ))}
                     </Flex>
                 )
@@ -35,11 +33,7 @@ export default BookHistory;
 export const bookingHistoryLoader = async ({params}) => {
     const {id} = params
 
-    const res = await axios.get("/booking/getAllByCusId", JSON.stringify({
-        customerId: id
-    }), {
-        headers: {"Content-Type": "application/json"},
-    });
+    const res = await axios.get(`/booking/getAllByCusId/${id}`);
 
-    return res.data;
+    return res.data.data;
 }

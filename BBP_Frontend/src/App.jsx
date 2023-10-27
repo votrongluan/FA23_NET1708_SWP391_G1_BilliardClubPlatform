@@ -9,7 +9,7 @@ import AllClubs, {clubsLoader} from "./pages/user/AllClubs.jsx";
 import ClubDetail, {clubLoader} from "./pages/user/ClubDetail.jsx";
 import Auth from "./pages/all/Auth.jsx";
 import {AuthProvider} from "./context/AuthProvider.jsx";
-import Account, {userLoader} from "./pages/all/Account.jsx";
+import Account from "./pages/all/Account.jsx";
 import RequireAuth from "./components/RequireAuth.jsx";
 import Unauthorized from "./pages/all/Unauthorized.jsx";
 import Find from "./pages/user/Find.jsx";
@@ -104,7 +104,7 @@ function App() {
                     path="users"
                 >
                     <Route index element={<NotFound/>}/>
-                    <Route path=":id" element={<Account/>} loader={userLoader}/>
+                    <Route path=":id" element={<Account/>}/>
                 </Route>
 
                 {/* Auth route */}

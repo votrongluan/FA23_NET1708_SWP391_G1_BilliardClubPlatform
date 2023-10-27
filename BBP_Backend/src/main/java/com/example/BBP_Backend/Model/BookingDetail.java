@@ -12,7 +12,7 @@ import java.util.Date;
 @Table(name = "BookingDetail")
 public class BookingDetail {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     private int bookingDetailId;
 
     @ManyToOne

@@ -9,6 +9,12 @@ function BookHistoryCard({booking}) {
     const {auth} = useAuth();
     const {districtMap} = useContext(GlobalContext)
 
+    function checkDate() {
+        const today = new Date();
+        const date = new Date(booking.date);
+        return today.getTime() > date.getTime();
+    }
+
     return (
         <Card>
             <CardHeader>
@@ -20,14 +26,18 @@ function BookHistoryCard({booking}) {
             </CardHeader>
             <Divider/>
             <CardFooter display="flex" alignItems="center" justifyContent="space-between">
-                {booking.comment ? <Stack>
-                    <HStack>
-                        <Text color="gray">Đánh giá của bạn: </Text>
-                        <StarIcon color="yellow.500"/>
-                        <Text>{booking.star}</Text>
-                    </HStack>
-                    <Text><span style={{color: 'gray'}}>Bình luận của bạn:</span> {booking.comment}</Text>
-                </Stack> : <Button leftIcon={<CalendarIcon/>}>Viết đánh giá</Button>}
+                {booking.comment ?
+                    <Stack>
+                        <HStack>
+                            <Text color="gray">Đánh giá của bạn: </Text>
+                            <StarIcon color="yellow.500"/>
+                            <Text>{booking.star}</Text>
+                        </HStack>
+                        <Text><span style={{color: 'gray'}}>Bình luận của bạn:</span> {booking.comment}</Text>
+                    </Stack>
+                    :
+                    <Button isDisabled={true} leftIcon={<CalendarIcon/>}>Viết đánh giá</Button>
+                }
                 <Link to={`/history/${auth?.id}/${booking.bookingId}`}><Button colorScheme="telegram" variant="ghost"
                                                                                leftIcon={<ViewIcon/>}>Chi
                     tiết</Button></Link>

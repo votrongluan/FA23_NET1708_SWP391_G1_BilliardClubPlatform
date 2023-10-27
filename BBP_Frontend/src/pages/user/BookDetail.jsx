@@ -27,7 +27,7 @@ function BookDetail() {
                     <Divider/>
                     <CardBody>
                         <HStack>
-                            <Text color="gray.500">Mã đặt bàn: </Text>
+                            <Text color="gray.500">Mã đơn: </Text>
                             <Spacer/>
                             <Text fontWeight="semibold">{bookingDetail.bookingId}</Text>
                         </HStack>
@@ -42,6 +42,13 @@ function BookDetail() {
                             <Text fontWeight="semibold">
                                 {bookingDetail.clubAddress},{" "}
                                 {districtMap[bookingDetail.districtId]}
+                            </Text>
+                        </HStack>
+                        <HStack>
+                            <Text color="gray.500">Mã bàn: </Text>
+                            <Spacer/>
+                            <Text fontWeight="semibold">
+                                {bookingDetail.tableId}
                             </Text>
                         </HStack>
                         <HStack>

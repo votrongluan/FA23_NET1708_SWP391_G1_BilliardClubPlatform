@@ -96,7 +96,6 @@ public class BookingService {
             BookingDetail bookingDetail = new BookingDetail();
             bookingDetail.setBooking(booking);
             bookingDetail.setSlotId(i);
-            bookingDetail.getBooking().setBookDate(bookDate);
             Optional<MyTable> table = tableRepository.findById(tableId);
             bookingDetail.setTable(table.get());
             int price = priceRepository.findPriceByClubAndSlotAndTableType(clubId, i, tableTypeId);
@@ -184,4 +183,3 @@ public class BookingService {
         return getAllBookingResponseInBookingList(bookingList.get());
     }
 }
-

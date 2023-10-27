@@ -68,7 +68,7 @@ public class BookingController {
         }
     }
 
-    @GetMapping("/getByClubIdAndDate")
+    @PostMapping("/getByClubIdAndDate")
     public ResponseEntity<ResponseObject> getByClubIdAndDate(
             @RequestBody BookingRequest request
     ) {

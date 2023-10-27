@@ -16,24 +16,30 @@ import {
     useToast,
 } from "@chakra-ui/react";
 import {CalendarIcon} from "@chakra-ui/icons";
-import {useLoaderData, useParams} from "react-router-dom";
+import {useLoaderData, useNavigate, useParams} from "react-router-dom";
 import {GlobalContext} from "../../context/GlobalContext.jsx";
-import {baseURL} from "../../api/axios.js";
+import axios, {baseURL} from "../../api/axios.js";
 import {dateArr} from "../../utils/getThreeDate.js";
+import useAuth from "../../hooks/useAuth.js";
 
 function ClubBook() {
     const toast = useToast();
+    const navigate = useNavigate();
 
+    const {auth} = useAuth();
     const {id} = useParams();
     const club = useLoaderData();
 
     const {districtMap, tableTypeMap, slotMap} = useContext(GlobalContext);
     const [selectedHours, setSelectedHours] = useState([]);
+    const [selectedSlot, setSelectedSlot] = useState([]);
     const [allowedTables, setAllowedTables] = useState([]);
     const [selectedTable, setSelectedTable] = useState(null);
     const [selectedTableType, setSelectedTableType] = useState(Object.keys(tableTypeMap)[0]);
     const [selectedDate, setSelectedDate] = useState(dateArr[0]);
     const [tables, setTables] = useState([]);
+    const [prices, setPrices] = useState([]);
+    const [price, setPrice] = useState(0);
     const [dayBooking, setDayBooking] = useState([]);
 
     const allowedHour = (function getCurrentAndCeilNextHour() {
@@ -42,13 +48,32 @@ function ClubBook() {
         return currentHour + 1;
     })();
 
+    function checkIsTimeHasPrice(slotId) {
+        for (let price of prices) {
+            if (price.slotId == slotId && price.tableType == selectedTableType) {
+                console.log('ok')
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     // table
     useEffect(() => {
         fetch(`${baseURL}/v1/getTablesByClubId/${id}`)
             .then((response) => response.json())
             .then((data) => {
                 setTables(data);
-                console.log(data)
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+
+        fetch(`${baseURL}/v1/getPriceByClub/${id}`)
+            .then((response) => response.json())
+            .then((data) => {
+                setPrices(data);
             })
             .catch((error) => {
                 console.log(error);
@@ -59,33 +84,69 @@ function ClubBook() {
     useEffect(() => {
         setSelectedHours([]);
         setSelectedTable(null);
-        fetch(`${baseURL}/v1/getBookingByClubIdAndDate/${id}/${selectedDate}`)
-            .then((response) => response.json())
-            .then((data) => {
-                setDayBooking(data);
-                console.log(data)
+        setDayBooking([]);
+
+        try {
+            const res = axios.post("booking/getByClubIdAndDate", JSON.stringify({
+                clubId: id,
+                date: selectedDate,
+            }), {
+                headers: {"Content-Type": "application/json"},
+            }).then((res) => {
+                const tmp = [];
+
+                if (res.data.data != null) {
+                    for (const book of res.data.data) {
+                        let firstSlotId = book.firstSlotId;
+                        let lastSlotId = book.lastSlotId;
+                        for (let i = firstSlotId; i <= lastSlotId; i++) {
+                            tmp.push({
+                                slotId: i,
+                                tableId: book.tableId,
+                                tableTypeId: book.tableTypeId
+                            });
+                        }
+                    }
+                }
+
+                setDayBooking(tmp);
             })
-            .catch((error) => {
-                console.log(error);
-            });
+        } catch {
+            console.log("error");
+        }
     }, [selectedDate]);
 
     // Function to change allowed tables and selected table
-    const changeAllowedTable = (hours) => {
-        setSelectedTable(null);
-        if (hours.length === 0) {
-            setAllowedTables([]);
-        } else {
-            setAllowedTables(
-                tables.filter((table) => {
-                    return Math.random() < 0.5;
-                })
-            );
+    useEffect(() => {
+        setSelectedTable(null)
+
+        if (selectedHours.length != 0) {
+            const tmp = [];
+
+            for (const table of tables) {
+                let flag = true;
+
+                if (table.tableTypeId != selectedTableType) continue;
+
+
+                for (const book of dayBooking) {
+                    if (selectedSlot.includes(book.slotId) && table.id == book.tableId) {
+                        flag = false;
+                        break;
+                    }
+                }
+
+                if (flag) {
+                    tmp.push(table);
+                }
+            }
+
+            setAllowedTables(tmp);
         }
-    };
+    }, [selectedHours]);
 
     // Function to handle hour selection
-    const handleHourChange = (hour) => {
+    const handleHourChange = (hour, slotId) => {
         // Check if the hour is already selected
         if (
             (selectedHours.includes(hour) &&
@@ -96,13 +157,17 @@ function ClubBook() {
         ) {
             const tmpHours = selectedHours.filter((h) => h !== hour);
             setSelectedHours(tmpHours);
-            changeAllowedTable(tmpHours);
+
+            const tmpSlot = selectedSlot.filter((s) => s !== slotId);
+            setSelectedSlot(tmpSlot.sort((a, b) => a - b));
         } else {
             // Check if the selected hour maintains continuity
             if (areHoursContinuous([...selectedHours, hour])) {
                 const tmpHours = [...selectedHours, hour];
                 setSelectedHours(tmpHours);
-                changeAllowedTable(tmpHours);
+
+                const tmpSlot = [...selectedSlot, slotId];
+                setSelectedSlot(tmpSlot.sort((a, b) => a - b));
             } else {
                 // Show an error or alert message here
                 toast({
@@ -138,7 +203,61 @@ function ClubBook() {
             <Heading mb={10} size="lg" textAlign="center">
                 Đặt bàn
             </Heading>
-            <form onSubmit={null}>
+            <form onSubmit={async (e) => {
+                e.preventDefault();
+
+                if (selectedTable == null || selectedSlot.length == 0) {
+                    toast({
+                        title: "Lỗi",
+                        description: "Bạn chưa chọn bàn hoặc giờ",
+                        status: "error",
+                        duration: 700,
+                        isClosable: true,
+                        position: "top-right",
+                    });
+                    return;
+                }
+
+                try {
+                    console.log(JSON.stringify({
+                        clubId: parseInt(id),
+                        tableId: parseInt(selectedTable.id),
+                        tableTypeId: parseInt(selectedTableType),
+                        date: selectedDate,
+                        firstSlotId: selectedSlot[0],
+                        lastSlotId: selectedSlot[selectedSlot.length - 1],
+                        customerId: parseInt(auth.id),
+                    }))
+
+                    const res = await axios.post("/booking/book", JSON.stringify({
+                        clubId: id,
+                        tableId: selectedTable.id,
+                        tableTypeId: selectedTableType,
+                        date: selectedDate,
+                        firstSlotId: selectedSlot[0],
+                        lastSlotId: selectedSlot[selectedSlot.length - 1],
+                        customerId: auth.id,
+                    }), {
+                        headers: {"Content-Type": "application/json"},
+                    })
+
+                    if (res.data.data != null) {
+                        console.log(res.data.data)
+                        navigate(`/history/${id}/${res.data.data}`)
+                    } else {
+                        toast({
+                            title: "Lỗi",
+                            description: "Đặt bàn thất bại",
+                            status: "error",
+                            duration: 700,
+                            isClosable: true,
+                            position: "top-right",
+                        });
+                    }
+                } catch (err) {
+                    console.log(err);
+                }
+            }}>
                 <FormControl isRequired mb="20px">
                     <FormLabel>1. Chọn club</FormLabel>
                     <Box bgColor="white" borderWidth="1px" p={2}>
@@ -204,12 +323,12 @@ function ClubBook() {
                             <GridItem key={key}>
                                 <Button
                                     isDisabled={
-                                        selectedDate === dateArr[0] &&
-                                        value < allowedHour
+                                        (selectedDate === dateArr[0] &&
+                                            value < allowedHour) || !checkIsTimeHasPrice(parseInt(key))
                                     }
                                     size="lg"
                                     variant={selectedHours.includes(value) ? "solid" : "outline"}
-                                    onClick={() => handleHourChange(value)}
+                                    onClick={() => handleHourChange(value, parseInt(key))}
                                     colorScheme="yellow"
                                     color="black"
                                     minW="200px"
@@ -265,6 +384,7 @@ function ClubBook() {
                 </HStack>
 
                 <Button
+                    type="submit"
                     width="100%"
                     mt={2}
                     colorScheme="yellow"

@@ -8,7 +8,6 @@ import useAuth from "../../hooks/useAuth.js";
 
 function BookDetail() {
     const bookingDetail = useLoaderData();
-    console.log(bookingDetail);
     const {districtMap, slotMap, tableTypeMap} = useContext(GlobalContext);
     const {auth} = useAuth();
 

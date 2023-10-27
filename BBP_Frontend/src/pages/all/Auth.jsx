@@ -1,16 +1,16 @@
 import {
-  Button,
-  Container,
-  FormControl,
-  FormHelperText,
-  FormLabel,
-  Input,
-  Tab,
-  TabList,
-  TabPanel,
-  TabPanels,
-  Tabs,
-  useToast,
+    Button,
+    Container,
+    FormControl,
+    FormHelperText,
+    FormLabel,
+    Input,
+    Tab,
+    TabList,
+    TabPanel,
+    TabPanels,
+    Tabs,
+    useToast,
 } from "@chakra-ui/react";
 import {Form, Navigate, useLocation, useNavigate} from "react-router-dom";
 import useAuth from "../../hooks/useAuth.js";
@@ -85,7 +85,7 @@ function Auth() {
             }
             console.log(user);
         } catch (err) {
-            console.err(err);
+            console.log(err);
         }
     };
 

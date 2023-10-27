@@ -165,6 +165,7 @@ public class BookingService {
                 .date(booking.getBookDate())
                 .star(star)
                 .price(price)
+                .bookingStatusId(booking.getBookingStatusId())
                 .firstSlotId(firstSlotId)
                 .lastSlotId(lastSlotId)
                 .tableId(tableId)

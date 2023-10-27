@@ -22,6 +22,7 @@ public class BookingResponse {
     private Date date;
     private double star;
     private String comment;
+    private int bookingStatusId;
     private int tableTypeId;
     private int tableId;
     private int firstSlotId;

@@ -29,7 +29,7 @@ public class TableTypeService {
         for (int i = 0; i < noTable; i++) {
             MyTable table = new MyTable();
             table.setClubId(clubId);
-            table.setTableTypeId(tableType);
+            table.setTableType(tableType);
             // Các thuộc tính khác của bàn có thể được thiết lập ở đây nếu cần
             tableRepository.save(table);
         }

@@ -12,4 +12,8 @@ public interface BookingRepository extends JpaRepository<Booking, Integer> {
     Optional<List<Booking>> findAllByCustomerId(int customerId);
 
     Booking getByBookingId(int bookingId);
+
+    Optional<List<Booking>> getAllByCustomerId(int customerId);
+
+    Optional<List<Booking>> getAllByClub_ClubId(int clubId);
 }

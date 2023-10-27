@@ -87,7 +87,6 @@ public class BookingController {
                                     Integer.parseInt(request.getClubId()),
                                     request.getDate()
                             )
-//                            request.getDate()
                     )
             );
         } catch (Exception ex) {

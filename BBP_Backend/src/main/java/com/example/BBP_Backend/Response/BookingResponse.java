@@ -18,7 +18,6 @@ public class BookingResponse {
     private String clubName;
     private String clubAddress;
     private int districtId;
-    @JsonFormat(pattern = "dd/MM/yyyy")
     private Date date;
     private double star;
     private String comment;

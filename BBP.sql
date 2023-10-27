@@ -111,7 +111,6 @@ CREATE TABLE BookingDetail (
   slotId INT NOT NULL,  
   tableId INT NOT NULL,
   price INT,
-  bookDate DATE,
   PRIMARY KEY (bookingDetailId)
 );
 
@@ -312,12 +311,12 @@ VALUES
 
 -- BookingDetail Table 
 
-INSERT INTO BookingDetail (bookingDetailId, bookingId, slotId, tableId, price, bookDate)
+INSERT INTO BookingDetail (bookingDetailId, bookingId, slotId, tableId, price)
 VALUES
-(301, 101, 1, 1, 50, '2023-10-19'),
-(302, 102, 2, 2, 60, '2023-10-20'),  
-(303, 103, 1, 3, 100, '2023-10-22'),
-(304, 103, 2, 4, 45, '2023-10-22');
+(301, 101, 1, 1, 50),
+(302, 102, 2, 2, 60),
+(303, 103, 1, 3, 100),
+(304, 103, 2, 4, 45);
 
 -- ClubStaff Table
 INSERT INTO ClubStaff (staffId, clubId)  

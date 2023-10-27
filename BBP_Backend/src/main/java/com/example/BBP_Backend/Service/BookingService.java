@@ -21,7 +21,8 @@ public class BookingService {
     private final ClubRepository clubRepository;
     private final UserRepository userRepository;
 
-    public List<BookingResponse> getByClubIdAndDate(int clubId, Date date) throws Exception{
+    public List<Date> getByClubIdAndDate(int clubId, Date date) throws Exception{
+        List<Date> dateList = new ArrayList<>();
         if (clubRepository.findByClubId(clubId) == null) {
             throw new Exception("Club with id " + clubId + " do not exists");
         }
@@ -30,27 +31,39 @@ public class BookingService {
         if (bookingDetailList.isEmpty() || bookingDetailList.get().isEmpty()) {
             throw new Exception("Booking with clubId " + clubId + " do not exists");
         }
-        bookingDetailList.get().removeIf(bookingDetail -> {
-            Calendar calendar1 = Calendar.getInstance();
-            calendar1.setTime(bookingDetail.getBookDate());
-            calendar1.set(Calendar.HOUR_OF_DAY, 0);
-            calendar1.set(Calendar.MINUTE, 0);
-            calendar1.set(Calendar.SECOND, 0);
-            calendar1.set(Calendar.MILLISECOND, 0);
-
-            Calendar calendar2 = Calendar.getInstance();
-            calendar2.setTime(date);
-            calendar2.set(Calendar.HOUR_OF_DAY, 0);
-            calendar2.set(Calendar.MINUTE, 0);
-            calendar2.set(Calendar.SECOND, 0);
-            calendar2.set(Calendar.MILLISECOND, 0);
-
-            return calendar1.before(calendar2) || calendar1.after(calendar2);
-        });
-        if (bookingDetailList.get().isEmpty()) {
-            throw new Exception("Booking with clubId " + clubId + " and date " + date + " do not exists");
+        for (BookingDetail b: bookingDetailList.get()) {
+            dateList.add(b.getBooking().getBookDate());
         }
-        return getAllBookingResponseInBookingDetailList(bookingDetailList.get());
+//        bookingDetailList.get().removeIf(bookingDetail -> {
+//            Calendar calendar1 = Calendar.getInstance();
+//            calendar1.setTime(bookingDetail.getBookDate());
+//            calendar1.set(Calendar.HOUR_OF_DAY, 0);
+//            calendar1.set(Calendar.MINUTE, 0);
+//            calendar1.set(Calendar.SECOND, 0);
+//            calendar1.set(Calendar.MILLISECOND, 0);
+//
+//            Calendar calendar2 = Calendar.getInstance();
+//            calendar2.setTime(date);
+//            calendar2.set(Calendar.HOUR_OF_DAY, 0);
+//            calendar2.set(Calendar.MINUTE, 0);
+//            calendar2.set(Calendar.SECOND, 0);
+//            calendar2.set(Calendar.MILLISECOND, 0);
+//
+//            return calendar1.before(calendar2) || calendar1.after(calendar2);
+//            int bookday = bookingDetail.getBookDate().getDay();
+//            int bookmonth = bookingDetail.getBookDate().getMonth() + 1;
+//            int bookyear = bookingDetail.getBookDate().getYear();
+//
+//            int getday = date.getDay();
+//            int getmonth = date.getMonth() + 1;
+//            int getyear = date.getYear();
+//            return !(bookyear == getyear && bookmonth == getmonth && bookday == getday);
+//        });
+//        if (bookingDetailList.get().isEmpty()) {
+//            throw new Exception("Booking with clubId " + clubId + " and date " + date + " do not exists");
+//        }
+//        return getAllBookingResponseInBookingDetailList(bookingDetailList.get());
+        return dateList;
     }
 
     public List<BookingResponse> getAllByCusId(int customerId) throws Exception {
@@ -97,7 +110,7 @@ public class BookingService {
             BookingDetail bookingDetail = new BookingDetail();
             bookingDetail.getBooking().setBookingId(booking.getBookingId());
             bookingDetail.setSlotId(i);
-            bookingDetail.setBookDate(bookDate);
+            bookingDetail.getBooking().setBookDate(bookDate);
             Optional<MyTable> table = tableRepository.findById(tableId);
             bookingDetail.setTable(table.get());
             int price = priceRepository.findPriceByClubAndSlotAndTableType(clubId, i, tableTypeId);

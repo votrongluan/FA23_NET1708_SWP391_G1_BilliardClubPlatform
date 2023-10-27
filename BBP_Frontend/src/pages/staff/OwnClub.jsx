@@ -28,6 +28,7 @@ function OwnClub(props) {
     const initialRef = useRef(null)
 
     const club = useLoaderData();
+    console.log(club);
     const {districtMap} = useContext(GlobalContext);
 
     return (

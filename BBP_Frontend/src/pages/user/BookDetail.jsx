@@ -102,5 +102,5 @@ export const bookingDetailLoader = async ({params}) => {
 
     const res = await axios.get(`/booking/getByBookingId/${id}`);
 
-    return res.data.data[0];
+    return res.data.data;
 };

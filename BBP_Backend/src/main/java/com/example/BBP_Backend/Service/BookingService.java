@@ -153,27 +153,24 @@ public class BookingService {
                 lastSlotId = bookingDetail.getSlotId();
             }
         }
-      
-        BookingResponse.BookingResponseBuilder builder = BookingResponse.builder()
-                .bookingId(bookingDetail.getBooking().getBookingId())
-                .clubAddress(bookingDetail.getBooking().getClub().getAddress())
-                .districtId(bookingDetail.getBooking().getClub().getDistrictId())
-                .price(bookingDetail.getPrice())
-                .clubName(bookingDetail.getBooking().getClub().getClubName())
-                .date(bookingDetail.getBooking().getBookDate())
-                .firstSlotId(bookingDetail.getSlotId())
-                .lastSlotId(bookingDetail.getSlotId())
-                .tableId(bookingDetail.getTable().getTableId())
-                .tableTypeId(bookingDetail.getTable().getTableTypeId().getTableTypeId());
 
-        if (bookingDetail.getBooking().getReview() != null) {
-            builder.comment(bookingDetail.getBooking().getReview().getComment());
-            builder.star(bookingDetail.getBooking().getReview().getStar());
-        }
+        int star = (booking.getReview() != null) ? booking.getReview().getStar() : 0;
+        String comment = (booking.getReview() != null) ? booking.getReview().getComment() : null;
 
-        bookingResponses.add(builder.build());
-
-        return bookingResponses;  
+        return BookingResponse.builder()
+                .bookingId(booking.getBookingId())
+                .clubAddress(booking.getClub().getAddress())
+                .districtId(booking.getClub().getDistrictId())
+                .clubName(booking.getClub().getClubName())
+                .comment(comment)
+                .date(booking.getBookDate())
+                .star(star)
+                .price(price)
+                .firstSlotId(firstSlotId)
+                .lastSlotId(lastSlotId)
+                .tableId(tableId)
+                .tableTypeId(tableTypeId)
+                .build();
     }
 
     public List<BookingResponse> getBookingsInfoByClubId(int clubId) throws Exception {

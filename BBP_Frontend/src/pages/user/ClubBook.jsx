@@ -19,22 +19,10 @@ import {CalendarIcon} from "@chakra-ui/icons";
 import {useLoaderData, useParams} from "react-router-dom";
 import {GlobalContext} from "../../context/GlobalContext.jsx";
 import {baseURL} from "../../api/axios.js";
+import {dateArr} from "../../utils/getThreeDate.js";
 
 function ClubBook() {
     const toast = useToast();
-
-    const today = new Date();
-    const tomorrow = new Date(today);
-    tomorrow.setDate(today.getDate() + 1);
-    const dayAfterTomorrow = new Date(today);
-    dayAfterTomorrow.setDate(today.getDate() + 2);
-
-    const formatDate = (date) => {
-        const dd = String(date.getDate()).padStart(2, "0");
-        const mm = String(date.getMonth() + 1).padStart(2, "0");
-        const yyyy = date.getFullYear();
-        return `${dd}/${mm}/${yyyy}`;
-    };
 
     const {id} = useParams();
     const club = useLoaderData();
@@ -44,7 +32,7 @@ function ClubBook() {
     const [allowedTables, setAllowedTables] = useState([]);
     const [selectedTable, setSelectedTable] = useState(null);
     const [selectedTableType, setSelectedTableType] = useState(Object.keys(tableTypeMap)[0]);
-    const [selectedDate, setSelectedDate] = useState(formatDate(today));
+    const [selectedDate, setSelectedDate] = useState(dateArr[0]);
     const [tables, setTables] = useState([]);
     const [dayBooking, setDayBooking] = useState([]);
 
@@ -184,15 +172,15 @@ function ClubBook() {
                     >
                         <option
                             onClick={(e) => setSelectedDate(e.target.value)}
-                            value={formatDate(today)}
+                            value={dateArr[0]}
                         >
-                            Hôm nay, {formatDate(today)}
+                            Hôm nay, {dateArr[0]}
                         </option>
-                        <option value={formatDate(tomorrow)}>
-                            Ngày mai, {formatDate(tomorrow)}
+                        <option value={dateArr[1]}>
+                            Ngày mai, {dateArr[1]}
                         </option>
-                        <option value={formatDate(dayAfterTomorrow)}>
-                            Ngày mốt, {formatDate(dayAfterTomorrow)}
+                        <option value={dateArr[2]}>
+                            Ngày mốt, {dateArr[2]}
                         </option>
                     </Select>
                 </FormControl>
@@ -216,7 +204,7 @@ function ClubBook() {
                             <GridItem key={key}>
                                 <Button
                                     isDisabled={
-                                        selectedDate === formatDate(new Date()) &&
+                                        selectedDate === dateArr[0] &&
                                         value < allowedHour
                                     }
                                     size="lg"

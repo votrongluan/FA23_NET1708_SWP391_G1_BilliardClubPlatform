@@ -1,4 +1,3 @@
-import {baseURL} from "../../api/axios.js";
 import {
     Box,
     Button,
@@ -10,27 +9,28 @@ import {
     TabList,
     TabPanel,
     TabPanels,
-    Tabs
+    Tabs,
+    useToast
 } from "@chakra-ui/react";
-import {Form, Navigate, useLoaderData} from "react-router-dom";
+import {Navigate, useParams} from "react-router-dom";
 import useAuth from "../../hooks/useAuth.js";
 import EditFieldBox from "../../components/EditFieldBox.jsx";
 import React from "react";
+import axios from "../../api/axios.js";
 
 function Account() {
-    const user = useLoaderData();
-    const {auth} = useAuth();
+    const {auth, setAuth} = useAuth();
+    const {id} = useParams();
 
     if (!auth) {
         return <Navigate to="/auth"/>
     }
 
-    if (user?.id.toString() !== auth?.id.toString()) {
+    if (id.toString() !== auth?.id.toString()) {
         return <Navigate to="/unauthorized"/>
     }
-    const handleChange = (e) => {
-        console.log("Implement later")
-    }
+
+    const toast = useToast();
 
     return (
         <Container maxW="1200px" as="main" py={10}>
@@ -43,30 +43,69 @@ function Account() {
                 <TabPanels py="10px">
                     <TabPanel>
                         <Box>
-                            <EditFieldBox title="Tên" value={user.firstName} onEditClick={() => {
-                                console.log('implement later')
-                            }}/>
-
-                            <EditFieldBox title="Họ, tên đệm" value={user.lastName} onEditClick={() => {
-                                console.log('implement later')
-                            }}/>
-
-                            <EditFieldBox title="Số điện thoại" value={user.phone} onEditClick={() => {
-                                console.log('implement later')
-                            }}/>
-
-                            <EditFieldBox title="Email" value={user.email} onEditClick={() => {
-                                console.log('implement later')
-                            }}/>
-
-                            <EditFieldBox title="Ảnh đại diện" value={user.avatarLink} onEditClick={() => {
-                                console.log('implement later')
-                            }}/>
+                            <EditFieldBox title="Tên" value={auth.firstName} type="text" propertyName="firstName"
+                                          url={`/v1/updateUser/${id}`} oldData={auth} setNewData={setAuth}/>
+                            <EditFieldBox title="Họ, tên đệm" value={auth.lastName} type="text"
+                                          propertyName="lastName" url={`/v1/updateUser/${id}`} oldData={auth}
+                                          setNewData={setAuth}/>
+                            <EditFieldBox title="Số điện thoại" value={auth.phone} type="tel" propertyName="phone"
+                                          url={`/v1/updateUser/${id}`} oldData={auth} setNewData={setAuth}/>
+                            <EditFieldBox title="Email" value={auth.email} type="email" propertyName="email"
+                                          url={`/v1/updateUser/${id}`} oldData={auth} setNewData={setAuth}/>
+                            <EditFieldBox title="Ảnh đại diện" value={auth.avatarLink} type="text"
+                                          propertyName="avatarLink" url={`/v1/updateUser/${id}`} oldData={auth}
+                                          setNewData={setAuth}/>
                         </Box>
                     </TabPanel>
 
                     <TabPanel>
-                        <Form method="post" action="/src/pages/all/Auth">
+                        <form onSubmit={(e) => {
+                            e.preventDefault();
+                            const formData = new FormData(e.target);
+                            const data = Object.fromEntries(formData);
+
+                            if (data.newPassword !== data.reNewPassword) {
+                                toast({
+                                    title: "Cập nhật thất bại",
+                                    description: "Mật khẩu mới không khớp",
+                                    status: "error",
+                                    duration: 700,
+                                    isClosable: true,
+                                    position: "top-right"
+                                });
+                                return;
+                            }
+
+                            if (data.newPassword !== data.password) {
+                                toast({
+                                    title: "Cập nhật thất bại",
+                                    description: "Mật khẩu mới không được trùng với mật khẩu cũ",
+                                    status: "error",
+                                    duration: 700,
+                                    isClosable: true,
+                                    position: "top-right"
+                                });
+                                return;
+                            }
+
+                            axios.put(`/v1/updatePassword/${id}`, JSON.stringify({
+                                oldPassword: data.password,
+                                newPassword: data.newPassword
+                            }), {
+                                headers: {"Content-Type": "application/json"}
+                            }).then(res => {
+                                if (res.data.status == 'Ok') {
+                                    toast({
+                                        title: "Cập nhật thành công",
+                                        description: "Mật khẩu đã được cập nhật",
+                                        status: "success",
+                                        duration: 700,
+                                        isClosable: true,
+                                        position: "top-right"
+                                    });
+                                }
+                            });
+                        }}>
                             <FormControl isRequired mb="20px">
                                 <FormLabel>Nhập mật khẩu</FormLabel>
                                 <Input bgColor="white" type="password" name="password"/>
@@ -83,7 +122,7 @@ function Account() {
                             </FormControl>
 
                             <Button width="100%" type="submit" colorScheme="telegram">Cập nhật</Button>
-                        </Form>
+                        </form>
                     </TabPanel>
                 </TabPanels>
             </Tabs>
@@ -92,15 +131,3 @@ function Account() {
 }
 
 export default Account;
-
-export const userLoader = async ({params}) => {
-    const {id} = params
-
-    const res = await fetch(baseURL + '/users/' + id)
-
-    if (!res.ok) {
-        throw Error('Không tìm thấy tài khoản')
-    }
-
-    return res.json()
-}

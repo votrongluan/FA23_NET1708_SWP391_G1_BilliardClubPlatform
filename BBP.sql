@@ -37,7 +37,7 @@ CREATE TABLE Booking (
   clubStaffId INT,
   bookingStatusId INT,
   reviewId INT,
-  bookDate DATE,
+  bookDate DATETIME,
   PRIMARY KEY (bookingId)
 );
 

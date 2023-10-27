@@ -94,7 +94,7 @@ public class BookingService {
         // Add from firstSlotId to lastSlotId to booking detail repository
         for (int i = firstSlotId; i <= lastSlotId; i++) {
             BookingDetail bookingDetail = new BookingDetail();
-            bookingDetail.getBooking().setBookingId(booking.getBookingId());
+            bookingDetail.setBooking(booking);
             bookingDetail.setSlotId(i);
             bookingDetail.getBooking().setBookDate(bookDate);
             Optional<MyTable> table = tableRepository.findById(tableId);
@@ -153,21 +153,27 @@ public class BookingService {
                 lastSlotId = bookingDetail.getSlotId();
             }
         }
+      
+        BookingResponse.BookingResponseBuilder builder = BookingResponse.builder()
+                .bookingId(bookingDetail.getBooking().getBookingId())
+                .clubAddress(bookingDetail.getBooking().getClub().getAddress())
+                .districtId(bookingDetail.getBooking().getClub().getDistrictId())
+                .price(bookingDetail.getPrice())
+                .clubName(bookingDetail.getBooking().getClub().getClubName())
+                .date(bookingDetail.getBooking().getBookDate())
+                .firstSlotId(bookingDetail.getSlotId())
+                .lastSlotId(bookingDetail.getSlotId())
+                .tableId(bookingDetail.getTable().getTableId())
+                .tableTypeId(bookingDetail.getTable().getTableTypeId().getTableTypeId());
 
-        return BookingResponse.builder()
-                .bookingId(booking.getBookingId())
-                .clubAddress(booking.getClub().getAddress())
-                .districtId(booking.getClub().getDistrictId())
-                .clubName(booking.getClub().getClubName())
-                .comment(booking.getReview().getComment())
-                .date(booking.getBookDate())
-                .star(booking.getReview().getStar())
-                .price(price)
-                .firstSlotId(firstSlotId)
-                .lastSlotId(lastSlotId)
-                .tableId(tableId)
-                .tableTypeId(tableTypeId)
-                .build();
+        if (bookingDetail.getBooking().getReview() != null) {
+            builder.comment(bookingDetail.getBooking().getReview().getComment());
+            builder.star(bookingDetail.getBooking().getReview().getStar());
+        }
+
+        bookingResponses.add(builder.build());
+
+        return bookingResponses;  
     }
 
     public List<BookingResponse> getBookingsInfoByClubId(int clubId) throws Exception {

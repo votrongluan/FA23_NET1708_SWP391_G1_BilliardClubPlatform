@@ -16,13 +16,6 @@ public interface BookingDetailRepository extends JpaRepository<BookingDetail, In
             "JOIN Booking b ON bd.booking.bookingId = b.bookingId " +
             "JOIN User u ON b.customerId = u.userId " +
             "JOIN Slot s ON s.slotId = bd.slotId " +
-            "WHERE bd.table.tableId = :tableId AND bd.bookDate = :bookDate")
+            "WHERE bd.table.tableId = :tableId AND bd.booking.bookDate = :bookDate")
     List<Object[]> getTableBookingInfo(Integer tableId, Date bookDate);
-    Optional<List<BookingDetail>> findAllByBooking_CustomerId(int customerId);
-
-    Optional<List<BookingDetail>> findAllByBooking_BookingId(int bookingId);
-
-    Optional<List<BookingDetail>> findAllByBooking_Club_ClubIdAndBookDate(int clubId, Date date);
-
-    Optional<List<BookingDetail>> findAllByBooking_Club_ClubId(int clubId);
 }

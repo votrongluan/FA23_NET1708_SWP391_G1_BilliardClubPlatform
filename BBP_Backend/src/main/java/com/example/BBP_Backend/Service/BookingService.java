@@ -4,7 +4,6 @@ import com.example.BBP_Backend.Model.Booking;
 import com.example.BBP_Backend.Model.BookingDetail;
 import com.example.BBP_Backend.Model.MyTable;
 import com.example.BBP_Backend.Repository.*;
-import com.example.BBP_Backend.Response.BookingInforResponse;
 import com.example.BBP_Backend.Response.BookingResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -21,18 +20,16 @@ public class BookingService {
     private final BookingDetailRepository bookingDetailRepository;
     private final ClubRepository clubRepository;
     private final UserRepository userRepository;
-    private final UserService userService;
 
-    public List<BookingResponse> getByClubIdAndDate(int clubId, Date date) throws Exception{
+    public List<BookingResponse> getByClubIdAndDate(int clubId, Date date) throws Exception {
         if (clubRepository.findByClubId(clubId) == null) {
             throw new Exception("Club with id " + clubId + " do not exists");
         }
-//        Optional<List<BookingDetail>> bookingDetailList = bookingDetailRepository.findAllByBooking_Club_ClubIdAndBookDate(clubId, date);
-        Optional<List<BookingDetail>> bookingDetailList = bookingDetailRepository.findAllByBooking_Club_ClubId(clubId);
-        if (bookingDetailList.isEmpty() || bookingDetailList.get().isEmpty()) {
+        Optional<List<Booking>> bookingList = bookingRepository.getAllByClub_ClubId(clubId);
+        if (bookingList.isEmpty() || bookingList.get().isEmpty()) {
             throw new Exception("Booking with clubId " + clubId + " do not exists");
         }
-        bookingDetailList.get().removeIf(bookingDetail -> {
+        bookingList.get().removeIf(bookingDetail -> {
             Calendar calendar1 = Calendar.getInstance();
             calendar1.setTime(bookingDetail.getBookDate());
             calendar1.set(Calendar.HOUR_OF_DAY, 0);
@@ -49,29 +46,29 @@ public class BookingService {
 
             return calendar1.before(calendar2) || calendar1.after(calendar2);
         });
-        if (bookingDetailList.get().isEmpty()) {
+        if (bookingList.get().isEmpty()) {
             throw new Exception("Booking with clubId " + clubId + " and date " + date + " do not exists");
         }
-        return getAllBookingResponseInBookingDetailList(bookingDetailList.get());
+        return getAllBookingResponseInBookingList(bookingList.get());
     }
 
-    public List<BookingResponse> getAllByCusId(int customerId) throws Exception {
+    public List<BookingResponse> getAllByCustomerId(int customerId) throws Exception {
         if (userRepository.findById(customerId).isEmpty()) {
             throw new Exception("Customer " + customerId + " do not exits");
         }
-        Optional<List<BookingDetail>> bookingDetailList = bookingDetailRepository.findAllByBooking_CustomerId(customerId);
-        if (bookingDetailList.isEmpty() || bookingDetailList.get().isEmpty()) {
+        Optional<List<Booking>> bookingList = bookingRepository.getAllByCustomerId(customerId);
+        if (bookingList.isEmpty() || bookingList.get().isEmpty()) {
             throw new Exception("Customer " + customerId + " do not have booking history");
         }
-        return getAllBookingResponseInBookingDetailList(bookingDetailList.get());
+        return getAllBookingResponseInBookingList(bookingList.get());
     }
 
-    public List<BookingResponse> getById(int bookingId) throws Exception{
-        Optional<List<BookingDetail>> bookingDetailList = bookingDetailRepository.findAllByBooking_BookingId(bookingId);
-        if (bookingDetailList.isEmpty() || bookingDetailList.get().isEmpty()) {
+    public BookingResponse getById(int bookingId) throws Exception {
+        Booking booking = bookingRepository.getByBookingId(bookingId);
+        if (booking == null) {
             throw new Exception("Booking with id " + bookingId + " do not exists");
         }
-        return getAllBookingResponseInBookingDetailList(bookingDetailList.get());
+        return createBookingResponse(booking);
     }
 
     public int booking(int tableId, int firstSlotId, int lastSlotId, int tableTypeId, int clubId, String date, int customerId) {
@@ -99,7 +96,7 @@ public class BookingService {
             BookingDetail bookingDetail = new BookingDetail();
             bookingDetail.setBooking(booking);
             bookingDetail.setSlotId(i);
-            bookingDetail.setBookDate(bookDate);
+            bookingDetail.getBooking().setBookDate(bookDate);
             Optional<MyTable> table = tableRepository.findById(tableId);
             bookingDetail.setTable(table.get());
             int price = priceRepository.findPriceByClubAndSlotAndTableType(clubId, i, tableTypeId);
@@ -119,7 +116,6 @@ public class BookingService {
             entry.put("slotId", row[1]);
             response.add(entry);
         }
-
         return response;
     }
 
@@ -131,30 +127,33 @@ public class BookingService {
         bookingRepository.deleteById(bookingId);
     }
 
-    private List<BookingResponse> getAllBookingResponseInBookingDetailList(List<BookingDetail> bookingDetailList) {
+    private List<BookingResponse> getAllBookingResponseInBookingList(List<Booking> bookings) {
         List<BookingResponse> bookingResponses = new ArrayList<>();
-        for (BookingDetail bookingDetail: bookingDetailList) {
-            int index = bookingDetailList.indexOf(bookingDetail);
-            if (index == 0) {
-                createBookingResponse(bookingResponses, bookingDetail);
-            } else {
-                boolean bookingExisted = false;
-                for (BookingResponse b : bookingResponses) {
-                    if (b.getBookingId() == bookingDetail.getBooking().getBookingId()) {
-                        b.setLastSlotId(bookingDetail.getSlotId());
-                        bookingExisted = true;
-                        break;
-                    }
-                }
-                if (!bookingExisted) {
-                    createBookingResponse(bookingResponses, bookingDetail);
-                }
-            }
+        for (Booking booking : bookings) {
+            bookingResponses.add(createBookingResponse(booking));
         }
         return bookingResponses;
     }
 
-    private void createBookingResponse(List<BookingResponse> bookingResponses, BookingDetail bookingDetail) {
+    private BookingResponse createBookingResponse(Booking booking) {
+        int price = 0;
+        int firstSlotId = 0;
+        int lastSlotId = firstSlotId;
+        int tableId = 0;
+        int tableTypeId = 0;
+        for (BookingDetail bookingDetail : booking.getBookingDetails()) {
+            if (booking.getBookingDetails().indexOf(bookingDetail) == 0) {
+                price = bookingDetail.getPrice();
+                firstSlotId = bookingDetail.getSlotId();
+                lastSlotId = firstSlotId;
+                tableId = bookingDetail.getTable().getTableId();
+                tableTypeId = bookingDetail.getTable().getTableType().getTableTypeId();
+            } else {
+                price += bookingDetail.getPrice();
+                lastSlotId = bookingDetail.getSlotId();
+            }
+        }
+      
         BookingResponse.BookingResponseBuilder builder = BookingResponse.builder()
                 .bookingId(bookingDetail.getBooking().getBookingId())
                 .clubAddress(bookingDetail.getBooking().getClub().getAddress())
@@ -173,53 +172,19 @@ public class BookingService {
         }
 
         bookingResponses.add(builder.build());
-    }
-        public List<BookingInforResponse> getBookingsInfoByClubId(int clubId) throws Exception {
-            if (clubRepository.findById(clubId).isEmpty()) {
-                throw new Exception("Club " + clubId + " do not exits");
-            }
-            Optional<List<BookingDetail>> bookingDetailList = bookingDetailRepository.findAllByBooking_Club_ClubId(clubId);
-            if (bookingDetailList.isEmpty() || bookingDetailList.get().isEmpty()) {
-                throw new Exception("Customer " + clubId + " do not have booking history");
-            }
-            return getBookingsInforResponseInBookingDetailList(bookingDetailList.get());
-        }
 
-    private void createBookingsInfoResponse(List<BookingInforResponse> bookingResponses, BookingDetail bookingDetail) {
-        bookingResponses.add(
-                BookingInforResponse.builder()
-                        .bookingId(bookingDetail.getBooking().getBookingId())
-                        .tableTypeId(bookingDetail.getTable().getTableTypeId().getTableTypeId())
-                        .tableId(bookingDetail.getTable().getTableId())
-                        .userPhone(userService.getUserPhone(bookingDetail.getBooking().getCustomerId()))
-                        .date(bookingDetail.getBookDate())
-                        .firstSlotId(bookingDetail.getSlotId())
-                        .lastSlotId(bookingDetail.getSlotId())
-                        .price(bookingDetail.getPrice())
-                        .build()
-        );
+        return bookingResponses;  
     }
-    private List<BookingInforResponse> getBookingsInforResponseInBookingDetailList(List<BookingDetail> bookingDetailList) {
-        List<BookingInforResponse> bookingInforResponses = new ArrayList<>();
-        for (BookingDetail bookingDetail: bookingDetailList) {
-            int index = bookingDetailList.indexOf(bookingDetail);
-            if (index == 0) {
-                createBookingsInfoResponse(bookingInforResponses, bookingDetail);
-            } else {
-                boolean bookingExisted = false;
-                for (BookingInforResponse b : bookingInforResponses) {
-                    if (b.getBookingId()== bookingDetail.getBooking().getBookingId()) {
-                        b.setLastSlotId(bookingDetail.getSlotId());
-                        bookingExisted = true;
-                        break;
-                    }
-                }
-                if (!bookingExisted) {
-                    createBookingsInfoResponse(bookingInforResponses, bookingDetail);
-                }
-            }
+
+    public List<BookingResponse> getBookingsInfoByClubId(int clubId) throws Exception {
+        if (clubRepository.findById(clubId).isEmpty()) {
+            throw new Exception("Club " + clubId + " do not exits");
         }
-        return bookingInforResponses;
+        Optional<List<Booking>> bookingList = bookingRepository.getAllByClub_ClubId(clubId);
+        if (bookingList.isEmpty() || bookingList.get().isEmpty()) {
+            throw new Exception("Customer " + clubId + " do not have booking history");
+        }
+        return getAllBookingResponseInBookingList(bookingList.get());
     }
-    }
+}
 

@@ -19,7 +19,7 @@ public class MyTable {
     @JoinColumn(name = "tableTypeId")
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
-    private TableType tableTypeId;
+    private TableType tableType;
     private int clubId;
     private boolean isAvailable;
 

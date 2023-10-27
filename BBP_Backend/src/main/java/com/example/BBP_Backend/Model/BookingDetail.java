@@ -15,13 +15,12 @@ public class BookingDetail {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int bookingDetailId;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "bookingId")
     private Booking booking;
 
     private int slotId;
     private int price;
-    private Date bookDate;
 
     @ManyToOne
     @JoinColumn(name = "tableId")

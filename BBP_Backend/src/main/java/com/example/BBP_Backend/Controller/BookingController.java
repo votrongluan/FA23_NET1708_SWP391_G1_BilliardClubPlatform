@@ -1,7 +1,5 @@
 package com.example.BBP_Backend.Controller;
 
-import com.example.BBP_Backend.Model.Booking;
-import com.example.BBP_Backend.Model.Club;
 import com.example.BBP_Backend.Request.BookingRequest;
 import com.example.BBP_Backend.Request.TableBookingRequest;
 import com.example.BBP_Backend.Response.ResponseObject;
@@ -32,7 +30,7 @@ public class BookingController {
                     new ResponseObject(
                             "Ok",
                             "Booking By CusId",
-                            bookingService.getAllByCusId(cusId)
+                            bookingService.getAllByCustomerId(cusId)
                             )
                     ) ;
         } catch (Exception ex) {
@@ -83,7 +81,6 @@ public class BookingController {
                                     Integer.parseInt(request.getClubId()),
                                     request.getDate()
                             )
-//                            request.getDate()
                     )
             );
         } catch (Exception ex) {

@@ -3,7 +3,6 @@ package com.example.BBP_Backend.Service;
 import com.example.BBP_Backend.Model.MyTable;
 import com.example.BBP_Backend.Repository.TableRepository;
 import com.example.BBP_Backend.Response.TableResponse;
-import jakarta.persistence.Table;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -25,7 +24,7 @@ public class TableService {
              ) {
             result.add(new TableResponse(
                     table.getTableId(),
-                    table.getTableTypeId().getTableTypeId()
+                    table.getTableType().getTableTypeId()
                     )
             );
 

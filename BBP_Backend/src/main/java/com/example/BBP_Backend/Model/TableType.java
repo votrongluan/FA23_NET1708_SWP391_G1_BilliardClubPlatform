@@ -20,7 +20,7 @@ public class TableType {
 
     private String typeName;
     private String typeDescription;
-    @OneToMany(mappedBy = "tableTypeId", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "tableType", cascade = CascadeType.ALL)
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     @JsonIgnore

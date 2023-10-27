@@ -7,6 +7,7 @@ import jakarta.persistence.Table;
 import lombok.*;
 
 import java.util.Date;
+import java.util.List;
 
 @Data
 @Entity
@@ -41,6 +42,7 @@ public class Booking {
     @ToString.Exclude
     private Review review;
 
-
+    @OneToMany(mappedBy = "booking")
+    private List<BookingDetail> bookingDetails;
 
 }

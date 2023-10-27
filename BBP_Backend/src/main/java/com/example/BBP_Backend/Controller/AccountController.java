@@ -9,8 +9,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.ZoneId;
-
 @RestController
 @CrossOrigin("http://localhost:5173/")
 @RequestMapping("/api/account")
@@ -18,14 +16,6 @@ import java.time.ZoneId;
 public class AccountController {
 
     private final AccountService service;
-
-    @GetMapping()
-    public ResponseEntity<ResponseObject> timezone() {
-        ZoneId defaultZoneId = ZoneId.systemDefault();
-        return ResponseEntity.ok(
-                new ResponseObject("","",defaultZoneId)
-        );
-    }
 
     @DeleteMapping("/deleteStaffAccount")
     public ResponseEntity<ResponseObject> deleteStaff(

@@ -2,6 +2,7 @@ package com.example.BBP_Backend.Controller;
 
 
 
+import com.example.BBP_Backend.Request.GiveReviewRequest;
 import com.example.BBP_Backend.Response.ReviewsResponse;
 import com.example.BBP_Backend.Service.ReviewService;
 
@@ -28,10 +29,8 @@ public class ReviewController {
     }
 
     @PostMapping("/giveFeedBack")
-    public ResponseEntity<String> submitReview(@RequestParam(name = "bookingId") int bookingId,
-                                               @RequestParam(name = "star") int star,
-                                               @RequestParam(name = "comment") String comment) {
-        String result = reviewService.submitFeedback(bookingId, star, comment);
+    public ResponseEntity<String> submitReview(@RequestBody GiveReviewRequest grr) {
+        String result = reviewService.submitFeedback(grr);
         if (result.equals("Feedback submitted successfully")) {
             return ResponseEntity.ok(result);
         } else {

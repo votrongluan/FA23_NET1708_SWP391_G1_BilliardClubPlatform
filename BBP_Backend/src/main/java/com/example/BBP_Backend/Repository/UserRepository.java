@@ -16,9 +16,6 @@ public interface UserRepository extends JpaRepository<User,Integer> {
     @Query("SELECT u from User u where u.userId = :userId")
     User getUserByUserId(int userId);
 
-    User getUserByUsername(String username);
-
-    List<User> getUserByRole(Role role);
 
     void deleteByUsername(String username);
 }

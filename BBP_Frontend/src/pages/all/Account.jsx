@@ -10,6 +10,7 @@ import {
     TabPanel,
     TabPanels,
     Tabs,
+    Text,
     useToast
 } from "@chakra-ui/react";
 import {Navigate, useParams} from "react-router-dom";
@@ -36,23 +37,31 @@ function Account() {
         <Container maxW="1200px" as="main" py={10}>
             <Tabs p="20px" variant="enclosed" colorScheme="purple">
                 <TabList>
-                    <Tab fontWeight="500" fontSize="20px" _selected={{bg: 'gray.100'}}>Tài khoản của tôi</Tab>
-                    <Tab fontWeight="500" fontSize="20px" _selected={{bg: 'gray.100'}}>Đổi mật khẩu</Tab>
+                    <Tab fontWeight="semibold" fontSize="20px" _selected={{bg: 'gray.100'}}>Tài khoản của tôi</Tab>
+                    <Tab fontWeight="semibold" fontSize="20px" _selected={{bg: 'gray.100'}}>Đổi mật khẩu</Tab>
                 </TabList>
 
                 <TabPanels py="10px">
                     <TabPanel>
                         <Box>
-                            <EditFieldBox title="Tên" value={auth.firstName} type="text" propertyName="firstName"
+                            <EditFieldBox title="Tên" value={auth.firstName ? auth.firstName :
+                                <Text color="gray.500">(Chưa có thông tin)</Text>}
+                                          type="text" propertyName="firstName"
                                           url={`/v1/updateUser/${id}`} oldData={auth} setNewData={setAuth}/>
-                            <EditFieldBox title="Họ, tên đệm" value={auth.lastName} type="text"
+                            <EditFieldBox title="Họ, tên đệm"
+                                          value={auth.lastName ? auth.lastName :
+                                              <Text color="gray.500">(Chưa có thông tin)</Text>} type="text"
                                           propertyName="lastName" url={`/v1/updateUser/${id}`} oldData={auth}
                                           setNewData={setAuth}/>
                             <EditFieldBox title="Số điện thoại" value={auth.phone} type="tel" propertyName="phone"
                                           url={`/v1/updateUser/${id}`} oldData={auth} setNewData={setAuth}/>
-                            <EditFieldBox title="Email" value={auth.email} type="email" propertyName="email"
+                            <EditFieldBox title="Email" value={auth.email ? auth.email :
+                                <Text color="gray.500">(Chưa có thông tin)</Text>}
+                                          type="email" propertyName="email"
                                           url={`/v1/updateUser/${id}`} oldData={auth} setNewData={setAuth}/>
-                            <EditFieldBox title="Ảnh đại diện" value={auth.avatarLink} type="text"
+                            <EditFieldBox title="Ảnh đại diện"
+                                          value={auth.avatarLink ? auth.avatarLink :
+                                              <Text color="gray.500">(Chưa có thông tin)</Text>} type="text"
                                           propertyName="avatarLink" url={`/v1/updateUser/${id}`} oldData={auth}
                                           setNewData={setAuth}/>
                         </Box>
@@ -76,7 +85,7 @@ function Account() {
                                 return;
                             }
 
-                            if (data.newPassword !== data.password) {
+                            if (data.newPassword == data.password) {
                                 toast({
                                     title: "Cập nhật thất bại",
                                     description: "Mật khẩu mới không được trùng với mật khẩu cũ",
@@ -99,7 +108,7 @@ function Account() {
                                         title: "Cập nhật thành công",
                                         description: "Mật khẩu đã được cập nhật",
                                         status: "success",
-                                        duration: 700,
+                                        duration: 2000,
                                         isClosable: true,
                                         position: "top-right"
                                     });

@@ -1,7 +1,6 @@
 import React, {useContext, useRef} from 'react';
-import {baseURL} from "../../api/axios.js";
+import axios from "../../api/axios.js";
 import {useLoaderData} from "react-router-dom";
-import {GlobalContext} from "../../context/GlobalContext.jsx";
 import {
     Button,
     FormControl,
@@ -28,10 +27,14 @@ import {
     useDisclosure
 } from "@chakra-ui/react";
 import SearchFilter from "../../components/SearchFilter.jsx";
+import {GlobalContext} from "../../context/GlobalContext.jsx";
+import CheckClubAuth from "../../components/CheckClubAuth.jsx";
+import useAuth from "../../hooks/useAuth.js";
 
 function ClubTable(props) {
     const tables = useLoaderData();
     const {tableTypeMap} = useContext(GlobalContext);
+    const {auth} = useAuth();
 
     tables.forEach((table) => {
         table.type = tableTypeMap[table.tableTypeId];
@@ -42,14 +45,15 @@ function ClubTable(props) {
     const initialRef = useRef(null)
 
     return (
-        <>
+        <CheckClubAuth>
             <Heading as="h2" size="lg" textAlign="center">Quản lý bàn</Heading>
             <HStack>
                 <Spacer/>
                 <Button colorScheme="telegram" onClick={onOpen}>Cập nhật</Button>
             </HStack>
             <SearchFilter data={tables} methods={[
-                {value: 'type', label: 'Loại bàn'}
+                {value: 'type', label: 'Loại bàn'},
+                {value: 'id', label: 'Mã bàn'}
             ]} DisplayData={
                 ({filteredData}) => (
                     <TableContainer bgColor="white" borderRadius="4px">
@@ -68,7 +72,7 @@ function ClubTable(props) {
                                             <Text>{table.id}</Text>
                                         </Td>
                                         <Td>
-                                            <Text>{tableTypeMap[table.tableTypeId]}</Text>
+                                            <Text>{table.type}</Text>
                                         </Td>
                                         <Td textAlign="center">
                                             <Button colorScheme="red">Xóa</Button>
@@ -79,7 +83,7 @@ function ClubTable(props) {
                         </Table>
                     </TableContainer>
                 )
-            }/>
+            } properties={['id', 'type']}/>
             <Modal
                 initialFocusRef={initialRef}
                 isOpen={isOpen}
@@ -90,16 +94,29 @@ function ClubTable(props) {
                     <ModalHeader>Cập nhật thông tin về giá</ModalHeader>
                     <ModalCloseButton/>
                     <ModalBody pb={6}>
-                        <form onSubmit={(e) => {
+                        <form onSubmit={async (e) => {
                             e.preventDefault();
                             const formData = new FormData(e.target);
                             const data = Object.fromEntries(formData);
+                            data.clubId = auth.clubId;
 
-                            console.log(data);
+                            const res = await axios.post(
+                                '/v1/addTable',
+                                JSON.stringify(data),
+                                {
+                                    headers: {
+                                        'Content-Type': 'application/json'
+                                    }
+                                })
+
+                            if (res.data.status == "Ok") {
+                                onClose();
+                                window.location.reload();
+                            }
                         }}>
                             <FormControl isRequired>
                                 <FormLabel>Số lượng</FormLabel>
-                                <Input name="price" type="number" ref={initialRef}
+                                <Input name="noTable" type="number" ref={initialRef}
                                        placeholder='Nhập số lượng bàn cần thêm'/>
                             </FormControl>
 
@@ -123,7 +140,7 @@ function ClubTable(props) {
                     </ModalBody>
                 </ModalContent>
             </Modal>
-        </>
+        </CheckClubAuth>
     );
 }
 
@@ -132,11 +149,7 @@ export default ClubTable;
 export const tableLoader = async ({params}) => {
     const {id} = params;
 
-    const res = await fetch(baseURL + '/tableClubOne')
+    const res = await axios.get(`/v1/getTablesByClubId/${id}`);
 
-    if (!res.ok) {
-        throw Error('Không tìm thấy club')
-    }
-
-    return res.json()
+    return res.data;
 }

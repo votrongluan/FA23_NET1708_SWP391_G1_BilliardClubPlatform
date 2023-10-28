@@ -5,6 +5,7 @@ import axios from "../../api/axios.js";
 import {Navigate, useLoaderData, useParams} from "react-router-dom";
 import SearchFilter from "../../components/SearchFilter.jsx";
 import useAuth from "../../hooks/useAuth.js";
+import Pagination from "../../components/Pagination.jsx";
 
 function BookHistory() {
     const {auth, setAuth} = useAuth();
@@ -17,8 +18,10 @@ function BookHistory() {
     if (id.toString() !== auth?.id.toString()) {
         return <Navigate to="/unauthorized"/>
     }
-    
+
     const bookings = useLoaderData();
+
+    console.log(bookings);
 
     return (
         <Container maxW="1200px" as="main" py={10}>
@@ -27,13 +30,15 @@ function BookHistory() {
                 {value: "clubName", label: "Tên câu lạc bộ"},
                 {value: "date", label: "Ngày đặt"},
                 {value: "star", label: "Đánh giá"}
-            ]} DisplayData={({filteredData}) =>
+            ]} properties={["clubName", "clubAddress", "date", "bookingId"]} DisplayData={({filteredData}) =>
                 (
-                    <Flex flexDirection="column" gap={5}>
-                        {filteredData.map(booking => (
-                            <BookHistoryCard key={booking.bookingId} booking={booking}/>
-                        ))}
-                    </Flex>
+                    <Pagination data={filteredData} itemsPerPage={5} DisplayData={({currentData}) => (
+                        <Flex flexDirection="column" gap={5}>
+                            {currentData.map(booking => (
+                                <BookHistoryCard key={booking.bookingId} booking={booking}/>
+                            ))}
+                        </Flex>
+                    )}/>
                 )
             }/> : <Text mt={10} textAlign="center" color="gray.500">(Bạn không có đơn đặt bàn nào)</Text>}
 

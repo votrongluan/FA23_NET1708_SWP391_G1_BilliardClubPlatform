@@ -1,19 +1,21 @@
 import {SimpleGrid} from "@chakra-ui/react";
 import Club from "./Club.jsx";
+import Pagination from "./Pagination.jsx";
 
 // eslint-disable-next-line react/prop-types
 function Clubs({clubs}) {
     return (
-        <SimpleGrid spacing={5} columns={{
-            base: 1,
-            md: 2,
-            lg: 4,
-        }}>
-            {/* eslint-disable-next-line react/prop-types */}
-            {clubs.map(data => (
-                <Club key={data.club.clubId} data={data}/>
-            ))}
-        </SimpleGrid>
+        <Pagination data={clubs} itemsPerPage={16} DisplayData={({currentData}) => (
+            <SimpleGrid spacing={5} columns={{
+                base: 1,
+                md: 2,
+                lg: 4,
+            }}>
+                {currentData.map(data => (
+                    <Club key={data.club.clubId} data={data}/>
+                ))}
+            </SimpleGrid>
+        )}/>
     );
 }
 

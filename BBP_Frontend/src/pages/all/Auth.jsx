@@ -78,7 +78,7 @@ function Auth() {
                     title: "Đăng ký thành công",
                     description: "Tài khoản đã được tạo",
                     status: "success",
-                    duration: 700,
+                    duration: 2000,
                     isClosable: true,
                     position: "top-right",
                 });

@@ -3,6 +3,7 @@ import {
     Box,
     Button,
     FormControl,
+    FormHelperText,
     FormLabel,
     HStack,
     Input,
@@ -12,6 +13,7 @@ import {
     ModalContent,
     ModalHeader,
     ModalOverlay,
+    Select,
     Spacer,
     Text,
     useDisclosure,
@@ -20,7 +22,18 @@ import {
 import {EditIcon} from "@chakra-ui/icons";
 import axios from "../api/axios.js";
 
-function EditFieldBox({title, value, type, url, propertyName, oldData, setNewData}) {
+function EditFieldBox({
+                          title,
+                          value,
+                          type,
+                          url,
+                          propertyName,
+                          oldData,
+                          setNewData,
+                          helperText,
+                          isSelect,
+                          selectOptions
+                      }) {
     // Toast
     const toast = useToast();
 
@@ -41,6 +54,8 @@ function EditFieldBox({title, value, type, url, propertyName, oldData, setNewDat
                         }} size="sm"><EditIcon mr={1}/>Chỉnh sửa</Button>
                     </HStack>
                 </Box>
+                {helperText ?
+                    <FormHelperText mt={2} color="gray.500">{helperText}</FormHelperText> : null}
             </FormControl>
 
             <Modal
@@ -50,7 +65,7 @@ function EditFieldBox({title, value, type, url, propertyName, oldData, setNewDat
             >
                 <ModalOverlay/>
                 <ModalContent>
-                    <ModalHeader>Cập nhật thông tin cá nhân</ModalHeader>
+                    <ModalHeader>Cập nhật thông tin</ModalHeader>
                     <ModalCloseButton/>
                     <ModalBody pb={6}>
                         <form onSubmit={async (e) => {
@@ -69,6 +84,20 @@ function EditFieldBox({title, value, type, url, propertyName, oldData, setNewDat
                                         });
                                         return;
                                     }
+                                    break;
+                                case 'number':
+                                    if (e.target.data.value < 0 || e.target.data.value > 24) {
+                                        toast({
+                                            title: "Cập nhật thất bại",
+                                            description: "Giá trị không hợp lệ",
+                                            status: "error",
+                                            duration: 700,
+                                            isClosable: true,
+                                            position: "top-right"
+                                        });
+                                        return;
+                                    }
+                                    break;
                                 default:
                                     break;
                             }
@@ -84,17 +113,34 @@ function EditFieldBox({title, value, type, url, propertyName, oldData, setNewDat
                             });
 
                             if (res.data.status == 'Ok') {
-                                setNewData({
-                                    ...oldData,
-                                    [propertyName]: data
-                                });
+                                if (setNewData) {
+                                    setNewData({
+                                        ...oldData,
+                                        [propertyName]: data
+                                    });
+                                } else {
+                                    oldData = {
+                                        ...oldData,
+                                        [propertyName]: data
+                                    };
+                                }
                             }
 
                             onClose();
                         }}>
                             <FormControl isRequired>
                                 <FormLabel>{title}</FormLabel>
-                                <Input name="data" type={type} ref={initialRef} placeholder={value}/>
+                                {isSelect ?
+                                    <Select name="data" ref={initialRef} defaultValue={oldData[propertyName]}>
+                                        {Object.entries(selectOptions).map(([key, value]) => {
+                                                return <option key={key} value={key}>{value}</option>
+                                            }
+                                        )}
+                                    </Select>
+                                    :
+                                    <Input name="data" type={type} ref={initialRef}
+                                           placeholder={typeof value != "object" ? value : null}/>
+                                }
                             </FormControl>
 
                             <HStack mt={10}>

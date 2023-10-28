@@ -1,5 +1,5 @@
 import React, {useContext} from 'react';
-import {Button, Card, CardFooter, CardHeader, Divider, HStack, Stack, Text} from "@chakra-ui/react";
+import {Button, Card, CardBody, CardFooter, Divider, HStack, Stack, Text} from "@chakra-ui/react";
 import {CalendarIcon, StarIcon, ViewIcon} from "@chakra-ui/icons";
 import {Link} from "react-router-dom";
 import useAuth from "../hooks/useAuth.js";
@@ -17,13 +17,14 @@ function BookHistoryCard({booking}) {
 
     return (
         <Card>
-            <CardHeader>
+            <CardBody>
                 <Stack>
+                    <Text fontWeight="semibold" color="gray.500">Mã đơn: {booking.bookingId}</Text>
                     <Text fontWeight="semibold" as="h3" fontSize="20px">Club: {booking.clubName}</Text>
                     <Text>Địa chỉ: {booking.clubAddress}, {districtMap[booking.districtId]}</Text>
                     <Text>Ngày đặt: {booking.date}</Text>
                 </Stack>
-            </CardHeader>
+            </CardBody>
             <Divider/>
             <CardFooter display="flex" alignItems="center" justifyContent="space-between">
                 {booking.comment ?

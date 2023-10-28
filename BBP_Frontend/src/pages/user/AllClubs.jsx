@@ -19,5 +19,13 @@ export default AllClubs;
 export const clubsLoader = async () => {
     const res = await axios.get('/v1/allClubs')
 
-    return res.data.data
+    const clubs = res.data.data;
+
+    clubs.forEach((club) => {
+        club.club.noRating = club.noRating;
+        club.club.noBooking = club.noBooking;
+        club.club.rating = club.rating;
+    })
+
+    return clubs
 }

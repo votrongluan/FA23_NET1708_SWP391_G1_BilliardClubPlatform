@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {HStack, Input, InputGroup, InputLeftElement, Select, Spacer, Text} from "@chakra-ui/react";
 import {SearchIcon} from "@chakra-ui/icons";
 
-function SearchFilter({data, methods, DisplayData}) {
+function SearchFilter({data, methods, DisplayData, properties}) {
     const normalize = (text) => {
         return text
             .normalize('NFKD')
@@ -46,9 +46,9 @@ function SearchFilter({data, methods, DisplayData}) {
         query = normalize(query.toLowerCase()); // Normalize and convert to lowercase
 
         return data.filter((el) => {
-            return Object.values(el).some((field) => {
-                const normalizedFieldData = normalize(field.toString().toLowerCase());
-                return normalizedFieldData.includes(query);
+            return properties.some((property) => {
+                const normalizedPropertyData = normalize(el[property].toString().toLowerCase());
+                return normalizedPropertyData.includes(query);
             });
         });
     };

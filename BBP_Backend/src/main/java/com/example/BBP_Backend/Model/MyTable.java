@@ -12,7 +12,7 @@ import java.util.List;
 @Table(name = "[Table]")
 public class MyTable {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     private int tableId;
 
     @ManyToOne()

@@ -271,7 +271,11 @@ function ClubBook() {
                 <FormControl isRequired mb="20px">
                     <FormLabel>2. Chọn loại bàn</FormLabel>
                     <Select
-                        onChange={(e) => setSelectedTableType(e.target.value)}
+                        onChange={(e) => {
+                            setSelectedTable(null);
+                            setSelectedHours(null);
+                            setSelectedTableType(e.target.value)
+                        }}
                         bgColor="white"
                         name="tableType"
                     >

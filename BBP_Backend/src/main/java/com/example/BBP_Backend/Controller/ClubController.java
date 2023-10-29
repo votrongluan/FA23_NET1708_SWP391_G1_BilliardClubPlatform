@@ -75,16 +75,15 @@ public class ClubController {
     @DeleteMapping("/deleteClub/{clubId}")
     public ResponseEntity<ResponseObject> deleteClub(@PathVariable Integer clubId) {
         boolean exists = clubService.existsById(clubId);
-
-        if (exists) {
-            clubService.deleteById(clubId);
+        if (exists){
+            clubService.deleteClub(clubId);
             return ResponseEntity.status(HttpStatus.OK).body(
                     new ResponseObject("Ok", "Delete Club Successfully", "")
             );
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+                    new ResponseObject("Failed", "Cannot Delete Club with id = " + clubId, "")
+            );
         }
-
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
-                new ResponseObject("Failed", "Cannot find Club to delete with id = " + clubId, "")
-        );
     }
 }

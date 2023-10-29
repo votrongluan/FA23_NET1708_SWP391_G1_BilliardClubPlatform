@@ -32,7 +32,7 @@ function BookHistory() {
                 {value: "star", label: "Đánh giá"}
             ]} properties={["clubName", "clubAddress", "date", "bookingId"]} DisplayData={({filteredData}) =>
                 (
-                    <Pagination data={filteredData} itemsPerPage={5} DisplayData={({currentData}) => (
+                    <Pagination data={filteredData} itemsPerPage={10} DisplayData={({currentData}) => (
                         <Flex flexDirection="column" gap={5}>
                             {currentData.map(booking => (
                                 <BookHistoryCard key={booking.bookingId} booking={booking}/>

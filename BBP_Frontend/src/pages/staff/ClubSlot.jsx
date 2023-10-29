@@ -1,5 +1,5 @@
-import React, {useContext, useRef} from 'react';
-import {useLoaderData} from "react-router-dom";
+import React, {useContext, useRef, useState} from 'react';
+import {useLoaderData, useParams} from "react-router-dom";
 import {
     Button,
     Checkbox,
@@ -27,18 +27,21 @@ import {
     Th,
     Thead,
     Tr,
-    useDisclosure
+    useDisclosure,
+    useToast
 } from "@chakra-ui/react";
-import {baseURL} from "../../api/axios.js";
+import axios from "../../api/axios.js";
 import SearchFilter from "../../components/SearchFilter.jsx";
 import {GlobalContext} from "../../context/GlobalContext.jsx";
 
 function ClubSlot(props) {
-    const slots = useLoaderData();
+    const [slots, setSlots] = useState(useLoaderData());
+    const toast = useToast()
+    const {id} = useParams();
     const {slotMap, tableTypeMap} = useContext(GlobalContext);
 
     slots.forEach((slot) => {
-        slot.type = tableTypeMap[slot.tableTypeId];
+        slot.type = tableTypeMap[slot.tableType];
         slot.time = slotMap[slot.slotId];
     })
 
@@ -57,7 +60,7 @@ function ClubSlot(props) {
                 {value: 'type', label: 'Loại bàn'},
                 {value: 'time', label: 'Khung giờ'},
                 {value: 'price', label: 'Giá tiền'},
-            ]} DisplayData={
+            ]} properties={['type', 'time', 'price']} DisplayData={
                 ({filteredData}) => (
                     <TableContainer bgColor="white" borderRadius="4px">
                         <Table variant='simple'>
@@ -71,7 +74,7 @@ function ClubSlot(props) {
                             </Thead>
                             <Tbody>
                                 {filteredData.map((slot) => (
-                                    <Tr key={slot.tableTypeId + '' + slot.slotId}>
+                                    <Tr key={slot.tableType + '' + slot.slotId}>
                                         <Td>{slot.type}</Td>
                                         <Td>
                                             <HStack spacing={5}>
@@ -86,7 +89,42 @@ function ClubSlot(props) {
                                             </HStack>
                                         </Td>
                                         <Td textAlign="center">
-                                            <Button colorScheme="red">Xóa</Button>
+                                            <Button colorScheme="red" onClick={async () => {
+                                                try {
+                                                    const res = await axios.delete(`/v1/deletePrice?clubId=${id}&slotId=${slot.slotId}&tableTypeId=${slot.tableType}`)
+
+                                                    if (res.data.status) {
+                                                        toast({
+                                                            title: "Xóa thành công",
+                                                            description: "Giá đã được xóa khỏi hệ thống",
+                                                            status: "success",
+                                                            duration: 700,
+                                                            isClosable: true,
+                                                            position: "top-right"
+                                                        });
+                                                        onClose();
+                                                        window.location.reload();
+                                                    } else {
+                                                        toast({
+                                                            title: "Xóa thất bại",
+                                                            description: "Giá không được xóa khỏi hệ thống",
+                                                            status: "error",
+                                                            duration: 700,
+                                                            isClosable: true,
+                                                            position: "top-right"
+                                                        });
+                                                    }
+                                                } catch (e) {
+                                                    toast({
+                                                        title: "Xóa thất bại",
+                                                        description: "Giá không được xóa khỏi hệ thống",
+                                                        status: "error",
+                                                        duration: 700,
+                                                        isClosable: true,
+                                                        position: "top-right"
+                                                    });
+                                                }
+                                            }}>Xóa</Button>
                                         </Td>
                                     </Tr>
                                 ))}
@@ -105,10 +143,12 @@ function ClubSlot(props) {
                     <ModalHeader>Cập nhật thông tin về giá</ModalHeader>
                     <ModalCloseButton/>
                     <ModalBody pb={6}>
-                        <form onSubmit={(e) => {
+                        <form onSubmit={async (e) => {
                             e.preventDefault();
                             const formData = new FormData(e.target);
-                            const data = {};
+                            const data = {
+                                clubId: id,
+                            };
 
                             // Handle the slotId checkboxes manually
                             data.slotId = [];
@@ -123,12 +163,49 @@ function ClubSlot(props) {
                                 }
                             });
 
-                            console.log(data);
+                            try {
+                                const res = await axios.put('/v1/updatePrice', JSON.stringify(data), {
+                                    headers: {
+                                        'Content-Type': 'application/json'
+                                    }
+                                });
+
+                                if (res.data.status == 'Ok') {
+                                    toast({
+                                        title: "Cập nhật thành công",
+                                        description: "Thông tin về giá đã được cập nhật",
+                                        status: "success",
+                                        position: "top-right",
+                                        duration: 700,
+                                        isClosable: true,
+                                    });
+                                    window.location.reload();
+                                } else {
+                                    toast({
+                                        title: "Cập nhật thất bại",
+                                        description: "Thông tin về giá chưa được cập nhật",
+                                        status: "error",
+                                        position: "top-right",
+                                        duration: 700,
+                                        isClosable: true,
+                                    });
+                                }
+                            } catch (err) {
+                                toast({
+                                    title: "Cập nhật thất bại",
+                                    description: "Thông tin về giá chưa được cập nhật",
+                                    status: "error",
+                                    position: "top-right",
+                                    duration: 700,
+                                    isClosable: true,
+                                });
+                            }
                         }}>
                             <FormControl isRequired>
                                 <FormLabel>Giá</FormLabel>
-                                <Input name="price" type="number" ref={initialRef} placeholder='Nhập giá tiền'/>
-                                <FormHelperText>Đơn vị: đồng</FormHelperText>
+                                <Input min="1000" step="1000" name="price" type="number" ref={initialRef}
+                                       placeholder='Nhập giá tiền'/>
+                                <FormHelperText>Đơn vị: đồng (chia hết cho 1000)</FormHelperText>
                             </FormControl>
 
                             <FormControl isRequired mt={4}>
@@ -179,11 +256,7 @@ export default ClubSlot;
 export const slotLoader = async ({params}) => {
     const {id} = params;
 
-    const res = await fetch(baseURL + '/slotClubOne')
+    const res = await axios.get(`/v1/getPriceByClub/${id}`);
 
-    if (!res.ok) {
-        throw Error('Không tìm thấy club')
-    }
-
-    return res.json()
+    return res.data;
 }

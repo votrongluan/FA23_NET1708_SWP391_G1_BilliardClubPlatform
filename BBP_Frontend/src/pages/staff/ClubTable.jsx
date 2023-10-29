@@ -24,18 +24,21 @@ import {
     Th,
     Thead,
     Tr,
-    useDisclosure
+    useDisclosure,
+    useToast
 } from "@chakra-ui/react";
 import SearchFilter from "../../components/SearchFilter.jsx";
 import {GlobalContext} from "../../context/GlobalContext.jsx";
 import CheckClubAuth from "../../components/CheckClubAuth.jsx";
 import useAuth from "../../hooks/useAuth.js";
+import Pagination from "../../components/Pagination.jsx";
 
 function ClubTable(props) {
     const tables = useLoaderData();
     const {id} = useParams();
     const {tableTypeMap} = useContext(GlobalContext);
     const {auth} = useAuth();
+    const toast = useToast();
 
     tables.forEach((table) => {
         table.type = tableTypeMap[table.tableTypeId];
@@ -57,32 +60,69 @@ function ClubTable(props) {
                 {value: 'id', label: 'Mã bàn'}
             ]} DisplayData={
                 ({filteredData}) => (
-                    <TableContainer bgColor="white" borderRadius="4px">
-                        <Table variant='simple'>
-                            <Thead>
-                                <Tr>
-                                    <Th>Mã bàn</Th>
-                                    <Th>Loại bàn</Th>
-                                    <Th textAlign="center">Thao tác</Th>
-                                </Tr>
-                            </Thead>
-                            <Tbody>
-                                {filteredData.map((table) => (
-                                    <Tr key={table.id}>
-                                        <Td>
-                                            <Text>{table.id}</Text>
-                                        </Td>
-                                        <Td>
-                                            <Text>{table.type}</Text>
-                                        </Td>
-                                        <Td textAlign="center">
-                                            <Button colorScheme="red">Xóa</Button>
-                                        </Td>
+                    <Pagination itemsPerPage={10} data={filteredData} DisplayData={({currentData}) => (
+                        <TableContainer bgColor="white" borderRadius="4px">
+                            <Table variant='simple'>
+                                <Thead>
+                                    <Tr>
+                                        <Th>Mã bàn</Th>
+                                        <Th>Loại bàn</Th>
+                                        <Th textAlign="center">Thao tác</Th>
                                     </Tr>
-                                ))}
-                            </Tbody>
-                        </Table>
-                    </TableContainer>
+                                </Thead>
+                                <Tbody>
+                                    {currentData.map((table) => (
+                                        <Tr key={table.id}>
+                                            <Td>
+                                                <Text>{table.id}</Text>
+                                            </Td>
+                                            <Td>
+                                                <Text>{table.type}</Text>
+                                            </Td>
+                                            <Td textAlign="center">
+                                                <Button colorScheme="red" onClick={async () => {
+                                                    try {
+                                                        const res = await axios.delete(
+                                                            `/v1/deleteTable/${table.id}`)
+
+                                                        if (res.data.status == 'Ok') {
+                                                            toast({
+                                                                title: "Xóa thành công",
+                                                                description: "Bàn đã được xóa khỏi hệ thống",
+                                                                status: "success",
+                                                                duration: 700,
+                                                                isClosable: true,
+                                                                position: "top-right"
+                                                            });
+                                                            window.location.reload();
+                                                        } else {
+                                                            toast({
+                                                                title: "Xóa thất bại",
+                                                                description: "Bàn không được xóa khỏi hệ thống",
+                                                                status: "error",
+                                                                duration: 700,
+                                                                isClosable: true,
+                                                                position: "top-right"
+                                                            });
+                                                        }
+                                                    } catch (e) {
+                                                        toast({
+                                                            title: "Xóa thất bại",
+                                                            description: "Bàn không được xóa khỏi hệ thống",
+                                                            status: "error",
+                                                            duration: 700,
+                                                            isClosable: true,
+                                                            position: "top-right"
+                                                        });
+                                                    }
+                                                }}>Xóa</Button>
+                                            </Td>
+                                        </Tr>
+                                    ))}
+                                </Tbody>
+                            </Table>
+                        </TableContainer>
+                    )}/>
                 )
             } properties={['id', 'type']}/>
             <Modal
@@ -101,18 +141,38 @@ function ClubTable(props) {
                             const data = Object.fromEntries(formData);
                             data.clubId = parseInt(id);
 
-                            const res = await axios.post(
-                                '/v1/addTable',
-                                JSON.stringify(data),
-                                {
-                                    headers: {
-                                        'Content-Type': 'application/json'
-                                    }
-                                })
+                            try {
+                                const res = await axios.post(
+                                    '/v1/addTable',
+                                    JSON.stringify(data),
+                                    {
+                                        headers: {
+                                            'Content-Type': 'application/json'
+                                        }
+                                    })
 
-                            if (res.data.status == "Ok") {
-                                onClose();
-                                window.location.reload();
+                                if (res.data.status == "Ok") {
+                                    toast({
+                                        title: "Thêm thành công",
+                                        description: "Bàn đã được thêm vào hệ thống",
+                                        status: "success",
+                                        duration: 700,
+                                        isClosable: true,
+                                        position: "top-right"
+                                    });
+
+                                    onClose();
+                                    window.location.reload();
+                                }
+                            } catch (e) {
+                                toast({
+                                    title: "Thêm thất bại",
+                                    description: "Bàn không được thêm vào hệ thống",
+                                    status: "error",
+                                    duration: 700,
+                                    isClosable: true,
+                                    position: "top-right"
+                                });
                             }
                         }}>
                             <FormControl isRequired>

@@ -32,11 +32,22 @@ public class PriceController {
     }
 
     @DeleteMapping("/deletePrice")
-    public ResponseEntity<ResponseObject> deletePrice(@RequestBody DeletePriceRequest request) {
+    public ResponseEntity<ResponseObject> deletePrice(
+            @RequestParam("clubId") int clubId,
+            @RequestParam("tableTypeId") int tableTypeId,
+            @RequestParam("slotId") int slotId
+    ) {
+        DeletePriceRequest request = new DeletePriceRequest();
+        request.setClubId(clubId);
+        request.setTableTypeId(tableTypeId);
+        request.setSlotId(slotId);
+
         ResponseObject responseObject = priceService.deletePrice(request);
+
         if ("Failed".equals(responseObject.getStatus())) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseObject);
         }
+
         return ResponseEntity.status(HttpStatus.OK).body(responseObject);
     }
 }

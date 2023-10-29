@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface BookingStatusRepository extends JpaRepository<BookingStatus, Integer> {
+    BookingStatus getBookingStatusByBookingStatusId(int bookingStatusId);
 }

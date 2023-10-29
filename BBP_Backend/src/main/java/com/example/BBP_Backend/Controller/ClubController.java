@@ -72,10 +72,8 @@ public class ClubController {
         }
     }
 
-    @DeleteMapping("/deleteClub")
-    public ResponseEntity<ResponseObject> deleteClub(@RequestBody Club club) {
-        Integer clubId = club.getClubId();
-
+    @DeleteMapping("/deleteClub/{clubId}")
+    public ResponseEntity<ResponseObject> deleteClub(@PathVariable Integer clubId) {
         boolean exists = clubService.existsById(clubId);
 
         if (exists) {
@@ -89,5 +87,4 @@ public class ClubController {
                 new ResponseObject("Failed", "Cannot find Club to delete with id = " + clubId, "")
         );
     }
-
 }

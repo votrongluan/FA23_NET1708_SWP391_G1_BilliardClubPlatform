@@ -9,7 +9,8 @@ import {
     MenuButton,
     MenuItem,
     MenuList,
-    Spacer
+    Spacer,
+    Text
 } from "@chakra-ui/react";
 import {Link, NavLink} from "react-router-dom";
 import useAuth from "../hooks/useAuth.js";
@@ -37,7 +38,10 @@ function Header() {
                     {auth?.username ? (
                         <Menu>
                             <MenuButton as={Button}>
-                                <Avatar src={auth?.avatarLink} size="sm"/>
+                                <HStack>
+                                    <Avatar src={auth?.avatarLink} size="sm"/>
+                                    <Text>{auth?.firstName}</Text>
+                                </HStack>
                             </MenuButton>
                             <MenuList>
                                 <Link to={`/users/${auth?.id}`}><MenuItem>Tài khoản của tôi</MenuItem></Link>

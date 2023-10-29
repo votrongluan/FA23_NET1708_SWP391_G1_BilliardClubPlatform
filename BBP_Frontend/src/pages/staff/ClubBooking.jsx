@@ -25,12 +25,13 @@ import {
     Tr,
     VStack
 } from "@chakra-ui/react";
-import {baseURL} from "../../api/axios.js";
-import {useLoaderData} from "react-router-dom";
+import axios, {baseURL} from "../../api/axios.js";
+import {useLoaderData, useParams} from "react-router-dom";
 import {GlobalContext} from "../../context/GlobalContext.jsx";
 import SearchFilter from "../../components/SearchFilter.jsx";
 
 function ClubBooking(props) {
+    const {id} = useParams();
     const {slotMap, tableTypeMap} = useContext(GlobalContext);
     const bookings = useLoaderData();
     const [tables, setTables] = useState(null);
@@ -44,11 +45,14 @@ function ClubBooking(props) {
         book.time = slotMap[book.firstSlotId];
     })
 
+    console.log(bookings)
+
     useEffect(() => {
-        fetch(baseURL + '/tableClubOne')
+        fetch(baseURL + '/v1/getTablesByClubId/' + id)
             .then((response) => response.json())
             .then((data) => {
                 setTables(data);
+                console.log(data);
                 setLoading(false);
             })
             .catch((error) => {
@@ -74,14 +78,14 @@ function ClubBooking(props) {
                     <TabPanel>
                         <SearchFilter data={bookings} methods={
                             [
-                                {value: 'phone', label: 'Số điện thoại'},
+                                {value: 'userPhone', label: 'Số điện thoại'},
                                 {value: 'date', label: 'Ngày đặt'},
                                 {value: 'time', label: 'Giờ đặt'},
                                 {value: 'type', label: 'Loại bàn'},
                                 {value: 'tableId', label: 'Mã bàn'},
                                 {value: 'price', label: 'Giá tiền'}
                             ]
-                        } DisplayData={
+                        } properties={['userPhone', 'date', 'time', 'type', 'tableId', 'price']} DisplayData={
                             ({filteredData}) => (
                                 <TableContainer bgColor="white" borderRadius="4px">
                                     <Table variant='simple'>
@@ -100,7 +104,7 @@ function ClubBooking(props) {
                                                 <Tr key={book.bookingId}>
                                                     <Td>{book.tableId}</Td>
                                                     <Td>{book.type}</Td>
-                                                    <Td>{book.phone}</Td>
+                                                    <Td>{book.userPhone}</Td>
                                                     <Td>{book.date}</Td>
                                                     <Td>
                                                         <HStack spacing={5}>
@@ -196,11 +200,13 @@ export default ClubBooking;
 export const clubBookingLoader = async ({params}) => {
     const {id} = params;
 
-    const res = await fetch(baseURL + '/clubBooking')
+    try {
+        const res = await axios.get(`/booking/getBookingsByClubId/${id}`);
 
-    if (!res.ok) {
-        throw Error('Không tìm thấy club')
+        if (!res.data) return [];
+
+        return res.data.data;
+    } catch {
+        return [];
     }
-
-    return res.json()
 }

@@ -45,10 +45,8 @@ public class TableTypeController {
         }
     }
 
-    @DeleteMapping("/deleteTable")
-    public ResponseEntity<ResponseObject> deleteTable(@RequestBody MyTable myTable) {
-        Integer tableId = myTable.getTableId();
-
+    @DeleteMapping("/deleteTable/{tableId}")
+    public ResponseEntity<ResponseObject> deleteTable(@PathVariable Integer tableId) {
         boolean exists = tableTypeService.existsById(tableId);
 
         if (exists) {
@@ -62,5 +60,4 @@ public class TableTypeController {
                 new ResponseObject("Failed", "Cannot find Table to delete with id = " + tableId, "")
         );
     }
-
 }

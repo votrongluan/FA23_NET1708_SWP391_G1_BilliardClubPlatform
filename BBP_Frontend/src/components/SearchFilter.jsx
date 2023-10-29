@@ -47,6 +47,7 @@ function SearchFilter({data, methods, DisplayData, properties}) {
 
         return data.filter((el) => {
             return properties.some((property) => {
+                if (!el[property]) return false;
                 const normalizedPropertyData = normalize(el[property].toString().toLowerCase());
                 return normalizedPropertyData.includes(query);
             });

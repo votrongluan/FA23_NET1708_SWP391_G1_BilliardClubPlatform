@@ -59,6 +59,21 @@ function ClubBook() {
         return false;
     }
 
+    function calculatePrice() {
+        let price = 0;
+
+        for (let slotId of selectedSlot) {
+            for (let priceObj of prices) {
+                if (priceObj.slotId == slotId && priceObj.tableType == selectedTableType) {
+                    price += priceObj.price;
+                    break;
+                }
+            }
+        }
+
+        return price;
+    }
+
     // table
     useEffect(() => {
         fetch(`${baseURL}/v1/getTablesByClubId/${id}`)
@@ -84,6 +99,7 @@ function ClubBook() {
     useEffect(() => {
         setSelectedHours([]);
         setSelectedTable(null);
+        setPrice(0);
         setDayBooking([]);
 
         try {
@@ -273,6 +289,7 @@ function ClubBook() {
                     <Select
                         onChange={(e) => {
                             setSelectedTable(null);
+                            setPrice(0);
                             setSelectedHours([]);
                             setAllowedTables([]);
                             setSelectedTableType(e.target.value);
@@ -364,6 +381,7 @@ function ClubBook() {
                                 size="lg"
                                 onClick={() => {
                                     setSelectedTable(table);
+                                    setPrice(calculatePrice());
                                 }}
                                 minW="100px"
                                 bgColor={
@@ -385,7 +403,7 @@ function ClubBook() {
 
                 <HStack mb={10} alignItems="center" display="flex">
                     <FormLabel margin="0">6. Thành tiền:</FormLabel>
-                    <Text color="red.500">69,000 đồng</Text>
+                    <Text color="red.500">{price.toLocaleString('en-US')} đồng</Text>
                 </HStack>
 
                 <Button

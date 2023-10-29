@@ -1,9 +1,10 @@
 package com.example.BBP_Backend.Service;
 
-import com.example.BBP_Backend.Model.Booking;
-import com.example.BBP_Backend.Model.Club;
-import com.example.BBP_Backend.Repository.ClubRepository;
+import com.example.BBP_Backend.Model.*;
+import com.example.BBP_Backend.Repository.*;
 import com.example.BBP_Backend.Response.ClubWithRating;
+import jakarta.persistence.EntityManager;
+import jakarta.transaction.Transactional;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,7 @@ import java.util.Optional;
 @Service
 public class ClubService {
     private final ClubRepository clubRepository;
+
     public List<Club> findAllClubs() {
         return clubRepository.findAll();
     }
@@ -128,5 +130,13 @@ public class ClubService {
         clubRepository.deleteById(clubId);
     }
 
-
+    public void deleteClub(int clubId) {
+        clubRepository.deleteBookingDetailsByClubId(clubId);
+        clubRepository.deleteTableBookingDetailsByClubId(clubId);
+        clubRepository.deleteBookingsByClubId(clubId);
+        clubRepository.deletePricesByClubId(clubId);
+        clubRepository.deleteClubStaffsByClubId(clubId);
+        clubRepository.deleteTableByClubId(clubId);
+        clubRepository.deleteById(clubId);
+    }
 }

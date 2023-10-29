@@ -26,13 +26,16 @@ public class BookingStatusService {
     public String updateBookingStatus (UpdateBookingStatusRequest req){
         Booking booking = bookingRepository.getBookingByBookingIdAndAndClubStaffId(req.getBookingId(),req.getStaffId());
         if(booking != null) {
-            BookingStatus bookingStatus = repository.getBookingStatusByBookingStatusId(booking.getBookingStatusId());
-            if (bookingStatus != null) {
-                bookingStatus.setStatus(req.getStatus());
-                repository.save(bookingStatus);
-                return "Pass";
+                if(booking.getBookingStatusId() == 1) {
+                    booking.setBookingStatusId(2);
+                    bookingRepository.save(booking);
+                    return "Pass";
+                }else{
+                    return "Paid";
+                }
+
             }
-        }
+
         return "Fail";
     }
 }

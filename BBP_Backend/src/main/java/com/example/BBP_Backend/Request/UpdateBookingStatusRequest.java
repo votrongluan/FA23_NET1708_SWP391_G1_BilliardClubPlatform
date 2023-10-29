@@ -12,5 +12,5 @@ import lombok.NoArgsConstructor;
 public class UpdateBookingStatusRequest {
     private int bookingId;
     private int staffId;
-    private String status;
+
 }

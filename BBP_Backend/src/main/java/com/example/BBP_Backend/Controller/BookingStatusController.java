@@ -39,9 +39,12 @@ public class BookingStatusController {
     public ResponseEntity<ResponseObject> updateBookingStatus(@RequestBody UpdateBookingStatusRequest req){
         String status =  service.updateBookingStatus(req);
         if(status.equals("Pass")){
-            return ResponseEntity.ok(new ResponseObject("Ok","Update Booking Status successfully", req.getStatus()));
+            return ResponseEntity.ok(new ResponseObject("Ok","Update Booking Status successfully", ""));
+        }else if(status.equals("Paid")){
+            return  ResponseEntity.badRequest().body(new ResponseObject("Fail", "This booking has been paid!!!",""));
         }
-        return  ResponseEntity.badRequest().body(new ResponseObject("Fail", "Cannot update booking status!!!",req.getStatus()));
+
+        return  ResponseEntity.badRequest().body(new ResponseObject("Fail", "Cannot update booking status!!!",""));
 
     }
 }

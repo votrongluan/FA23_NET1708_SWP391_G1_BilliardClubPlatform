@@ -1,8 +1,15 @@
-import {useLoaderData} from "react-router-dom";
+import {useLoaderData, useNavigate} from "react-router-dom";
 import Clubs from "../../components/Clubs.jsx";
 import {Container, Heading} from "@chakra-ui/react";
+import useAuth from "../../hooks/useAuth.js";
 
 function Home() {
+    const {auth} = useAuth();
+    const navigate = useNavigate();
+
+    if (auth?.role == "ADMIN") navigate("/admin/manage");
+    if (auth?.role == "STAFF") navigate("/staff/manage");
+
     const clubs = useLoaderData();
     const mostRatedClubs = clubs.sort((a, b) => b.rating - a.rating).slice(0, 4);
     const mostBookedClubs = clubs

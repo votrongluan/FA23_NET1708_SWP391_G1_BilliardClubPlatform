@@ -14,7 +14,7 @@ import java.util.List;
 @Table(name = "Club")
 public class Club {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     private int clubId;
     private String clubName;
     private String address;

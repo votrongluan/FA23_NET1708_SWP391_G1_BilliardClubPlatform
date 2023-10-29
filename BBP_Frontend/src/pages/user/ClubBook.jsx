@@ -273,8 +273,9 @@ function ClubBook() {
                     <Select
                         onChange={(e) => {
                             setSelectedTable(null);
-                            setSelectedHours(null);
-                            setSelectedTableType(e.target.value)
+                            setSelectedHours([]);
+                            setAllowedTables([]);
+                            setSelectedTableType(e.target.value);
                         }}
                         bgColor="white"
                         name="tableType"

@@ -161,6 +161,7 @@ public class BookingService {
                 .clubAddress(booking.getClub().getAddress())
                 .districtId(booking.getClub().getDistrictId())
                 .clubName(booking.getClub().getClubName())
+                .userPhone(userRepository.getUserByUserId(booking.getCustomerId()).getPhone())
                 .comment(comment)
                 .date(booking.getBookDate())
                 .star(star)

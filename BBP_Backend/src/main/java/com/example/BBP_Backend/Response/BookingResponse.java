@@ -28,4 +28,5 @@ public class BookingResponse {
     private int firstSlotId;
     private int lastSlotId;
     private int price;
+    private String userPhone;
 }

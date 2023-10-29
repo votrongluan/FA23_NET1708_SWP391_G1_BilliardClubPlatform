@@ -1,7 +1,8 @@
 import {useLoaderData, useNavigate} from "react-router-dom";
 import Clubs from "../../components/Clubs.jsx";
-import {Container, Heading} from "@chakra-ui/react";
+import {Container, Heading, Image} from "@chakra-ui/react";
 import useAuth from "../../hooks/useAuth.js";
+import banner from '../../../public/Banner.svg';
 
 function Home() {
     const {auth} = useAuth();
@@ -20,6 +21,8 @@ function Home() {
         .slice(0, 4);
 
     return (
+        <>
+        <Image src={banner}/>
         <Container maxW="1200px" as="main" py={10}>
             <Heading as="h2" size="md" mb={5}>
                 Clubs được đánh giá cao nhất
@@ -33,7 +36,7 @@ function Home() {
                 Clubs được review nhiều nhất
             </Heading>
             <Clubs clubs={mostReviewedClubs}/>
-        </Container>
+        </Container></>
     );
 }
 

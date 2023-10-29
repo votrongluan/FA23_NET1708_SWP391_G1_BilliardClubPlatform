@@ -33,6 +33,7 @@ import {
 import axios from "../../api/axios.js";
 import SearchFilter from "../../components/SearchFilter.jsx";
 import {GlobalContext} from "../../context/GlobalContext.jsx";
+import ConfirmationDialog from "../../components/ConfirmationDialog.jsx";
 
 function ClubSlot(props) {
     const [slots, setSlots] = useState(useLoaderData());
@@ -89,7 +90,7 @@ function ClubSlot(props) {
                                             </HStack>
                                         </Td>
                                         <Td textAlign="center">
-                                            <Button colorScheme="red" onClick={async () => {
+                                            <ConfirmationDialog title="Xóa" onConfirm={async () => {
                                                 try {
                                                     const res = await axios.delete(`/v1/deletePrice?clubId=${id}&slotId=${slot.slotId}&tableTypeId=${slot.tableType}`)
 
@@ -99,7 +100,6 @@ function ClubSlot(props) {
                                                             description: "Giá đã được xóa khỏi hệ thống",
                                                             status: "success",
                                                             duration: 700,
-                                                            isClosable: true,
                                                             position: "top-right"
                                                         });
                                                         onClose();
@@ -110,7 +110,6 @@ function ClubSlot(props) {
                                                             description: "Giá không được xóa khỏi hệ thống",
                                                             status: "error",
                                                             duration: 700,
-                                                            isClosable: true,
                                                             position: "top-right"
                                                         });
                                                     }
@@ -120,11 +119,10 @@ function ClubSlot(props) {
                                                         description: "Giá không được xóa khỏi hệ thống",
                                                         status: "error",
                                                         duration: 700,
-                                                        isClosable: true,
                                                         position: "top-right"
                                                     });
                                                 }
-                                            }}>Xóa</Button>
+                                            }}>Xóa</ConfirmationDialog>
                                         </Td>
                                     </Tr>
                                 ))}
@@ -177,7 +175,6 @@ function ClubSlot(props) {
                                         status: "success",
                                         position: "top-right",
                                         duration: 700,
-                                        isClosable: true,
                                     });
                                     window.location.reload();
                                 } else {
@@ -187,7 +184,6 @@ function ClubSlot(props) {
                                         status: "error",
                                         position: "top-right",
                                         duration: 700,
-                                        isClosable: true,
                                     });
                                 }
                             } catch (err) {
@@ -197,7 +193,6 @@ function ClubSlot(props) {
                                     status: "error",
                                     position: "top-right",
                                     duration: 700,
-                                    isClosable: true,
                                 });
                             }
                         }}>

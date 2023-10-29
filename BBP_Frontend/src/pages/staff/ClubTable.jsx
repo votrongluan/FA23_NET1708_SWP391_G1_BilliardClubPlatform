@@ -32,6 +32,7 @@ import {GlobalContext} from "../../context/GlobalContext.jsx";
 import CheckClubAuth from "../../components/CheckClubAuth.jsx";
 import useAuth from "../../hooks/useAuth.js";
 import Pagination from "../../components/Pagination.jsx";
+import ConfirmationDialog from "../../components/ConfirmationDialog.jsx";
 
 function ClubTable(props) {
     const tables = useLoaderData();
@@ -80,42 +81,41 @@ function ClubTable(props) {
                                                 <Text>{table.type}</Text>
                                             </Td>
                                             <Td textAlign="center">
-                                                <Button colorScheme="red" onClick={async () => {
-                                                    try {
-                                                        const res = await axios.delete(
-                                                            `/v1/deleteTable/${table.id}`)
+                                                <ConfirmationDialog
+                                                    title="Xóa"
+                                                    onConfirm={async () => {
+                                                        try {
+                                                            const res = await axios.delete(
+                                                                `/v1/deleteTable/${table.id}`)
 
-                                                        if (res.data.status == 'Ok') {
-                                                            toast({
-                                                                title: "Xóa thành công",
-                                                                description: "Bàn đã được xóa khỏi hệ thống",
-                                                                status: "success",
-                                                                duration: 700,
-                                                                isClosable: true,
-                                                                position: "top-right"
-                                                            });
-                                                            window.location.reload();
-                                                        } else {
+                                                            if (res.data.status == 'Ok') {
+                                                                toast({
+                                                                    title: "Xóa thành công",
+                                                                    description: "Bàn đã được xóa khỏi hệ thống",
+                                                                    status: "success",
+                                                                    duration: 700,
+                                                                    position: "top-right"
+                                                                });
+                                                                window.location.reload();
+                                                            } else {
+                                                                toast({
+                                                                    title: "Xóa thất bại",
+                                                                    description: "Bàn không được xóa khỏi hệ thống",
+                                                                    status: "error",
+                                                                    duration: 700,
+                                                                    position: "top-right"
+                                                                });
+                                                            }
+                                                        } catch (e) {
                                                             toast({
                                                                 title: "Xóa thất bại",
                                                                 description: "Bàn không được xóa khỏi hệ thống",
                                                                 status: "error",
                                                                 duration: 700,
-                                                                isClosable: true,
                                                                 position: "top-right"
                                                             });
                                                         }
-                                                    } catch (e) {
-                                                        toast({
-                                                            title: "Xóa thất bại",
-                                                            description: "Bàn không được xóa khỏi hệ thống",
-                                                            status: "error",
-                                                            duration: 700,
-                                                            isClosable: true,
-                                                            position: "top-right"
-                                                        });
-                                                    }
-                                                }}>Xóa</Button>
+                                                    }}/>
                                             </Td>
                                         </Tr>
                                     ))}
@@ -157,7 +157,6 @@ function ClubTable(props) {
                                         description: "Bàn đã được thêm vào hệ thống",
                                         status: "success",
                                         duration: 700,
-                                        isClosable: true,
                                         position: "top-right"
                                     });
 
@@ -170,7 +169,6 @@ function ClubTable(props) {
                                     description: "Bàn không được thêm vào hệ thống",
                                     status: "error",
                                     duration: 700,
-                                    isClosable: true,
                                     position: "top-right"
                                 });
                             }

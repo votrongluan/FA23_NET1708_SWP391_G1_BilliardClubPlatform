@@ -13,4 +13,4 @@ const formatDate = (date) => {
 
 const dateArr = [formatDate(today), formatDate(tomorrow), formatDate(dayAfterTomorrow)];
 
-export {dateArr};
+export {dateArr, formatDate};

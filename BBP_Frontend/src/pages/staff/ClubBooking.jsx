@@ -45,14 +45,11 @@ function ClubBooking(props) {
         book.time = slotMap[book.firstSlotId];
     })
 
-    console.log(bookings)
-
     useEffect(() => {
         fetch(baseURL + '/v1/getTablesByClubId/' + id)
             .then((response) => response.json())
             .then((data) => {
                 setTables(data);
-                console.log(data);
                 setLoading(false);
             })
             .catch((error) => {
@@ -148,7 +145,7 @@ function ClubBooking(props) {
                             <FormControl mt={5}>
                                 <FormLabel>Nhập ngày</FormLabel>
                                 <Input type="date" onChange={(e) => {
-                                    console.log(e.target.value)
+                                    setSelectedDate(e.target.value)
                                 }}/>
                             </FormControl>
                             <FormControl mt={5}>

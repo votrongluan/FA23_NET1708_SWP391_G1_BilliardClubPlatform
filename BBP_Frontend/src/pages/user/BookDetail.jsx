@@ -1,7 +1,19 @@
 import {useContext} from "react";
 import axios from "../../api/axios.js";
-import {useLoaderData} from "react-router-dom";
-import {Card, CardBody, CardHeader, Container, Divider, Heading, HStack, Spacer, Text, VStack,} from "@chakra-ui/react";
+import {Link, useLoaderData} from "react-router-dom";
+import {
+    Button,
+    Card,
+    CardBody,
+    CardHeader,
+    Container,
+    Divider,
+    Heading,
+    HStack,
+    Spacer,
+    Text,
+    VStack,
+} from "@chakra-ui/react";
 import {CheckCircleIcon} from "@chakra-ui/icons";
 import {GlobalContext} from "../../context/GlobalContext.jsx";
 import useAuth from "../../hooks/useAuth.js";
@@ -98,6 +110,13 @@ function BookDetail() {
                     </CardBody>
                 </Card>
             </VStack>
+            <HStack mt={10}>
+                <Spacer/>
+                <Link to="/">
+                    <Button>Về trang chủ</Button>
+                </Link>
+                <Spacer/>
+            </HStack>
         </Container>
     );
 }

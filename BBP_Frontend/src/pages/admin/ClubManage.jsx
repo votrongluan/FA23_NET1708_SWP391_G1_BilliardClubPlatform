@@ -30,6 +30,7 @@ import {
 } from "@chakra-ui/react";
 import SearchFilter from "../../components/SearchFilter.jsx";
 import axios from "../../api/axios.js";
+import ConfirmationDialog from "../../components/ConfirmationDialog.jsx";
 
 function ClubManage(props) {
     const data = useLoaderData();
@@ -85,7 +86,7 @@ function ClubManage(props) {
                                             <Text>{club.phone}</Text>
                                         </Td>
                                         <Td textAlign="center">
-                                            <Button onClick={async () => {
+                                            <ConfirmationDialog title="Xóa" onConfirm={async () => {
                                                 const res = await axios.delete(
                                                     `/v1/deleteClub/${club.clubId}`)
 
@@ -109,7 +110,7 @@ function ClubManage(props) {
                                                         position: "top-right"
                                                     });
                                                 }
-                                            }} colorScheme="red">Xóa</Button>
+                                            }} colorScheme="red">Xóa</ConfirmationDialog>
                                         </Td>
                                     </Tr>
                                 ))}

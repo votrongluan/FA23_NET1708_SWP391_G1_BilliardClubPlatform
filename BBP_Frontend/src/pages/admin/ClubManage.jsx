@@ -85,7 +85,31 @@ function ClubManage(props) {
                                             <Text>{club.phone}</Text>
                                         </Td>
                                         <Td textAlign="center">
-                                            <Button colorScheme="red">Xóa</Button>
+                                            <Button onClick={async () => {
+                                                const res = await axios.delete(
+                                                    `/v1/deleteClub/${club.clubId}`)
+
+                                                if (res.data.status == 'Ok') {
+                                                    toast({
+                                                        title: "Xóa thành công",
+                                                        description: "Club đã được xóa khỏi hệ thống",
+                                                        status: "success",
+                                                        duration: 700,
+                                                        isClosable: true,
+                                                        position: "top-right"
+                                                    });
+                                                    window.location.reload();
+                                                } else {
+                                                    toast({
+                                                        title: "Xóa thất bại",
+                                                        description: "Club không được xóa khỏi hệ thống",
+                                                        status: "error",
+                                                        duration: 700,
+                                                        isClosable: true,
+                                                        position: "top-right"
+                                                    });
+                                                }
+                                            }} colorScheme="red">Xóa</Button>
                                         </Td>
                                     </Tr>
                                 ))}
@@ -121,8 +145,6 @@ function ClubManage(props) {
                                 return;
                             }
 
-                            console.log(JSON.stringify(data))
-
                             const res = await axios.post(
                                 '/v1/clubInsert',
                                 JSON.stringify(data),
@@ -135,6 +157,7 @@ function ClubManage(props) {
                             if (res.data.status == 'Ok') {
                                 toast({
                                     title: "Thêm thành công",
+                                    description: "Club đã được thêm vào hệ thống",
                                     status: "success",
                                     duration: 700,
                                     isClosable: true,
@@ -145,7 +168,7 @@ function ClubManage(props) {
                             } else {
                                 toast({
                                     title: "Thêm thất bại",
-                                    description: res.data.message,
+                                    description: "Club không được thêm vào hệ thống",
                                     status: "error",
                                     duration: 700,
                                     isClosable: true,

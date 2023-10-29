@@ -23,13 +23,15 @@ import {
     Th,
     Thead,
     Tr,
-    useDisclosure
+    useDisclosure,
+    useToast
 } from "@chakra-ui/react";
 import SearchFilter from "../../components/SearchFilter.jsx";
-import {baseURL} from "../../api/axios.js";
+import axios from "../../api/axios.js";
 
 function StaffAccountManage(props) {
     const staffs = useLoaderData();
+    const toast = useToast();
 
     // Modal
     const {isOpen, onOpen, onClose} = useDisclosure()
@@ -43,11 +45,9 @@ function StaffAccountManage(props) {
                 <Button colorScheme="telegram" onClick={onOpen}>Thêm</Button>
             </HStack>
             <SearchFilter data={staffs} methods={[
-                {value: 'name', label: 'Tên nhân viên'},
-                {value: 'phone', label: 'Số điện thoại'},
                 {value: 'username', label: 'Tên đăng nhập'},
                 {value: 'clubName', label: 'Tên club quản lý'}
-            ]} DisplayData={
+            ]} properties={['username', 'clubName']} DisplayData={
                 ({filteredData}) => (
                     <TableContainer bgColor="white" borderRadius="4px">
                         <Table variant='simple'>
@@ -65,7 +65,7 @@ function StaffAccountManage(props) {
                                 {filteredData.map((staff) => (
                                     <Tr key={staff.username}>
                                         <Td>
-                                            <Text>{staff.name}</Text>
+                                            <Text>{staff.lastName} {staff.firstName}</Text>
                                         </Td>
                                         <Td>
                                             <Text>{staff.username}</Text>
@@ -80,7 +80,30 @@ function StaffAccountManage(props) {
                                             <Text>{staff.clubName}</Text>
                                         </Td>
                                         <Td textAlign="center">
-                                            <Button colorScheme="red">Xóa</Button>
+                                            <Button colorScheme="red" onClick={async () => {
+                                                const res = await axios.delete(`/account/deleteStaffAccount/${staff.username}`)
+
+                                                if (res.data.status == 'Ok') {
+                                                    toast({
+                                                        title: "Xóa thành công",
+                                                        description: "Tài khoản đã được xóa khỏi hệ thống",
+                                                        status: "success",
+                                                        duration: 700,
+                                                        isClosable: true,
+                                                        position: "top-right"
+                                                    });
+                                                    window.location.reload();
+                                                } else {
+                                                    toast({
+                                                        title: "Xóa thất bại",
+                                                        description: "Tài khoản không được xóa khỏi hệ thống",
+                                                        status: "error",
+                                                        duration: 700,
+                                                        isClosable: true,
+                                                        position: "top-right"
+                                                    });
+                                                }
+                                            }}>Xóa</Button>
                                         </Td>
                                     </Tr>
                                 ))}
@@ -99,12 +122,53 @@ function StaffAccountManage(props) {
                     <ModalHeader>Thêm tài khoản nhân viên</ModalHeader>
                     <ModalCloseButton/>
                     <ModalBody pb={6}>
-                        <form onSubmit={(e) => {
+                        <form onSubmit={async (e) => {
                             e.preventDefault();
                             const formData = new FormData(e.target);
                             const data = Object.fromEntries(formData);
+                            console.log(JSON.stringify(data))
 
-                            console.log(data);
+                            try {
+                                const res = await axios.post(
+                                    '/account/addNewStaff',
+                                    JSON.stringify(data),
+                                    {
+                                        headers: {
+                                            'Content-Type': 'application/json'
+                                        }
+                                    })
+
+                                if (res.data.data.status == true) {
+                                    toast({
+                                        title: "Thêm thành công",
+                                        description: "Tài khoản đã được thêm vào hệ thống",
+                                        status: "success",
+                                        duration: 700,
+                                        isClosable: true,
+                                        position: "top-right"
+                                    });
+                                    onClose();
+                                    window.location.reload();
+                                } else {
+                                    toast({
+                                        title: "Thêm thất bại",
+                                        description: "Tài khoản đã tồn tại",
+                                        status: "error",
+                                        duration: 700,
+                                        isClosable: true,
+                                        position: "top-right"
+                                    });
+                                }
+                            } catch (e) {
+                                toast({
+                                    title: "Thêm thất bại",
+                                    description: "Tài khoản đã tồn tại",
+                                    status: "error",
+                                    duration: 700,
+                                    isClosable: true,
+                                    position: "top-right"
+                                });
+                            }
                         }}>
                             <FormControl isRequired mt={4}>
                                 <FormLabel>Tài khoản</FormLabel>
@@ -145,11 +209,7 @@ function StaffAccountManage(props) {
 export default StaffAccountManage;
 
 export const staffAccountLoader = async () => {
-    const res = await fetch(baseURL + '/staffAccount')
+    const res = await axios.get('/v1/getAllStaff');
 
-    if (!res.ok) {
-        throw Error('Không tìm thấy tài khoản')
-    }
-
-    return res.json()
+    return res.data;
 }

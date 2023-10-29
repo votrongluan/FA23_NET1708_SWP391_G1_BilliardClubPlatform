@@ -28,6 +28,7 @@ import {
 } from "@chakra-ui/react";
 import SearchFilter from "../../components/SearchFilter.jsx";
 import axios from "../../api/axios.js";
+import ConfirmationDialog from "../../components/ConfirmationDialog.jsx";
 
 function StaffAccountManage(props) {
     const staffs = useLoaderData();
@@ -80,7 +81,7 @@ function StaffAccountManage(props) {
                                             <Text>{staff.clubName}</Text>
                                         </Td>
                                         <Td textAlign="center">
-                                            <Button colorScheme="red" onClick={async () => {
+                                            <ConfirmationDialog colorScheme="red" title="Xóa" onConfirm={async () => {
                                                 const res = await axios.delete(`/account/deleteStaffAccount/${staff.username}`)
 
                                                 if (res.data.status == 'Ok') {
@@ -103,7 +104,7 @@ function StaffAccountManage(props) {
                                                         position: "top-right"
                                                     });
                                                 }
-                                            }}>Xóa</Button>
+                                            }}>Xóa</ConfirmationDialog>
                                         </Td>
                                     </Tr>
                                 ))}

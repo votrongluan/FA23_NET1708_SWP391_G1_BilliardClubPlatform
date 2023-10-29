@@ -2,7 +2,6 @@ import {SimpleGrid} from "@chakra-ui/react";
 import Club from "./Club.jsx";
 import Pagination from "./Pagination.jsx";
 
-// eslint-disable-next-line react/prop-types
 function Clubs({clubs}) {
     return (
         <Pagination data={clubs} itemsPerPage={16} DisplayData={({currentData}) => (

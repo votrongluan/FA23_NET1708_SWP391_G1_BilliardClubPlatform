@@ -36,8 +36,8 @@ function Header() {
                         <NavLink to="book">Đặt lịch</NavLink> : null}
                     {auth?.username ? (
                         <Menu>
-                            <MenuButton as={Button} rightIcon={<Avatar src={auth?.avatarLink} size="sm"/>}>
-                                {auth?.username}
+                            <MenuButton as={Button}>
+                                <Avatar src={auth?.avatarLink} size="sm"/>
                             </MenuButton>
                             <MenuList>
                                 <Link to={`/users/${auth?.id}`}><MenuItem>Tài khoản của tôi</MenuItem></Link>

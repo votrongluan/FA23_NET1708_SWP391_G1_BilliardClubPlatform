@@ -1,6 +1,6 @@
 import React, {useContext, useRef} from 'react';
 import axios from "../../api/axios.js";
-import {useLoaderData} from "react-router-dom";
+import {useLoaderData, useParams} from "react-router-dom";
 import {
     Button,
     FormControl,
@@ -33,6 +33,7 @@ import useAuth from "../../hooks/useAuth.js";
 
 function ClubTable(props) {
     const tables = useLoaderData();
+    const {id} = useParams();
     const {tableTypeMap} = useContext(GlobalContext);
     const {auth} = useAuth();
 
@@ -98,7 +99,7 @@ function ClubTable(props) {
                             e.preventDefault();
                             const formData = new FormData(e.target);
                             const data = Object.fromEntries(formData);
-                            data.clubId = auth.clubId;
+                            data.clubId = parseInt(id);
 
                             const res = await axios.post(
                                 '/v1/addTable',

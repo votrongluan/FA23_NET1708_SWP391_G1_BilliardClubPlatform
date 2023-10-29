@@ -25,19 +25,22 @@ import {
     Th,
     Thead,
     Tr,
-    useDisclosure
+    useDisclosure,
+    useToast
 } from "@chakra-ui/react";
 import SearchFilter from "../../components/SearchFilter.jsx";
+import axios from "../../api/axios.js";
 
 function ClubManage(props) {
-    const clubs = useLoaderData();
+    const data = useLoaderData();
+    const toast = useToast();
+    const clubs = [];
     const {tableTypeMap, districtMap} = useContext(GlobalContext);
 
-    clubs.forEach((club) => {
-        club.district = districtMap[club.districtId];
+    data.forEach((club) => {
+        club.club.district = districtMap[club.club.districtId];
+        clubs.push(club.club);
     })
-
-    console.log(clubs)
 
     // Modal
     const {isOpen, onOpen, onClose} = useDisclosure()
@@ -51,9 +54,9 @@ function ClubManage(props) {
                 <Button colorScheme="telegram" onClick={onOpen}>Thêm</Button>
             </HStack>
             <SearchFilter data={clubs} methods={[
-                {value: 'name', label: 'Tên club'},
+                {value: 'clubName', label: 'Tên club'},
                 {value: 'district', label: 'Quận / huyện'},
-            ]} DisplayData={
+            ]} properties={["clubName"]} DisplayData={
                 ({filteredData}) => (
                     <TableContainer bgColor="white" borderRadius="4px">
                         <Table variant='simple'>
@@ -68,12 +71,12 @@ function ClubManage(props) {
                             </Thead>
                             <Tbody>
                                 {filteredData.map((club) => (
-                                    <Tr key={club.id}>
+                                    <Tr key={club.clubId}>
                                         <Td>
-                                            <Text>{club.id}</Text>
+                                            <Text>{club.clubId}</Text>
                                         </Td>
                                         <Td>
-                                            <Text>{club.name}</Text>
+                                            <Text>{club.clubName}</Text>
                                         </Td>
                                         <Td>
                                             <Text>{club.address}, {districtMap[club.districtId]}</Text>
@@ -101,16 +104,58 @@ function ClubManage(props) {
                     <ModalHeader>Thêm club</ModalHeader>
                     <ModalCloseButton/>
                     <ModalBody pb={6}>
-                        <form onSubmit={(e) => {
+                        <form onSubmit={async (e) => {
                             e.preventDefault();
                             const formData = new FormData(e.target);
                             const data = Object.fromEntries(formData);
 
-                            console.log(data);
+                            if (!data.phone.match(/^[0-9]{9,11}$/)) {
+                                toast({
+                                    title: "Cập nhật thất bại",
+                                    description: "Số điện thoại không hợp lệ",
+                                    status: "error",
+                                    duration: 700,
+                                    isClosable: true,
+                                    position: "top-right"
+                                });
+                                return;
+                            }
+
+                            console.log(JSON.stringify(data))
+
+                            const res = await axios.post(
+                                '/v1/clubInsert',
+                                JSON.stringify(data),
+                                {
+                                    headers: {
+                                        'Content-Type': 'application/json'
+                                    }
+                                })
+
+                            if (res.data.status == 'Ok') {
+                                toast({
+                                    title: "Thêm thành công",
+                                    status: "success",
+                                    duration: 700,
+                                    isClosable: true,
+                                    position: "top-right"
+                                });
+                                onClose();
+                                window.location.reload();
+                            } else {
+                                toast({
+                                    title: "Thêm thất bại",
+                                    description: res.data.message,
+                                    status: "error",
+                                    duration: 700,
+                                    isClosable: true,
+                                    position: "top-right"
+                                });
+                            }
                         }}>
                             <FormControl isRequired>
                                 <FormLabel>Tên club</FormLabel>
-                                <Input name="name" type="text" ref={initialRef}
+                                <Input name="clubName" type="text" ref={initialRef}
                                        placeholder='Nhập tên club'/>
                             </FormControl>
 

@@ -29,6 +29,7 @@ import {
 import SearchFilter from "../../components/SearchFilter.jsx";
 import axios from "../../api/axios.js";
 import ConfirmationDialog from "../../components/ConfirmationDialog.jsx";
+import {AddIcon} from "@chakra-ui/icons";
 
 function StaffAccountManage(props) {
     const staffs = useLoaderData();
@@ -41,9 +42,9 @@ function StaffAccountManage(props) {
     return (
         <>
             <Heading as="h2" size="lg" textAlign="center">Quản lý tài khoản nhân viên</Heading>
-            <HStack>
+            <HStack mt={5}>
                 <Spacer/>
-                <Button colorScheme="telegram" onClick={onOpen}>Thêm</Button>
+                <Button size="lg" leftIcon={<AddIcon/>} colorScheme="telegram" onClick={onOpen}>Thêm</Button>
             </HStack>
             <SearchFilter data={staffs} methods={[
                 {value: 'username', label: 'Tên đăng nhập'},

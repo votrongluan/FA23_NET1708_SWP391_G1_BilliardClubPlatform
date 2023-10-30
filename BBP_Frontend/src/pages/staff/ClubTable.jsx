@@ -33,6 +33,7 @@ import CheckClubAuth from "../../components/CheckClubAuth.jsx";
 import useAuth from "../../hooks/useAuth.js";
 import Pagination from "../../components/Pagination.jsx";
 import ConfirmationDialog from "../../components/ConfirmationDialog.jsx";
+import {EditIcon} from "@chakra-ui/icons";
 
 function ClubTable(props) {
     const tables = useLoaderData();
@@ -52,9 +53,9 @@ function ClubTable(props) {
     return (
         <CheckClubAuth>
             <Heading as="h2" size="lg" textAlign="center">Quản lý bàn</Heading>
-            <HStack>
+            <HStack mt={5}>
                 <Spacer/>
-                <Button colorScheme="telegram" onClick={onOpen}>Cập nhật</Button>
+                <Button leftIcon={<EditIcon/>} colorScheme="telegram" onClick={onOpen}>Cập nhật</Button>
             </HStack>
             <SearchFilter data={tables} methods={[
                 {value: 'type', label: 'Loại bàn'},

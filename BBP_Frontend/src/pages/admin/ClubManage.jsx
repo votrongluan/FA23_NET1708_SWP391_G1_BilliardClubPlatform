@@ -31,6 +31,7 @@ import {
 import SearchFilter from "../../components/SearchFilter.jsx";
 import axios from "../../api/axios.js";
 import ConfirmationDialog from "../../components/ConfirmationDialog.jsx";
+import {AddIcon} from "@chakra-ui/icons";
 
 function ClubManage(props) {
     const data = useLoaderData();
@@ -49,10 +50,10 @@ function ClubManage(props) {
 
     return (
         <>
-            <Heading as="h2" size="lg" textAlign="center">Quản lý club</Heading>
-            <HStack>
+            <Heading as="h2" textAlign="center">Quản lý club</Heading>
+            <HStack mt={5}>
                 <Spacer/>
-                <Button colorScheme="telegram" onClick={onOpen}>Thêm</Button>
+                <Button leftIcon={<AddIcon/>} colorScheme="telegram" onClick={onOpen}>Thêm</Button>
             </HStack>
             <SearchFilter data={clubs} methods={[
                 {value: 'clubName', label: 'Tên club'},

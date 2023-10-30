@@ -22,21 +22,21 @@ function Home() {
 
     return (
         <>
-        <Image src={banner}/>
-        <Container maxW="1200px" as="main" py={10}>
-            <Heading as="h2" size="md" mb={5}>
-                Clubs được đánh giá cao nhất
-            </Heading>
-            <Clubs clubs={mostRatedClubs}/>
-            <Heading as="h2" size="md" mb={5} mt={10}>
-                Clubs được đặt nhiều nhất
-            </Heading>
-            <Clubs clubs={mostBookedClubs}/>
-            <Heading as="h2" size="md" mb={5} mt={10}>
-                Clubs được review nhiều nhất
-            </Heading>
-            <Clubs clubs={mostReviewedClubs}/>
-        </Container></>
+            <Image src={banner} width="100%"/>
+            <Container maxW="1200px" as="main" py={10}>
+                <Heading as="h2" size="md" mb={5}>
+                    Clubs được đánh giá cao nhất
+                </Heading>
+                <Clubs clubs={mostRatedClubs}/>
+                <Heading as="h2" size="md" mb={5} mt={10}>
+                    Clubs được đặt nhiều nhất
+                </Heading>
+                <Clubs clubs={mostBookedClubs}/>
+                <Heading as="h2" size="md" mb={5} mt={10}>
+                    Clubs được review nhiều nhất
+                </Heading>
+                <Clubs clubs={mostReviewedClubs}/>
+            </Container></>
     );
 }
 

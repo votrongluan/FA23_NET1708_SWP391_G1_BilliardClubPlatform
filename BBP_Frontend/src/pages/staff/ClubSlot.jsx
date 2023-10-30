@@ -34,6 +34,7 @@ import axios from "../../api/axios.js";
 import SearchFilter from "../../components/SearchFilter.jsx";
 import {GlobalContext} from "../../context/GlobalContext.jsx";
 import ConfirmationDialog from "../../components/ConfirmationDialog.jsx";
+import {EditIcon} from "@chakra-ui/icons";
 
 function ClubSlot(props) {
     const [slots, setSlots] = useState(useLoaderData());
@@ -53,9 +54,9 @@ function ClubSlot(props) {
     return (
         <>
             <Heading as="h2" size="lg" textAlign="center">Quản lý giờ, giá</Heading>
-            <HStack>
+            <HStack mt={5}>
                 <Spacer/>
-                <Button colorScheme="telegram" onClick={onOpen}>Cập nhật</Button>
+                <Button leftIcon={<EditIcon/>} colorScheme="telegram" onClick={onOpen}>Cập nhật</Button>
             </HStack>
             <SearchFilter data={slots} methods={[
                 {value: 'type', label: 'Loại bàn'},

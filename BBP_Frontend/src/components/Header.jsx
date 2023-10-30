@@ -33,14 +33,12 @@ function Header() {
                 <HStack spacing={5} fontSize="20px">
                     {auth?.role === 'CUSTOMER' || !auth ?
                         <NavLink to="find">Tìm club</NavLink> : null}
-                    {auth?.role === 'CUSTOMER' || !auth ?
-                        <NavLink to="book">Đặt lịch</NavLink> : null}
                     {auth?.username ? (
                         <Menu>
                             <MenuButton as={Button}>
                                 <HStack>
                                     <Avatar src={auth?.avatarLink} size="sm"/>
-                                    <Text>{auth?.firstName}</Text>
+                                    {auth.firstName ? <Text>{auth.firstName}</Text> : null}
                                 </HStack>
                             </MenuButton>
                             <MenuList>

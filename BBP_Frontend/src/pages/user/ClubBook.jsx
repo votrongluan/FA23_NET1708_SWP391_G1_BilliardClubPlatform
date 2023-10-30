@@ -135,6 +135,7 @@ function ClubBook() {
     // Function to change allowed tables and selected table
     useEffect(() => {
         setSelectedTable(null)
+        setPrice(0);
 
         if (selectedHours.length != 0) {
             const tmp = [];

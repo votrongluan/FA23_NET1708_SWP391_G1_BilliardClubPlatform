@@ -25,7 +25,8 @@ function Club({data}) {
                     <Text mt={4} gap={2} display="flex" alignItems="center" justifyContent="flex-end" color="gray.500">
                         <StarIcon color="yellow.500"/>{club.rating} ({club.noRating} đánh giá)
                     </Text> :
-                    <Text mt={4} gap={2} display="flex" alignItems="center" justifyContent="flex-end" color="gray.500">
+                    <Text mt={4} gap={2} display="flex" alignItems="center" justifyContent="flex-start"
+                          color="gray.500">
                         <StarIcon color="yellow.500"/>Chưa có đánh giá
                     </Text>}
             </CardBody>

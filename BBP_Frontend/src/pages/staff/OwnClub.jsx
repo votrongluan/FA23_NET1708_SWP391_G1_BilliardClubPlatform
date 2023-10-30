@@ -30,6 +30,9 @@ function OwnClub() {
                     <EditFieldBox title="Fanpage link" value={club.fanpageLink} type="text"
                                   propertyName="fanpageLink" oldData={club} url={`/v1/updateClub`}
                                   setNewData={setClub}/>
+                    <EditFieldBox title="Avatar link" value={club.avatarLink} type="text"
+                                  propertyName="avatarLink" oldData={club} url={`/v1/updateClub`}
+                                  setNewData={setClub}/>
                     <EditFieldBox title="Giờ mở cửa" value={club.openTime} type="number"
                                   propertyName="openTime" oldData={club} url={`/v1/updateClub`} setNewData={setClub}/>
                     <EditFieldBox title="Giờ đóng cửa" value={club.closeTime} type="number"

@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import java.sql.Date;
-import java.sql.Timestamp;
 
 @Data
 public class TableBookingRequest {

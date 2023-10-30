@@ -4,6 +4,7 @@ import com.example.BBP_Backend.Model.Booking;
 import com.example.BBP_Backend.Model.BookingDetail;
 import com.example.BBP_Backend.Model.MyTable;
 import com.example.BBP_Backend.Repository.*;
+import com.example.BBP_Backend.Response.BookInfoResponse;
 import com.example.BBP_Backend.Response.BookingResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -105,17 +106,17 @@ public class BookingService {
         return booking.getBookingId();
     }
 
-    public List<Map<String, Object>> getTableBookingInfo(Integer tableId, Date bookDate) {
+    public List<BookInfoResponse> getBookingInfo(Integer tableId, Date bookDate) {
         List<Object[]> result = bookingDetailRepository.getTableBookingInfo(tableId, bookDate);
-        List<Map<String, Object>> response = new ArrayList<>();
 
+        List<BookInfoResponse> bookingInfoList = new ArrayList<>();
         for (Object[] row : result) {
-            Map<String, Object> entry = new HashMap<>();
-            entry.put("userPhone", row[0]);
-            entry.put("slotId", row[1]);
-            response.add(entry);
+            String userPhone = (String) row[0];
+            Integer slotId = (Integer) row[1];
+            bookingInfoList.add(new BookInfoResponse(userPhone, slotId));
         }
-        return response;
+
+        return bookingInfoList;
     }
 
     public boolean existsById(Integer bookingId) {

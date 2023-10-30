@@ -2,6 +2,7 @@ package com.example.BBP_Backend.Controller;
 
 import com.example.BBP_Backend.Request.BookingRequest;
 import com.example.BBP_Backend.Request.TableBookingRequest;
+import com.example.BBP_Backend.Response.BookInfoResponse;
 import com.example.BBP_Backend.Response.ResponseObject;
 import com.example.BBP_Backend.Service.BookingService;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -10,7 +11,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.Timestamp;
 import java.util.*;
 
 @RestController
@@ -125,11 +125,9 @@ public class BookingController {
         }
     }
     @PostMapping("/getTableBookingDetail")
-    public ResponseEntity<List<Map<String, Object>>> getTableBookingInfo(@RequestBody TableBookingRequest request) {
-        Date bookDate = Timestamp.valueOf(request.getBookDate().toLocalDate().atStartOfDay());
-
-        List<Map<String, Object>> tableBookingInfo = bookingService.getTableBookingInfo(request.getTableId(), bookDate);
-        return ResponseEntity.ok(tableBookingInfo);
+    public ResponseEntity<List<BookInfoResponse>> getTableBookingInfo(@RequestBody TableBookingRequest request) {
+        List<BookInfoResponse> bookingInfoList = bookingService.getBookingInfo(request.getTableId(), request.getBookDate());
+        return ResponseEntity.ok(bookingInfoList);
     }
 
     @DeleteMapping("/cancelBooking/{bookingId}")

@@ -6,6 +6,7 @@ import com.example.BBP_Backend.Model.MyTable;
 import com.example.BBP_Backend.Repository.*;
 import com.example.BBP_Backend.Response.BookInfoResponse;
 import com.example.BBP_Backend.Response.BookingResponse;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -123,7 +124,9 @@ public class BookingService {
         return bookingRepository.existsById(bookingId);
     }
 
+    @Transactional
     public void deleteById(Integer bookingId) {
+        bookingDetailRepository.deleteBookingDetailByBookingId(bookingId);
         bookingRepository.deleteById(bookingId);
     }
 

@@ -55,10 +55,10 @@ function ClubManage(props) {
                 <Spacer/>
                 <Button leftIcon={<AddIcon/>} colorScheme="telegram" onClick={onOpen}>Thêm</Button>
             </HStack>
-            <SearchFilter data={clubs} methods={[
+            <SearchFilter searchPlaceholder="Tìm theo tên, số điện thoại, địa chỉ" data={clubs} methods={[
                 {value: 'clubName', label: 'Tên club'},
                 {value: 'district', label: 'Quận / huyện'},
-            ]} properties={["clubName"]} DisplayData={
+            ]} properties={["clubName", "phone", "address"]} DisplayData={
                 ({filteredData}) => (
                     <TableContainer bgColor="white" borderRadius="4px">
                         <Table variant='simple'>

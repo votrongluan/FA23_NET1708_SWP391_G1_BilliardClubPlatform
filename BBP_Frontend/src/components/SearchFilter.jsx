@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {HStack, Input, InputGroup, InputLeftElement, Select, Spacer, Text} from "@chakra-ui/react";
 import {SearchIcon} from "@chakra-ui/icons";
 
-function SearchFilter({data, methods, DisplayData, properties}) {
+function SearchFilter({data, methods, DisplayData, properties, searchPlaceholder}) {
     const normalize = (text) => {
         return text
             .normalize('NFKD')
@@ -75,7 +75,7 @@ function SearchFilter({data, methods, DisplayData, properties}) {
                 <Input
                     bgColor="white"
                     type="text"
-                    placeholder="Tìm kiếm"
+                    placeholder={searchPlaceholder ? searchPlaceholder : "Tìm kiếm"}
                     value={search}
                     onChange={handleSearchChange}
                 />

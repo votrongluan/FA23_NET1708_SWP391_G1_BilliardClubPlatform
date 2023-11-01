@@ -113,8 +113,9 @@ public class BookingService {
         List<BookInfoResponse> bookingInfoList = new ArrayList<>();
         for (Object[] row : result) {
             String userPhone = (String) row[0];
-            Integer slotId = (Integer) row[1];
-            bookingInfoList.add(new BookInfoResponse(userPhone, slotId));
+            String firstName = (String) row[1];
+            Integer slotId = (Integer) row[2];
+            bookingInfoList.add(new BookInfoResponse(userPhone, firstName, slotId));
         }
 
         return bookingInfoList;

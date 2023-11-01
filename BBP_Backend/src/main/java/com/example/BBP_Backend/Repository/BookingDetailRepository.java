@@ -11,7 +11,7 @@ import java.util.List;
 
 @Repository
 public interface BookingDetailRepository extends JpaRepository<BookingDetail, Integer> {
-    @Query("SELECT u.phone AS userPhone, s.slotId FROM BookingDetail bd " +
+    @Query("SELECT u.phone AS userPhone, u.firstName,s.slotId FROM BookingDetail bd " +
             "JOIN MyTable t ON bd.table.tableId = t.tableId " +
             "JOIN Booking b ON bd.booking.bookingId = b.bookingId " +
             "JOIN User u ON b.customerId = u.userId " +

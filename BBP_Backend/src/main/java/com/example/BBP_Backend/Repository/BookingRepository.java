@@ -17,6 +17,6 @@ public interface BookingRepository extends JpaRepository<Booking, Integer> {
     Optional<List<Booking>> getAllByCustomerId(int customerId);
 
     Optional<List<Booking>> getAllByClub_ClubId(int clubId);
-    @Query("select bk from Booking bk where bk.bookingId = :bookingId and bk.clubStaffId =:clubStaffId")
-    Booking getBookingByBookingIdAndAndClubStaffId(int bookingId, int clubStaffId);
+//    @Query("select bk from Booking bk where bk.bookingId = :bookingId and bk.clubStaffId =:clubStaffId")
+    Booking getBookingByBookingId(int bookingId);
 }

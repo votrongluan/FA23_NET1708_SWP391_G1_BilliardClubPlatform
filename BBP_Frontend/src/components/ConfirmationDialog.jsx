@@ -11,13 +11,13 @@ import {
 } from "@chakra-ui/react";
 import {useRef} from "react";
 
-export default function ConfirmationDialog({onConfirm, title}) {
+export default function ConfirmationDialog({onConfirm, title, color}) {
     const {isOpen, onOpen, onClose} = useDisclosure()
     const cancelRef = useRef()
 
     return (
         <>
-            <Button colorScheme='red' onClick={onOpen}>{title}</Button>
+            <Button colorScheme={color ? color : 'red'} onClick={onOpen}>{title}</Button>
             <AlertDialog
                 motionPreset='slideInBottom'
                 leastDestructiveRef={cancelRef}
@@ -37,7 +37,7 @@ export default function ConfirmationDialog({onConfirm, title}) {
                         <Button ref={cancelRef} onClick={onClose}>
                             Không
                         </Button>
-                        <Button colorScheme='red' ml={3} onClick={onConfirm}>
+                        <Button colorScheme='telegram' ml={3} onClick={onConfirm}>
                             Có
                         </Button>
                     </AlertDialogFooter>

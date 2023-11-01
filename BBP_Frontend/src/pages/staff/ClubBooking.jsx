@@ -23,6 +23,7 @@ import {
     Th,
     Thead,
     Tr,
+    useToast,
     VStack
 } from "@chakra-ui/react";
 import axios, {baseURL} from "../../api/axios.js";
@@ -34,6 +35,7 @@ import useAuth from "../../hooks/useAuth.js";
 
 function ClubBooking(props) {
     const {id} = useParams();
+    const toast = useToast();
     const {auth} = useAuth();
     const {slotMap, tableTypeMap} = useContext(GlobalContext);
     const bookings = useLoaderData();
@@ -42,6 +44,8 @@ function ClubBooking(props) {
     const [selectedDate, setSelectedDate] = useState(null);
     const [selectedTableId, setSelectedTableId] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [tableCalendar, setTableCalendar] = useState([]);
+    const [renderTable, setRenderTable] = useState([]);
 
     bookings.forEach((book) => {
         book.type = tableTypeMap[book.tableTypeId];
@@ -53,6 +57,12 @@ function ClubBooking(props) {
             .then((response) => response.json())
             .then((data) => {
                 setTables(data);
+                for (let i = 0; i < data.length; i++) {
+                    if (data[i].tableTypeId == tableType) {
+                        setSelectedTableId(data[i].id);
+                        break;
+                    }
+                }
                 setLoading(false);
             })
             .catch((error) => {
@@ -60,6 +70,38 @@ function ClubBooking(props) {
                 setLoading(false);
             });
     }, []);
+
+    useEffect(() => {
+        if (selectedDate && selectedTableId) {
+            console.log('đã vào')
+            try {
+                // Change yyyy-mm-dd to dd/mm/yyyy
+                const date = selectedDate.split('-');
+                const newDate = date[2] + '/' + date[1] + '/' + date[0];
+
+                const res = axios.post(`/booking/getTableBookingDetail`, JSON.stringify({
+                    tableId: selectedTableId,
+                    bookDate: newDate
+                }), {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                }).then((res) => {
+                    setTableCalendar(res.data);
+                });
+            } catch (err) {
+                console.log(err);
+            }
+        }
+    }, [selectedDate, selectedTableId]);
+
+    function checkSlot(slotId) {
+        return tableCalendar.some((item) => item.slotId == slotId);
+    }
+
+    function getSlotDetail(slotId) {
+        return tableCalendar.find((item) => item.slotId == slotId);
+    }
 
     if (loading) {
         return <Spinner/>;
@@ -137,7 +179,26 @@ function ClubBooking(props) {
                                                                             }
                                                                         });
 
-                                                                        console.log(res.data)
+                                                                        if (res.data.status == 'Ok') {
+                                                                            toast({
+                                                                                title: "Thành công",
+                                                                                description: "Đã xác nhận thanh toán",
+                                                                                status: "success",
+                                                                                duration: 700,
+                                                                                isClosable: false,
+                                                                                position: "top-right"
+                                                                            });
+                                                                            window.location.reload();
+                                                                        } else {
+                                                                            toast({
+                                                                                title: "Thất bại",
+                                                                                description: "Đã xảy ra lỗi",
+                                                                                status: "error",
+                                                                                duration: 700,
+                                                                                isClosable: false,
+                                                                                position: "top-right"
+                                                                            });
+                                                                        }
                                                                     } catch (e) {
                                                                         console.log(e);
                                                                     }
@@ -145,8 +206,8 @@ function ClubBooking(props) {
                                                                 }} title="Xác nhận"
                                                                                     color="green"/>
                                                                 :
-                                                                <Text>
-                                                                    Đã thanh toán
+                                                                <Text color="gray.500">
+                                                                    (Đã thanh toán)
                                                                 </Text>}
                                                         </HStack>
                                                     </Td>
@@ -192,7 +253,7 @@ function ClubBooking(props) {
                                     })}
                                 </Select>
                             </FormControl>
-                            <Grid maxW="800px" templateColumns="repeat(4, 1fr)" gap={5} justifyItems="center"
+                            <Grid templateColumns="repeat(4, 1fr)" gap={5} justifyItems="center"
                                   margin="20px auto">
                                 {Object.entries(slotMap).map(([k, v]) => (
                                     <GridItem key={k}>
@@ -202,14 +263,19 @@ function ClubBooking(props) {
                                             color="black"
                                             p={10}
                                             minW="180px"
+                                            height="150px"
                                             borderRadius="4px"
                                             textAlign="center"
                                         >
                                             <VStack>
                                                 <Text>{v}h</Text>
-                                                {Math.random() < 0.5 ?
-                                                    <Text color="gray.500">(Trống)</Text> :
-                                                    <Text color="gray.500">0971781359</Text>}
+                                                {checkSlot(k) ?
+                                                    <VStack fontWeight="medium">
+                                                        <Text>SĐT: {getSlotDetail(k).userPhone}</Text>
+                                                        <Text>Anh/chị: {getSlotDetail(k).firstName}</Text>
+                                                    </VStack> :
+                                                    <Text color="gray.500">(Trống)</Text>
+                                                }
                                             </VStack>
                                         </Box>
                                     </GridItem>

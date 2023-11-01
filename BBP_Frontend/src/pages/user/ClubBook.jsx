@@ -51,7 +51,6 @@ function ClubBook() {
     function checkIsTimeHasPrice(slotId) {
         for (let price of prices) {
             if (price.slotId == slotId && price.tableType == selectedTableType) {
-                console.log('ok')
                 return true;
             }
         }
@@ -236,16 +235,6 @@ function ClubBook() {
                 }
 
                 try {
-                    console.log(JSON.stringify({
-                        clubId: parseInt(id),
-                        tableId: parseInt(selectedTable.id),
-                        tableTypeId: parseInt(selectedTableType),
-                        date: selectedDate,
-                        firstSlotId: selectedSlot[0],
-                        lastSlotId: selectedSlot[selectedSlot.length - 1],
-                        customerId: parseInt(auth.id),
-                    }))
-
                     const res = await axios.post("/booking/book", JSON.stringify({
                         clubId: id,
                         tableId: selectedTable.id,
@@ -259,7 +248,6 @@ function ClubBook() {
                     })
 
                     if (res.data.data != null) {
-                        console.log(res.data.data)
                         navigate(`/history/${id}/${res.data.data}`)
                     } else {
                         toast({

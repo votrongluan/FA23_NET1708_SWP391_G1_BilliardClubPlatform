@@ -29,9 +29,12 @@ import axios, {baseURL} from "../../api/axios.js";
 import {useLoaderData, useParams} from "react-router-dom";
 import {GlobalContext} from "../../context/GlobalContext.jsx";
 import SearchFilter from "../../components/SearchFilter.jsx";
+import ConfirmationDialog from "../../components/ConfirmationDialog.jsx";
+import useAuth from "../../hooks/useAuth.js";
 
 function ClubBooking(props) {
     const {id} = useParams();
+    const {auth} = useAuth();
     const {slotMap, tableTypeMap} = useContext(GlobalContext);
     const bookings = useLoaderData();
     const [tables, setTables] = useState(null);
@@ -93,7 +96,8 @@ function ClubBooking(props) {
                                                 <Th>Số điện thoại</Th>
                                                 <Th>Ngày đặt</Th>
                                                 <Th>Giờ đặt</Th>
-                                                <Th>Giá tiền</Th>
+                                                <Th>Thành tiền</Th>
+                                                <Th textAlign="center">Trạng thái</Th>
                                             </Tr>
                                         </Thead>
                                         <Tbody>
@@ -117,6 +121,33 @@ function ClubBooking(props) {
                                                         <HStack spacing={5}>
                                                             <Text>{book.price.toLocaleString('en-US')}</Text>
                                                             <Text color="gray.500">(đồng)</Text>
+                                                        </HStack>
+                                                    </Td>
+                                                    <Td>
+                                                        <HStack spacing={5}>
+                                                            {book.bookingStatusId === 1 ?
+                                                                <ConfirmationDialog onConfirm={async () => {
+                                                                    try {
+                                                                        const res = await axios.put(`/bookingStatus/updateBookingStatus`, JSON.stringify({
+                                                                            staffId: auth.id,
+                                                                            bookingId: book.bookingId,
+                                                                        }), {
+                                                                            headers: {
+                                                                                'Content-Type': 'application/json'
+                                                                            }
+                                                                        });
+
+                                                                        console.log(res.data)
+                                                                    } catch (e) {
+                                                                        console.log(e);
+                                                                    }
+
+                                                                }} title="Xác nhận"
+                                                                                    color="green"/>
+                                                                :
+                                                                <Text>
+                                                                    Đã thanh toán
+                                                                </Text>}
                                                         </HStack>
                                                     </Td>
                                                 </Tr>

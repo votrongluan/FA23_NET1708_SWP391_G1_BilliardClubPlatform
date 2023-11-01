@@ -75,11 +75,13 @@ public class ReviewService {
 
         // Create a new feedback
         Review newReview = new Review();
-            newReview.setReviewId(booking.getReview().getReviewId());
+           // newReview.setReviewId(booking.getReview().getReviewId());
             newReview.setStar(grr.getStar());
             newReview.setComment(grr.getComment());
+            booking.setReview(newReview);
         // Save the feedback
             reviewRepository.save(newReview);
+            bookingRepository.save(booking);
         }
 
         return "Feedback submitted successfully";

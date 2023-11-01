@@ -7,5 +7,6 @@ import lombok.Data;
 @AllArgsConstructor
 public class BookInfoResponse {
     private String userPhone;
+    private String firstName;
     private Integer slotId;
 }

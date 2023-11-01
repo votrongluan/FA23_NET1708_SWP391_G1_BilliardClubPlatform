@@ -21,8 +21,6 @@ function BookHistory() {
 
     const bookings = useLoaderData();
 
-    console.log(bookings);
-
     return (
         <Container maxW="1200px" as="main" py={10}>
             <Heading as="h2" fontSize="24px" mb={5} textAlign="center">Lịch sử đặt bàn</Heading>

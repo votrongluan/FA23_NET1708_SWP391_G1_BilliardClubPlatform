@@ -30,7 +30,9 @@ function Header() {
                 </NavLink>}
 
                 <Spacer/>
-                <HStack spacing={5} fontSize="20px">
+                <HStack spacing={6} fontSize="20px" fontWeight="medium">
+                    <NavLink to="/about">Giới thiệu</NavLink>
+                    <NavLink to="/about">Liên hệ</NavLink>
                     {auth?.role === 'CUSTOMER' || !auth ?
                         <NavLink to="find">Tìm club</NavLink> : null}
                     {auth?.username ? (

@@ -26,6 +26,7 @@ import {EditIcon, StarIcon, ViewIcon} from "@chakra-ui/icons";
 import {Link} from "react-router-dom";
 import useAuth from "../hooks/useAuth.js";
 import {GlobalContext} from "../context/GlobalContext.jsx";
+import axios from "../api/axios.js";
 
 function BookHistoryCard({booking}) {
     // Rating array
@@ -121,11 +122,16 @@ function BookHistoryCard({booking}) {
 
                             console.log(JSON.stringify(data));
 
-                            // const res = await axios.post('/v1/giveFeedBack', JSON.stringify(data), {
-                            //     headers: {
-                            //         'Content-Type': 'application/json'
-                            //     }
-                            // });
+                            const res = await axios.post('/v1/giveFeedBack', JSON.stringify(data), {
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                }
+                            });
+
+                            if (res.status === 200) {
+                                onClose();
+                                window.location.reload();
+                            }
                         }}>
                             <FormControl isRequired>
                                 <FormLabel>Mức độ hài lòng</FormLabel>

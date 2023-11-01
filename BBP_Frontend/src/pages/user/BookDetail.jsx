@@ -1,6 +1,6 @@
 import {useContext} from "react";
 import axios from "../../api/axios.js";
-import {Link, useLoaderData} from "react-router-dom";
+import {Link, useLoaderData, useNavigate} from "react-router-dom";
 import {
     Button,
     Card,
@@ -12,13 +12,17 @@ import {
     HStack,
     Spacer,
     Text,
+    useToast,
     VStack,
 } from "@chakra-ui/react";
 import {CheckCircleIcon} from "@chakra-ui/icons";
 import {GlobalContext} from "../../context/GlobalContext.jsx";
 import useAuth from "../../hooks/useAuth.js";
+import ConfirmationDialog from "../../components/ConfirmationDialog.jsx";
 
 function BookDetail() {
+    const navigate = useNavigate();
+    const toast = useToast();
     const bookingDetail = useLoaderData();
     const {districtMap, slotMap, tableTypeMap} = useContext(GlobalContext);
     const {auth} = useAuth();
@@ -110,13 +114,30 @@ function BookDetail() {
                     </CardBody>
                 </Card>
             </VStack>
-            <HStack mt={10}>
-                <Spacer/>
-                <Link to="/">
-                    <Button>Về trang chủ</Button>
-                </Link>
-                <Spacer/>
-            </HStack>
+            <VStack mt={10}>
+                <HStack spacing={20}>
+                    <Link to="/">
+                        <Button>Về trang chủ</Button>
+                    </Link>
+                    {bookingDetail.bookingStatusId === 1 && (
+                        <ConfirmationDialog onConfirm={async () => {
+                            const res = await axios.delete(`booking/cancelBooking/${bookingDetail.bookingId}`);
+
+                            if (res.data) {
+                                toast({
+                                    title: "Hủy lịch thành công",
+                                    description: "Đơn đặt bàn của bạn đã được hủy thành công",
+                                    status: "success",
+                                    duration: 3000,
+                                    isClosable: true,
+                                    position: "top-right",
+                                });
+                                navigate('/history/' + auth.id);
+                            }
+                        }} title="Hủy lịch"/>
+                    )}
+                </HStack>
+            </VStack>
         </Container>
     );
 }

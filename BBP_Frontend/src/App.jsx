@@ -26,6 +26,8 @@ import BookDetail, {bookingDetailLoader} from "./pages/user/BookDetail.jsx";
 import ClubManage from "./pages/admin/ClubManage.jsx";
 import AdminLayout from "./layouts/AdminLayout.jsx";
 import StaffAccountManage, {staffAccountLoader} from "./pages/admin/StaffAccountManage.jsx";
+import About from "./pages/all/About.jsx";
+import Intro from "./pages/all/Intro.jsx";
 
 function App() {
     useEffect(() => {
@@ -77,6 +79,11 @@ function App() {
                     loader={clubsLoader}
                     element={<Find/>}
                 />
+
+                {/* About us page */}
+                <Route path="about" element={<About/>}/>
+
+                <Route path="intro" element={<Intro/>}/>
 
                 {/* Booking route */}
                 <Route

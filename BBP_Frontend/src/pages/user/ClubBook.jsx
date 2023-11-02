@@ -12,10 +12,11 @@ import {
     Heading,
     HStack,
     Select,
+    Spacer,
     Text,
     useToast,
 } from "@chakra-ui/react";
-import {CalendarIcon} from "@chakra-ui/icons";
+import {CalendarIcon, SearchIcon} from "@chakra-ui/icons";
 import {useLoaderData, useNavigate, useParams} from "react-router-dom";
 import {GlobalContext} from "../../context/GlobalContext.jsx";
 import axios, {baseURL} from "../../api/axios.js";
@@ -395,7 +396,20 @@ function ClubBook() {
                     <Text color="red.500">{price.toLocaleString('en-US')} đồng</Text>
                 </HStack>
 
-                <Button
+              <HStack>
+              <Button
+                    leftIcon={<SearchIcon/>}
+                    width="100%"
+                    mt={2}
+                    onClick={()=>{
+                        navigate('/find')
+                    }
+                }
+                >
+                    Tìm club khác
+                </Button>
+                <Spacer />
+              <Button
                     type="submit"
                     width="100%"
                     mt={2}
@@ -404,6 +418,7 @@ function ClubBook() {
                 >
                     Đặt bàn
                 </Button>
+              </HStack>
             </form>
         </Container>
     );

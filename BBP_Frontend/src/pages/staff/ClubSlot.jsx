@@ -225,7 +225,7 @@ function ClubSlot(props) {
                                                 value={key}
                                                 name="slotId"
                                             >
-                                                {value}
+                                                {value + "h"}
                                             </Checkbox>
                                         ))}
                                     </SimpleGrid>

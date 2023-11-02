@@ -20,12 +20,12 @@ function Club({data}) {
 
             <CardBody color="gray.500">
                 <Text color="black" fontSize="20px">{club?.clubName}</Text>
-                <Text mt={2}>{club?.address}, {districtMap[club.districtId]}</Text>
+                <Text height='30px'  mt={2}>{club?.address}, {districtMap[club.districtId]}</Text>
                 {Boolean(club?.noRating) ?
-                    <Text mt={4} gap={2} display="flex" alignItems="center" justifyContent="flex-start" color="gray.500">
+                    <Text mt={10} gap={2} display="flex" alignItems="center" justifyContent="flex-start" color="gray.500">
                         <StarIcon color="yellow.500"/>{club.rating.toFixed(1)} ({club.noRating} đánh giá)
                     </Text> :
-                    <Text mt={4} gap={2} display="flex" alignItems="center" justifyContent="flex-start"
+                    <Text  mt={10} gap={2} display="flex" alignItems="center" justifyContent="flex-start"
                           color="gray.500">
                         <StarIcon color="yellow.500"/>Chưa có đánh giá
                     </Text>}

@@ -3,6 +3,30 @@ import {HStack, Input, InputGroup, InputLeftElement, Select, Spacer, Text} from 
 import {SearchIcon} from "@chakra-ui/icons";
 
 function SearchFilter({data, methods, DisplayData, properties, searchPlaceholder}) {
+    function sortDates(dateArray) {
+        // Custom comparator function to sort dates
+        const comparator = (a, b) => {
+          const dateA = new Date(
+            a.date.split('/').reverse().join('-')
+          ); // Convert to 'yyyy-mm-dd' format
+          const dateB = new Date(
+            b.date.split('/').reverse().join('-')
+          ); // Convert to 'yyyy-mm-dd' format
+      
+          if (sortOrder === "asc") {
+            return dateA - dateB;
+        } else {
+            return dateB - dateA;
+        }
+          
+        };
+      
+        // Use the comparator function with the sort method
+        dateArray.sort(comparator);
+      
+        return dateArray;
+      }
+
     const normalize = (text) => {
         return text
             .normalize('NFKD')
@@ -17,6 +41,10 @@ function SearchFilter({data, methods, DisplayData, properties, searchPlaceholder
 
     const sortData = (dataNeedSortedByMethod) => {
         let filtered = [...dataNeedSortedByMethod];
+
+        if (sortMethod == "date") {
+            return sortDates(filtered)
+        }
 
         filtered.sort((a, b) => {
             if (sortMethod) {

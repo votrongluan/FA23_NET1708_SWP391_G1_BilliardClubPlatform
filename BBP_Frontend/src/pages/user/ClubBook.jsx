@@ -398,15 +398,15 @@ function ClubBook() {
 
               <HStack>
               <Button
-                    leftIcon={<SearchIcon/>}
+                    
                     width="100%"
                     mt={2}
                     onClick={()=>{
-                        navigate('/find')
+                        navigate('/')
                     }
                 }
                 >
-                    Tìm club khác
+                    Trang chủ
                 </Button>
                 <Spacer />
               <Button

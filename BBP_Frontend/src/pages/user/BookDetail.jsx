@@ -1,4 +1,4 @@
-import {useContext} from "react";
+import React, {useContext} from "react";
 import axios from "../../api/axios.js";
 import {Link, useLoaderData, useNavigate} from "react-router-dom";
 import {
@@ -10,6 +10,7 @@ import {
     Divider,
     Heading,
     HStack,
+    Link as ChakraLink,
     Spacer,
     Text,
     useToast,
@@ -50,7 +51,13 @@ function BookDetail() {
                         <HStack>
                             <Text color="gray.500">Club: </Text>
                             <Spacer/>
-                            <Text fontWeight="semibold">{bookingDetail.clubName}</Text>
+                            <Text fontWeight="semibold">
+                                <ChakraLink color="blue.500"
+                                            href={`/clubs/${bookingDetail.clubId}`}
+                                            isExternal>
+                                    {bookingDetail.clubName}
+                                </ChakraLink>
+                            </Text>
                         </HStack>
                         <HStack>
                             <Text color="gray.500">Đia chỉ: </Text>

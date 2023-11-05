@@ -32,9 +32,13 @@ function BookHistory() {
                 (
                     <Pagination data={filteredData} itemsPerPage={10} DisplayData={({currentData}) => (
                         <Flex flexDirection="column" gap={5}>
-                            {currentData.map(booking => (
-                                <BookHistoryCard key={booking.bookingId} booking={booking}/>
-                            ))}
+                            {currentData.map(booking => {
+                                if (!booking.firstSlotId) return null;
+                                
+                                return (
+                                    <BookHistoryCard key={booking.bookingId} booking={booking}/>
+                                )
+                            })}
                         </Flex>
                     )}/>
                 )

@@ -15,6 +15,7 @@ import java.util.Date;
 public class BookingResponse {
 
     private int bookingId;
+    private int clubId;
     private String clubName;
     private String clubAddress;
     private int districtId;

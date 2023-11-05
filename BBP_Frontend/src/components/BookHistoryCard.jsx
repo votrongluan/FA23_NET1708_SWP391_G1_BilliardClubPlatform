@@ -9,6 +9,7 @@ import {
     FormHelperText,
     FormLabel,
     HStack,
+    Link as ChakraLink,
     Modal,
     ModalBody,
     ModalCloseButton,
@@ -72,7 +73,12 @@ function BookHistoryCard({booking}) {
                 <CardBody>
                     <Stack>
                         <Text fontWeight="semibold" color="gray.500">Mã đơn: {booking.bookingId}</Text>
-                        <Text fontWeight="semibold" as="h3" fontSize="20px">Club: {booking.clubName}</Text>
+                        <Text fontWeight="semibold" as="h3" fontSize="20px">Club: <ChakraLink color="blue.500"
+                                                                                              href={`/clubs/${booking.clubId}`}
+                                                                                              isExternal>
+                            {booking.clubName}
+                        </ChakraLink>
+                        </Text>
                         <Text>Địa chỉ: {booking.clubAddress}, {districtMap[booking.districtId]}</Text>
                         <Text>Ngày đặt: {booking.date}</Text>
                     </Stack>

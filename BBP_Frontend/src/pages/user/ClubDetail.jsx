@@ -1,25 +1,25 @@
-import {useContext, useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import {
-  Avatar,
-  Box,
-  Button,
-  Container,
-  Grid,
-  GridItem,
-  Heading,
-  HStack,
-  Link as ChakraLink,
-  Spacer,
-  Spinner,
-  Stack,
-  Table,
-  TableContainer,
-  Tbody,
-  Td,
-  Text,
-  Th,
-  Thead,
-  Tr,
+    Avatar,
+    Box,
+    Button,
+    Container,
+    Grid,
+    GridItem,
+    Heading,
+    HStack,
+    Link as ChakraLink,
+    Spacer,
+    Spinner,
+    Stack,
+    Table,
+    TableContainer,
+    Tbody,
+    Td,
+    Text,
+    Th,
+    Thead,
+    Tr,
 } from "@chakra-ui/react";
 import {CalendarIcon, ExternalLinkIcon, StarIcon,} from "@chakra-ui/icons";
 import {Link, useLoaderData, useParams} from "react-router-dom";
@@ -103,7 +103,8 @@ function ClubDetail() {
                         </HStack>
                         <HStack>
                             <Text>Email:</Text>
-                            <Text fontWeight="medium">{club.email}</Text>
+                            <Text fontWeight="medium">{club.email ? club.email :
+                                <Text fontWeight="normal" color="gray.500">(Chưa có thông tin)</Text>}</Text>
                         </HStack>
                         <HStack>
                             <Text>Số điện thoại:</Text>
@@ -113,13 +114,13 @@ function ClubDetail() {
                             <Text>Tổng lượt đặt bàn:</Text>
                             <Text fontWeight="medium">{club.noBooking}</Text>
                         </HStack>
-                        <Text>
-                            Fanpage:{" "}
-                            <ChakraLink color="blue.500" href={club.fanpageLink} isExternal>
+                        <HStack>
+                            <Text>Fanpage:{" "}</Text>
+                            {club.fanpageLink ? <ChakraLink color="blue.500" href={club.fanpageLink} isExternal>
                                 {club.fanpageLink}
                                 <ExternalLinkIcon mx="2px"/>
-                            </ChakraLink>
-                        </Text>
+                            </ChakraLink> : <Text fontWeight="normal" color="gray.500">(Chưa có thông tin)</Text>}
+                        </HStack>
                         <Link to={`/book/${club.clubId}`}>
                             <Button
                                 width="100%"

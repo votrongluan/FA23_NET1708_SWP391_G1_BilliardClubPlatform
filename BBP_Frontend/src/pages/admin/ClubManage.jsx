@@ -50,7 +50,7 @@ function ClubManage(props) {
 
     return (
         <>
-            <Heading as="h2" textAlign="center">Quản lý club</Heading>
+            <Heading as="h2" size="lg" textAlign="center">Quản lý club</Heading>
             <HStack mt={5}>
                 <Spacer/>
                 <Button leftIcon={<AddIcon/>} colorScheme="telegram" onClick={onOpen}>Thêm</Button>

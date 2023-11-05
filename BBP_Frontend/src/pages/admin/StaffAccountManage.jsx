@@ -44,7 +44,7 @@ function StaffAccountManage(props) {
             <Heading as="h2" size="lg" textAlign="center">Quản lý tài khoản nhân viên</Heading>
             <HStack mt={5}>
                 <Spacer/>
-                <Button size="lg" leftIcon={<AddIcon/>} colorScheme="telegram" onClick={onOpen}>Thêm</Button>
+                <Button leftIcon={<AddIcon/>} colorScheme="telegram" onClick={onOpen}>Thêm</Button>
             </HStack>
             <SearchFilter data={staffs} methods={[
                 {value: 'username', label: 'Tên đăng nhập'},

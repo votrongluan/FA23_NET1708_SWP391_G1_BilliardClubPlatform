@@ -1,4 +1,4 @@
-import React, {useRef} from 'react';
+import React, {useRef, useState} from 'react';
 import {
     Box,
     Button,
@@ -13,6 +13,10 @@ import {
     ModalContent,
     ModalHeader,
     ModalOverlay,
+    RangeSlider,
+    RangeSliderFilledTrack,
+    RangeSliderThumb,
+    RangeSliderTrack,
     Select,
     Spacer,
     Text,
@@ -32,8 +36,15 @@ function EditFieldBox({
                           setNewData,
                           helperText,
                           isSelect,
-                          selectOptions
+                          selectOptions,
+                          isRangeSlier,
+                          rangeSliderMin,
+                          rangeSliderMax,
+                          rangeSliderStep,
                       }) {
+    // Slider value array
+    const [sliderValue, setSliderValue] = useState([oldData[propertyName[0]], oldData[propertyName[1]]]);
+
     // Toast
     const toast = useToast();
 
@@ -105,24 +116,50 @@ function EditFieldBox({
                             const formData = new FormData(e.target);
                             const data = Object.fromEntries(formData.entries()).data;
 
-                            const res = await axios.put(url, JSON.stringify({
-                                ...oldData,
-                                [propertyName]: data
-                            }), {
-                                headers: {"Content-Type": "application/json"}
-                            });
+                            if (isRangeSlier) {
+                                const res = await axios.put(url, JSON.stringify({
+                                    ...oldData,
+                                    [propertyName[0]]: sliderValue[0],
+                                    [propertyName[1]]: sliderValue[1]
+                                }), {
+                                    headers: {"Content-Type": "application/json"}
+                                });
 
-                            if (res.data.status == 'Ok') {
-                                if (setNewData) {
-                                    setNewData({
-                                        ...oldData,
-                                        [propertyName]: data
-                                    });
-                                } else {
-                                    oldData = {
-                                        ...oldData,
-                                        [propertyName]: data
-                                    };
+                                if (res.data.status == 'Ok') {
+                                    if (setNewData) {
+                                        setNewData({
+                                            ...oldData,
+                                            [propertyName[0]]: sliderValue[0],
+                                            [propertyName[1]]: sliderValue[1]
+                                        });
+                                    } else {
+                                        oldData = {
+                                            ...oldData,
+                                            [propertyName[0]]: sliderValue[0],
+                                            [propertyName[1]]: sliderValue[1]
+                                        };
+                                    }
+                                }
+                            } else {
+                                const res = await axios.put(url, JSON.stringify({
+                                    ...oldData,
+                                    [propertyName]: data
+                                }), {
+                                    headers: {"Content-Type": "application/json"}
+                                });
+
+                                if (res.data.status == 'Ok') {
+                                    if (setNewData) {
+                                        setNewData({
+                                            ...oldData,
+                                            [propertyName]: data
+                                        });
+                                    } else {
+                                        oldData = {
+                                            ...oldData,
+                                            [propertyName]: data
+                                        };
+                                    }
                                 }
                             }
 
@@ -137,9 +174,26 @@ function EditFieldBox({
                                             }
                                         )}
                                     </Select>
-                                    :
-                                    <Input name="data" type={type} ref={initialRef}
-                                           placeholder={typeof value != "object" ? value : null}/>
+                                    : isRangeSlier ?
+                                        <>
+                                            <Box borderRadius="4px" bgColor="white" borderWidth="1px" p={2}>
+                                                <Text>{sliderValue[0] + 'h - ' + sliderValue[1] + 'h'}</Text>
+                                            </Box>
+                                            <RangeSlider mt={5} onChange={(value) => {
+                                                setSliderValue(value);
+                                            }} defaultValue={[sliderValue[0], sliderValue[1]]}
+                                                         min={rangeSliderMin} max={rangeSliderMax}
+                                                         step={rangeSliderStep}>
+                                                <RangeSliderTrack bg='white'>
+                                                    <RangeSliderFilledTrack bg='blue.500'/>
+                                                </RangeSliderTrack>
+                                                <RangeSliderThumb boxSize={6} index={0}/>
+                                                <RangeSliderThumb boxSize={6} index={1}/>
+                                            </RangeSlider>
+                                        </>
+                                        :
+                                        <Input name="data" type={type} ref={initialRef}
+                                               placeholder={typeof value != "object" ? value : null}/>
                                 }
                             </FormControl>
 

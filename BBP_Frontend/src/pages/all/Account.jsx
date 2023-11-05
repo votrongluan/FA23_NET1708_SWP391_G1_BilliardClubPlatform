@@ -5,6 +5,7 @@ import {
     FormControl,
     FormLabel,
     Input,
+    Link as ChakraLink,
     Tab,
     TabList,
     TabPanel,
@@ -18,6 +19,7 @@ import useAuth from "../../hooks/useAuth.js";
 import EditFieldBox from "../../components/EditFieldBox.jsx";
 import React from "react";
 import axios from "../../api/axios.js";
+import {ExternalLinkIcon} from "@chakra-ui/icons";
 
 function Account() {
     const {auth, setAuth} = useAuth();
@@ -53,14 +55,19 @@ function Account() {
                                               <Text color="gray.500">(Chưa có thông tin)</Text>} type="text"
                                           propertyName="lastName" url={`/v1/updateUser/${id}`} oldData={auth}
                                           setNewData={setAuth}/>
-                            <EditFieldBox title="Số điện thoại" value={auth.phone} type="tel" propertyName="phone"
+                            <EditFieldBox title="Số điện thoại" value={auth.phone ? auth.phone :
+                                <Text color="gray.500">(Chưa có thông tin)</Text>} type="tel" propertyName="phone"
                                           url={`/v1/updateUser/${id}`} oldData={auth} setNewData={setAuth}/>
                             <EditFieldBox title="Email" value={auth.email ? auth.email :
                                 <Text color="gray.500">(Chưa có thông tin)</Text>}
                                           type="email" propertyName="email"
                                           url={`/v1/updateUser/${id}`} oldData={auth} setNewData={setAuth}/>
                             <EditFieldBox title="Ảnh đại diện"
-                                          value={auth.avatarLink ? auth.avatarLink :
+                                          value={auth.avatarLink ?
+                                              <ChakraLink color="blue.500" href={auth.avatarLink} isExternal>
+                                                  {auth.avatarLink}
+                                                  <ExternalLinkIcon mx="2px"/>
+                                              </ChakraLink> :
                                               <Text color="gray.500">(Chưa có thông tin)</Text>} type="text"
                                           propertyName="avatarLink" url={`/v1/updateUser/${id}`} oldData={auth}
                                           setNewData={setAuth}/>

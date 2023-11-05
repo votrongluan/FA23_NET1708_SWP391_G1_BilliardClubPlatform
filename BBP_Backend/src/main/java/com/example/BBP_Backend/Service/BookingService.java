@@ -163,6 +163,7 @@ public class BookingService {
 
         return BookingResponse.builder()
                 .bookingId(booking.getBookingId())
+                .clubId(booking.getClub().getClubId())
                 .clubAddress(booking.getClub().getAddress())
                 .districtId(booking.getClub().getDistrictId())
                 .clubName(booking.getClub().getClubName())

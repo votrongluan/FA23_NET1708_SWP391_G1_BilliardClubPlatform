@@ -143,76 +143,80 @@ function ClubBooking(props) {
                                             </Tr>
                                         </Thead>
                                         <Tbody>
-                                            {filteredData.map((book) => (
-                                                <Tr key={book.bookingId}>
-                                                    <Td>{book.tableId}</Td>
-                                                    <Td>{book.type}</Td>
-                                                    <Td>{book.userPhone}</Td>
-                                                    <Td>{book.date}</Td>
-                                                    <Td>
-                                                        <HStack spacing={5}>
-                                                            <Text>{
-                                                                book.firstSlotId === book.lastSlotId ?
-                                                                    slotMap[book.firstSlotId] + ' - ' + Number(Number(slotMap[book.firstSlotId]) + 1) :
-                                                                    slotMap[book.firstSlotId] + ' - ' + Number(Number(slotMap[book.lastSlotId]) + 1)
-                                                            }</Text>
-                                                            <Text color="gray.500">(h)</Text>
-                                                        </HStack>
-                                                    </Td>
-                                                    <Td>
-                                                        <HStack spacing={5}>
-                                                            <Text>{book.price.toLocaleString('en-US')}</Text>
-                                                            <Text color="gray.500">(đồng)</Text>
-                                                        </HStack>
-                                                    </Td>
-                                                    <Td>
-                                                        <HStack spacing={5}>
-                                                            {book.bookingStatusId === 1 ?
-                                                                <ConfirmationDialog onConfirm={async () => {
-                                                                    try {
-                                                                        const res = await axios.put(`/bookingStatus/updateBookingStatus`, JSON.stringify({
-                                                                            staffId: auth.id,
-                                                                            bookingId: book.bookingId,
-                                                                        }), {
-                                                                            headers: {
-                                                                                'Content-Type': 'application/json'
+                                            {filteredData.map((book) => {
+                                                if (!book.firstSlotId) return null;
+
+                                                return (
+                                                    <Tr key={book.bookingId}>
+                                                        <Td>{book.tableId}</Td>
+                                                        <Td>{book.type}</Td>
+                                                        <Td>{book.userPhone}</Td>
+                                                        <Td>{book.date}</Td>
+                                                        <Td>
+                                                            <HStack spacing={5}>
+                                                                <Text>{
+                                                                    book.firstSlotId === book.lastSlotId ?
+                                                                        slotMap[book.firstSlotId] + ' - ' + Number(Number(slotMap[book.firstSlotId]) + 1) :
+                                                                        slotMap[book.firstSlotId] + ' - ' + Number(Number(slotMap[book.lastSlotId]) + 1)
+                                                                }</Text>
+                                                                <Text color="gray.500">(h)</Text>
+                                                            </HStack>
+                                                        </Td>
+                                                        <Td>
+                                                            <HStack spacing={5}>
+                                                                <Text>{book.price.toLocaleString('en-US')}</Text>
+                                                                <Text color="gray.500">(đồng)</Text>
+                                                            </HStack>
+                                                        </Td>
+                                                        <Td>
+                                                            <HStack spacing={5}>
+                                                                {book.bookingStatusId === 1 ?
+                                                                    <ConfirmationDialog onConfirm={async () => {
+                                                                        try {
+                                                                            const res = await axios.put(`/bookingStatus/updateBookingStatus`, JSON.stringify({
+                                                                                staffId: auth.id,
+                                                                                bookingId: book.bookingId,
+                                                                            }), {
+                                                                                headers: {
+                                                                                    'Content-Type': 'application/json'
+                                                                                }
+                                                                            });
+
+                                                                            if (res.data.status == 'Ok') {
+                                                                                toast({
+                                                                                    title: "Thành công",
+                                                                                    description: "Đã xác nhận thanh toán",
+                                                                                    status: "success",
+                                                                                    duration: 700,
+                                                                                    isClosable: false,
+                                                                                    position: "top-right"
+                                                                                });
+                                                                                window.location.reload();
+                                                                            } else {
+                                                                                toast({
+                                                                                    title: "Thất bại",
+                                                                                    description: "Đã xảy ra lỗi",
+                                                                                    status: "error",
+                                                                                    duration: 700,
+                                                                                    isClosable: false,
+                                                                                    position: "top-right"
+                                                                                });
                                                                             }
-                                                                        });
-
-                                                                        if (res.data.status == 'Ok') {
-                                                                            toast({
-                                                                                title: "Thành công",
-                                                                                description: "Đã xác nhận thanh toán",
-                                                                                status: "success",
-                                                                                duration: 700,
-                                                                                isClosable: false,
-                                                                                position: "top-right"
-                                                                            });
-                                                                            window.location.reload();
-                                                                        } else {
-                                                                            toast({
-                                                                                title: "Thất bại",
-                                                                                description: "Đã xảy ra lỗi",
-                                                                                status: "error",
-                                                                                duration: 700,
-                                                                                isClosable: false,
-                                                                                position: "top-right"
-                                                                            });
+                                                                        } catch (e) {
+                                                                            console.log(e);
                                                                         }
-                                                                    } catch (e) {
-                                                                        console.log(e);
-                                                                    }
 
-                                                                }} title="Xác nhận"
-                                                                                    color="green"/>
-                                                                :
-                                                                <Text color="gray.500">
-                                                                    (Đã thanh toán)
-                                                                </Text>}
-                                                        </HStack>
-                                                    </Td>
-                                                </Tr>
-                                            ))}
+                                                                    }} title="Xác nhận"
+                                                                                        color="green"/>
+                                                                    :
+                                                                    <Text color="gray.500">
+                                                                        (Đã thanh toán)
+                                                                    </Text>}
+                                                            </HStack>
+                                                        </Td>
+                                                    </Tr>
+                                                )
+                                            })}
                                         </Tbody>
                                     </Table>
                                 </TableContainer>

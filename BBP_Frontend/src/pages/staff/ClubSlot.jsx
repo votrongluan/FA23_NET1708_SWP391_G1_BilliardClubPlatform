@@ -58,7 +58,7 @@ function ClubSlot(props) {
                 <Spacer/>
                 <Button leftIcon={<EditIcon/>} colorScheme="telegram" onClick={onOpen}>Cập nhật</Button>
             </HStack>
-            <SearchFilter data={slots} methods={[
+            <SearchFilter searchPlaceholder="Tìm kiếm theo loại bàn, khung giờ, giá tiền" data={slots} methods={[
                 {value: 'type', label: 'Loại bàn'},
                 {value: 'time', label: 'Khung giờ'},
                 {value: 'price', label: 'Giá tiền'},

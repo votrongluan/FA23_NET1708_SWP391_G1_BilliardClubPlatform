@@ -46,7 +46,7 @@ function StaffAccountManage(props) {
                 <Spacer/>
                 <Button leftIcon={<AddIcon/>} colorScheme="telegram" onClick={onOpen}>Thêm</Button>
             </HStack>
-            <SearchFilter data={staffs} methods={[
+            <SearchFilter searchPlaceholder="Tìm kiếm theo tên đăng nhập, tên club quản lý" data={staffs} methods={[
                 {value: 'username', label: 'Tên đăng nhập'},
                 {value: 'clubName', label: 'Tên club quản lý'}
             ]} properties={['username', 'clubName']} DisplayData={

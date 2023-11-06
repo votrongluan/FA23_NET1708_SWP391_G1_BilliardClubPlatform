@@ -57,7 +57,7 @@ function ClubTable(props) {
                 <Spacer/>
                 <Button leftIcon={<EditIcon/>} colorScheme="telegram" onClick={onOpen}>Cập nhật</Button>
             </HStack>
-            <SearchFilter data={tables} methods={[
+            <SearchFilter searchPlaceholder="Tìm kiếm theo loại bàn, mã bàn" data={tables} methods={[
                 {value: 'type', label: 'Loại bàn'},
                 {value: 'id', label: 'Mã bàn'}
             ]} DisplayData={

@@ -118,7 +118,9 @@ function ClubBooking(props) {
 
                 <TabPanels py="10px">
                     <TabPanel>
-                        <SearchFilter data={bookings} methods={
+                        <SearchFilter
+                            searchPlaceholder={"Tìm kiếm theo số điện thoại, ngày, giờ đặt, loại bàn, mã bàn, giá tiền"}
+                            data={bookings} methods={
                             [
                                 {value: 'userPhone', label: 'Số điện thoại'},
                                 {value: 'date', label: 'Ngày đặt'},

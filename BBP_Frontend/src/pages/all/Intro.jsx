@@ -1,5 +1,6 @@
 import React from 'react';
 import {Container, Heading, Image} from "@chakra-ui/react";
+import introImg from "../../../public/Black Modern Billiards Tournament Poster.png";
 
 function About(props) {
     return (
@@ -7,8 +8,8 @@ function About(props) {
             <Heading as="h2" size="lg" textAlign="center">
                 Giới thiệu
             </Heading>
-            <Image mt={10}
-                   src="https://smartvietnam.com.vn/vi/wp-content/uploads/2020/01/TN-SM-GTCLvn.jpg"/>
+            <Image margin="0 auto" width="50%" mt={10}
+                   src={introImg}/>
         </Container>
     );
 }

@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Objects;
 
 @RestController
-@CrossOrigin("http://localhost:5173")
+@CrossOrigin(origins = {"https://bilbok.netlify.app/", "http://localhost:5173/" })
 @RequestMapping("/api/v1")
 @RequiredArgsConstructor
 public class UserController {

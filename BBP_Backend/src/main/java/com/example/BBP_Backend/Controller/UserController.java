@@ -1,6 +1,7 @@
 package com.example.BBP_Backend.Controller;
 
 import com.example.BBP_Backend.Model.User;
+import com.example.BBP_Backend.Request.ResetPasswordRequest;
 import com.example.BBP_Backend.Request.UpdatePasswordRequest;
 import com.example.BBP_Backend.Request.UserUpdateRequest;
 import com.example.BBP_Backend.Response.ResponseObject;
@@ -70,6 +71,34 @@ public class UserController {
             return ResponseEntity.badRequest().body(staffs);
         }
 
+    }
+    @GetMapping("/sendOTP/{email}")
+    public ResponseEntity<String> sendOTP (@PathVariable String email) {
+        boolean result = userService.generateAndSendOTP(email);
+        if (result) {
+            return ResponseEntity.ok("Ok");
+        }else{
+            return  ResponseEntity.badRequest().body("Can not find account with this email");
+        }
+    }
+    @GetMapping("/verifyOTP/{otp}")
+    public ResponseEntity<String> verifyOTP(@PathVariable String otp){
+        boolean result = userService.verifyOTP(otp);
+        if(result){
+            return ResponseEntity.ok("OTP verified successfully. Proceed to reset password.");
+        }
+        return ResponseEntity.badRequest().body("Invalid OTP. Please try again.");
+    }
+    @PostMapping("/resetPassword/{email}")
+    public ResponseEntity<String> resetPassword(@PathVariable String email,
+                                                @RequestBody ResetPasswordRequest req){
+        boolean result = userService.resetPassword(email,req);
+        if(result){
+            return ResponseEntity.ok("Reset password successfully!");
+
+        }else{
+            return ResponseEntity.badRequest().body("Confirm Password dont match !!!");
+        }
     }
 
 }

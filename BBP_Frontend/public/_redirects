@@ -1,1 +1,2 @@
 /* /index.html 200
+/* /api/:splat  https://billard-booking-project.azurewebsites.net/:splat  200

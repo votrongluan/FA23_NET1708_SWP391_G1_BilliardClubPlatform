@@ -1,63 +1,82 @@
-import React from 'react';
-import {Container, Flex, Heading, Text} from "@chakra-ui/react";
+import React from "react";
+import { Container, Flex, Heading, Text } from "@chakra-ui/react";
 import BookHistoryCard from "../../components/BookHistoryCard.jsx";
 import axios from "../../api/axios.js";
-import {Navigate, useLoaderData, useParams} from "react-router-dom";
+import { Navigate, useLoaderData, useParams } from "react-router-dom";
 import SearchFilter from "../../components/SearchFilter.jsx";
 import useAuth from "../../hooks/useAuth.js";
 import Pagination from "../../components/Pagination.jsx";
 
 function BookHistory() {
-    const {auth, setAuth} = useAuth();
-    const {id} = useParams();
+  const { auth, setAuth } = useAuth();
+  const bookings = useLoaderData();
+  bookings.sort(
+    (a, b) =>
+      new Date(b.date.split("/").reverse().join("-")) -
+      new Date(a.date.split("/").reverse().join("-"))
+  );
+  const { id } = useParams();
 
-    if (!auth) {
-        return <Navigate to="/auth"/>
-    }
+  if (!auth) {
+    return <Navigate to="/auth" />;
+  }
 
-    if (id.toString() !== auth?.id.toString()) {
-        return <Navigate to="/unauthorized"/>
-    }
+  if (id.toString() !== auth?.id.toString()) {
+    return <Navigate to="/unauthorized" />;
+  }
 
-    const bookings = useLoaderData();
-
-    return (
-        <Container maxW="1200px" as="main" py={10}>
-            <Heading as="h2" fontSize="24px" mb={5} textAlign="center">Lịch sử đặt bàn</Heading>
-            {bookings != null ? <SearchFilter data={bookings} methods={[
-                {value: "clubName", label: "Tên câu lạc bộ"},
-                {value: "date", label: "Ngày đặt"},
-                {value: "star", label: "Đánh giá"}
-            ]} properties={["clubName", "clubAddress", "date", "bookingId"]} DisplayData={({filteredData}) =>
-                (
-                    <Pagination data={filteredData} itemsPerPage={10} DisplayData={({currentData}) => (
-                        <Flex flexDirection="column" gap={5}>
-                            {currentData.map(booking => {
-                                if (!booking.firstSlotId) return null;
-                                
-                                return (
-                                    <BookHistoryCard key={booking.bookingId} booking={booking}/>
-                                )
-                            })}
-                        </Flex>
-                    )}/>
-                )
-            }/> : <Text mt={10} textAlign="center" color="gray.500">(Bạn không có đơn đặt bàn nào)</Text>}
-
-        </Container>
-    );
+  return (
+    <Container maxW="1200px" as="main" py={10}>
+      <Heading as="h2" fontSize="24px" mb={5} textAlign="center">
+        Lịch sử đặt bàn
+      </Heading>
+      {bookings != null ? (
+        <SearchFilter
+          data={bookings.filter((booking) => booking.firstSlotId)}
+          methods={[
+            { value: "clubName", label: "Tên câu lạc bộ" },
+            { value: "date", label: "Ngày đặt" },
+            { value: "star", label: "Đánh giá" },
+          ]}
+          properties={["clubName", "clubAddress", "date", "bookingId"]}
+          DisplayData={({ filteredData }) => (
+            <Pagination
+              data={filteredData}
+              itemsPerPage={10}
+              DisplayData={({ currentData }) => (
+                <Flex flexDirection="column" gap={5}>
+                  {currentData.map((booking) => {
+                    return (
+                      <BookHistoryCard
+                        key={booking.bookingId}
+                        booking={booking}
+                      />
+                    );
+                  })}
+                </Flex>
+              )}
+            />
+          )}
+        />
+      ) : (
+        <Text mt={10} textAlign="center" color="gray.500">
+          (Bạn không có đơn đặt bàn nào)
+        </Text>
+      )}
+    </Container>
+  );
 }
 
 export default BookHistory;
 
-export const bookingHistoryLoader = async ({params}) => {
-    const {id} = params
+export const bookingHistoryLoader = async ({ params }) => {
+  const { id } = params;
 
-    try {
-        const res = await axios.get(`/booking/getAllByCusId/${id}`);
+  try {
+    const res = await axios.get(`/booking/getAllByCusId/${id}`);
 
-        return res.data.data;
-    } catch (err) {
-        return null;
-    }
-}
+    return res.data.data;
+  } catch (err) {
+    return null;
+  }
+};

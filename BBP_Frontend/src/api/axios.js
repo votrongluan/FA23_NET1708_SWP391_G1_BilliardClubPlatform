@@ -1,7 +1,7 @@
-import axios from 'axios';
+import axios from "axios";
 
-export const baseURL = 'http://localhost:8080/api';
+export const baseURL = "https://billard-booking-project.azurewebsites.net/api";
 
 export default axios.create({
-    baseURL: 'http://localhost:8080/api'
+  baseURL,
 });

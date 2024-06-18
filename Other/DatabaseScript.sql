@@ -1,11 +1,11 @@
 ﻿-- Drop and create the database
 USE master
 GO
-DROP DATABASE IF EXISTS BCBP;
+DROP DATABASE IF EXISTS BBP;
 GO
-CREATE DATABASE BCBP;
+CREATE DATABASE BBP;
 GO
-USE BCBP;
+USE BBP;
 
 -- Create Users table  
 CREATE TABLE Users (

@@ -146,39 +146,44 @@ If you need help, you can reach out via:
 ## Screenshot
 
 <div style="text-align: center;">
-    <img src="./img/index.png" alt="Home" style="width: 65%;"/>
+    <img src="./img/index.png" alt="Home" style="width: 70%;"/>
     <p><em>Home</em></p>
 </div>
 
 <hr/>
+<br/>
 
 <div style="text-align: center;">
-    <img src="img/find-club.png" alt="Find club" style="width: 65%;"/>
+    <img src="img/find-club.png" alt="Find club" style="width: 70%;"/>
     <p><em>Find club</em></p>
 </div>
 
 <hr/>
+<br/>
 
 <div style="text-align: center;">
-    <img src="img/club-detail.png" alt="Club detail" style="width: 65%;"/>
+    <img src="img/club-detail.png" alt="Club detail" style="width: 70%;"/>
     <p><em>Club detail</em></p>
 </div>
 
 <hr/>
+<br/>
 
 <div style="text-align: center;">
-    <img src="img/book.png" alt="Book" style="width: 65%;"/>
+    <img src="img/book.png" alt="Book" style="width: 70%;"/>
     <p><em>Book</em></p>
 </div>
 
 <hr/>
+<br/>
 
 <div style="text-align: center;">
-    <img src="img/book-detail.png" alt="Book detail" style="width: 65%;"/>
+    <img src="img/book-detail.png" alt="Book detail" style="width: 70%;"/>
     <p><em>Book detail</em></p>
 </div>
 
 <hr/>
+<br/>
 
 ## Contributing
 

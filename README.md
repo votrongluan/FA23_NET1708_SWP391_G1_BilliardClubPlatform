@@ -145,20 +145,40 @@ If you need help, you can reach out via:
 
 ## Screenshot
 
-![Home](./img/index.png)
-Home
+<div style="text-align: center;">
+    <img src="./img/index.png" alt="Home" style="width: 65%;"/>
+    <p><em>Home</em></p>
+</div>
 
-![Fin club](img/find-club.png)
-Find club
+<hr/>
 
-![Club detail](img/club-detail.png)
-Club detail
+<div style="text-align: center;">
+    <img src="img/find-club.png" alt="Find club" style="width: 65%;"/>
+    <p><em>Find club</em></p>
+</div>
 
-![Book](img/book.png)
-Book
+<hr/>
 
-![Book detail](img/book-detail.png)
-Book detail
+<div style="text-align: center;">
+    <img src="img/club-detail.png" alt="Club detail" style="width: 65%;"/>
+    <p><em>Club detail</em></p>
+</div>
+
+<hr/>
+
+<div style="text-align: center;">
+    <img src="img/book.png" alt="Book" style="width: 65%;"/>
+    <p><em>Book</em></p>
+</div>
+
+<hr/>
+
+<div style="text-align: center;">
+    <img src="img/book-detail.png" alt="Book detail" style="width: 65%;"/>
+    <p><em>Book detail</em></p>
+</div>
+
+<hr/>
 
 ## Contributing
 

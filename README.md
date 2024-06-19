@@ -143,7 +143,7 @@ If you need help, you can reach out via:
 - [Issue Tracker](https://github.com/votrongluan/badminton-booking-razor-page/issues)
 - [Email](mailto:support@razorpage.com)
 
-## Screenshot
+## Screenshots
 
 <div style="text-align: center;">
     <img src="./img/index.png" alt="Home" style="width: 70%;"/>

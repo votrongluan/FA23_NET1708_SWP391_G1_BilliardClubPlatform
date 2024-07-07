@@ -72,13 +72,13 @@ If you prefer to fork the repository and manage your own copy:
 3. **Clone your forked repository:**
 
    ```bash
-   git clone https://github.com/your-username/project.git
+   git clone https://github.com/votrongluan/billiards-booking-webapp
    ```
 
 4. **Navigate into your project directory:**
 
    ```bash
-   cd project
+   cd billiards-booking-webapp
    ```
 
 5. **Follow the branching strategy and development process as outlined above.**

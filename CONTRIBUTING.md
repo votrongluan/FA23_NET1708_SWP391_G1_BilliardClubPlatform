@@ -9,13 +9,13 @@ This project is no longer actively maintained. However, you are welcome to clone
 1. **Clone the repository:**
 
    ```bash
-   git clone https://github.com/votrongluan/billiards-booking-webapp
+   git clone https://github.com/your-username/your-repo-name
    ```
 
 2. **Navigate into the project directory:**
 
    ```bash
-   cd billiards-booking-webapp
+   cd your-repo-name
    ```
 
 ### Branching Strategy (Recommended)
@@ -72,13 +72,13 @@ If you prefer to fork the repository and manage your own copy:
 3. **Clone your forked repository:**
 
    ```bash
-   git clone https://github.com/votrongluan/billiards-booking-webapp
+   git clone https://github.com/your-username/your-forked-repo-name
    ```
 
 4. **Navigate into your project directory:**
 
    ```bash
-   cd billiards-booking-webapp
+   cd your-forked-repo-name
    ```
 
 5. **Follow the branching strategy and development process as outlined above.**
